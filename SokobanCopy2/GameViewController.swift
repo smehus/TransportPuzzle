@@ -10,11 +10,21 @@ import UIKit
 import QuartzCore
 import SceneKit
 
+struct CollisionMask: OptionSet {
+    var rawValue: Int
+
+    static let player = CollisionMask(rawValue: 0x1 << 0)
+    static let box = CollisionMask(rawValue: 0x1 << 1)
+    static let plane = CollisionMask(rawValue: 0x1 << 2)
+}
+
 final class GameViewController: UIViewController {
 
     private var scene: SCNScene!
     private var scnView: SCNView!
     private var player: SCNNode!
+    private var plane: SCNNode!
+    private var box: SCNNode!
     private var lastUpdate: TimeInterval = 0
     
     override func viewDidLoad() {
@@ -89,7 +99,7 @@ extension GameViewController: SCNSceneRendererDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
-        print("*** player pos \(player.position)")
+
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
@@ -100,5 +110,16 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     private func setupNodes() {
         player = scene.rootNode.childNode(withName: "player", recursively: true)
+        player.physicsBody?.categoryBitMask = CollisionMask.player.rawValue
+        let playerMask: CollisionMask = [.box, .plane]
+        player.physicsBody?.collisionBitMask = playerMask.rawValue
+        
+        box = scene.rootNode.childNode(withName: "box", recursively: true)
+        let boxMask: CollisionMask = [.player, .plane]
+        box.physicsBody?.categoryBitMask = boxMask.rawValue
+        
+        plane = scene.rootNode.childNode(withName: "plane", recursively: true)
+        let planeMask: CollisionMask = [.box, .player]
+        plane.physicsBody?.categoryBitMask = planeMask.rawValue
     }
 }
