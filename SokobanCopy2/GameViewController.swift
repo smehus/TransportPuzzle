@@ -156,7 +156,7 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walkingAnimation.dae")!
+        walkingAnimation = CAAnimation.animationWithScene(named: "collada.scnassets/walking.dae")!
         character.addAnimationPlayer(walkingAnimation, forKey: "walking")
     }
     
@@ -177,7 +177,7 @@ extension GameViewController {
     
     private func setupNodes() {
         
-        character = scene.rootNode.childNode(withName: "sokoban3", recursively: true)
+        character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
 
         player = scene.rootNode.childNode(withName: "player", recursively: true)
         player.physicsBody!.categoryBitMask = ColliderType.player.categoryMask

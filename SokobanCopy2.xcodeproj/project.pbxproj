@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A5A25933209F7FC700479474 /* collada.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A5A25932209F7FC700479474 /* collada.scnassets */; };
 		A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44613209F3F02002AE653 /* ColliderType.swift */; };
 		A5E44616209F3FCA002AE653 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44615209F3FCA002AE653 /* EntityManager.swift */; };
 		AFE717EF209DE99400552814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE717EE209DE99400552814 /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A5A25932209F7FC700479474 /* collada.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = collada.scnassets; sourceTree = "<group>"; };
 		A5E44613209F3F02002AE653 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
 		A5E44615209F3FCA002AE653 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		AFE717EB209DE99400552814 /* SokobanCopy2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SokobanCopy2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 		AFE717ED209DE99400552814 /* SokobanCopy2 */ = {
 			isa = PBXGroup;
 			children = (
+				A5A25932209F7FC700479474 /* collada.scnassets */,
 				A5E44617209F40F7002AE653 /* Entities */,
 				A5E44612209F3EF6002AE653 /* Utilities */,
 				AFE717EE209DE99400552814 /* AppDelegate.swift */,
@@ -152,6 +155,7 @@
 				AFE717FB209DE99400552814 /* LaunchScreen.storyboard in Resources */,
 				AFE717F8209DE99400552814 /* Assets.xcassets in Resources */,
 				AFE717F6209DE99400552814 /* Main.storyboard in Resources */,
+				A5A25933209F7FC700479474 /* collada.scnassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
