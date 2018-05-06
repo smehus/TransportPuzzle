@@ -17,7 +17,9 @@ final class GameViewController: UIViewController {
     private var player: SCNNode!
     private var plane: SCNNode!
     private var box: SCNNode!
+    private var character: SCNNode!
     private var lastUpdate: TimeInterval = 0
+    private var walkingAnimation: CAAnimation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,7 @@ final class GameViewController: UIViewController {
         scnView.backgroundColor = UIColor.black
         setupCollisions()
         setupNodes()
+        setupAnimations()
     }
     
     
@@ -152,6 +155,11 @@ extension GameViewController: SCNSceneRendererDelegate {
 
 extension GameViewController {
     
+    private func setupAnimations() {
+        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walkingAnimation.scn")
+        character.addAnimation(walkingAnimation, forKey: "Walk")
+    }
+    
     private func setupCollisions() {
         
         ColliderType.shouldNotify[.player] = true
@@ -168,6 +176,9 @@ extension GameViewController {
     }
     
     private func setupNodes() {
+        
+        character = scene.rootNode.childNode(withName: "character", recursively: true)
+
         player = scene.rootNode.childNode(withName: "player", recursively: true)
         player.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
         player.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
@@ -182,5 +193,21 @@ extension GameViewController {
         plane.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
         plane.physicsBody!.collisionBitMask = ColliderType.plane.collisionMask
         plane.physicsBody!.contactTestBitMask = ColliderType.plane.contactMask
+    }
+}
+
+extension CAAnimation {
+    static func animationWithScene(named name: String) -> CAAnimation? {
+        var animation: CAAnimation?
+        if let scene = SCNScene(named: name) {
+            scene.rootNode.enumerateChildNodes { (node, stop) in
+                if node.animationKeys.count > 0 {
+                    animation = node.animation(forKey: node.animationKeys.first!)
+                    stop.initialize(to: true)
+                }
+            }
+        }
+        
+        return animation
     }
 }
