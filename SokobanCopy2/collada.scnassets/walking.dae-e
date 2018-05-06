@@ -10,7 +10,8 @@
   <up_axis>Z_UP</up_axis>
  </asset>
  <library_animations>
-  <animation>
+  <animation id="Sokobanchar5_Hips_pose_matrix" name="Sokobanchar5_Hips_pose_matrix">
+   <animation id="keyframedAnimations1">
     <source id="genericSource2">
      <float_array id="Sokobanchar5_Hips_pose_matrix3-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -32,6 +33,10 @@
      <input semantic="OUTPUT" source="#genericSource4"/>
     </sampler>
     <channel source="#Sokobanchar5_Hips_pose_matrix6" target="Sokobanchar5_Hips/SID_1"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LHipJoint_pose_matrix" name="Sokobanchar5_LHipJoint_pose_matrix">
+   <animation id="keyframedAnimations7">
     <source id="genericSource8">
      <float_array id="Sokobanchar5_LHipJoint_pose_matrix9-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -53,6 +58,10 @@
      <input semantic="OUTPUT" source="#genericSource10"/>
     </sampler>
     <channel source="#Sokobanchar5_LHipJoint_pose_matrix12" target="Sokobanchar5_LHipJoint/SID_2"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftUpLeg_pose_matrix" name="Sokobanchar5_LeftUpLeg_pose_matrix">
+   <animation id="keyframedAnimations13">
     <source id="genericSource14">
      <float_array id="Sokobanchar5_LeftUpLeg_pose_matrix15-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -74,6 +83,10 @@
      <input semantic="OUTPUT" source="#genericSource16"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftUpLeg_pose_matrix18" target="Sokobanchar5_LeftUpLeg/SID_3"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftLeg_pose_matrix" name="Sokobanchar5_LeftLeg_pose_matrix">
+   <animation id="keyframedAnimations19">
     <source id="genericSource20">
      <float_array id="Sokobanchar5_LeftLeg_pose_matrix21-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -95,6 +108,10 @@
      <input semantic="OUTPUT" source="#genericSource22"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftLeg_pose_matrix24" target="Sokobanchar5_LeftLeg/SID_4"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftFoot_pose_matrix" name="Sokobanchar5_LeftFoot_pose_matrix">
+   <animation id="keyframedAnimations25">
     <source id="genericSource26">
      <float_array id="Sokobanchar5_LeftFoot_pose_matrix27-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -116,6 +133,10 @@
      <input semantic="OUTPUT" source="#genericSource28"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftFoot_pose_matrix30" target="Sokobanchar5_LeftFoot/SID_5"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftToeBase_pose_matrix" name="Sokobanchar5_LeftToeBase_pose_matrix">
+   <animation id="keyframedAnimations31">
     <source id="genericSource32">
      <float_array id="Sokobanchar5_LeftToeBase_pose_matrix33-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -137,6 +158,10 @@
      <input semantic="OUTPUT" source="#genericSource34"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftToeBase_pose_matrix36" target="Sokobanchar5_LeftToeBase/SID_6"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LowerBack_pose_matrix" name="Sokobanchar5_LowerBack_pose_matrix">
+   <animation id="keyframedAnimations37">
     <source id="genericSource38">
      <float_array id="Sokobanchar5_LowerBack_pose_matrix39-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -158,6 +183,10 @@
      <input semantic="OUTPUT" source="#genericSource40"/>
     </sampler>
     <channel source="#Sokobanchar5_LowerBack_pose_matrix42" target="Sokobanchar5_LowerBack/SID_7"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_Spine_pose_matrix" name="Sokobanchar5_Spine_pose_matrix">
+   <animation id="keyframedAnimations43">
     <source id="genericSource44">
      <float_array id="Sokobanchar5_Spine_pose_matrix45-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -179,6 +208,10 @@
      <input semantic="OUTPUT" source="#genericSource46"/>
     </sampler>
     <channel source="#Sokobanchar5_Spine_pose_matrix48" target="Sokobanchar5_Spine/SID_8"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_Spine1_pose_matrix" name="Sokobanchar5_Spine1_pose_matrix">
+   <animation id="keyframedAnimations49">
     <source id="genericSource50">
      <float_array id="Sokobanchar5_Spine1_pose_matrix51-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -200,6 +233,10 @@
      <input semantic="OUTPUT" source="#genericSource52"/>
     </sampler>
     <channel source="#Sokobanchar5_Spine1_pose_matrix54" target="Sokobanchar5_Spine1/SID_9"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftShoulder_pose_matrix" name="Sokobanchar5_LeftShoulder_pose_matrix">
+   <animation id="keyframedAnimations55">
     <source id="genericSource56">
      <float_array id="Sokobanchar5_LeftShoulder_pose_matrix57-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -221,6 +258,10 @@
      <input semantic="OUTPUT" source="#genericSource58"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftShoulder_pose_matrix60" target="Sokobanchar5_LeftShoulder/SID_10"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftArm_pose_matrix" name="Sokobanchar5_LeftArm_pose_matrix">
+   <animation id="keyframedAnimations61">
     <source id="genericSource62">
      <float_array id="Sokobanchar5_LeftArm_pose_matrix63-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -242,6 +283,10 @@
      <input semantic="OUTPUT" source="#genericSource64"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftArm_pose_matrix66" target="Sokobanchar5_LeftArm/SID_11"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftForeArm_pose_matrix" name="Sokobanchar5_LeftForeArm_pose_matrix">
+   <animation id="keyframedAnimations67">
     <source id="genericSource68">
      <float_array id="Sokobanchar5_LeftForeArm_pose_matrix69-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -263,6 +308,10 @@
      <input semantic="OUTPUT" source="#genericSource70"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftForeArm_pose_matrix72" target="Sokobanchar5_LeftForeArm/SID_12"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftHand_pose_matrix" name="Sokobanchar5_LeftHand_pose_matrix">
+   <animation id="keyframedAnimations73">
     <source id="genericSource74">
      <float_array id="Sokobanchar5_LeftHand_pose_matrix75-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -284,6 +333,10 @@
      <input semantic="OUTPUT" source="#genericSource76"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftHand_pose_matrix78" target="Sokobanchar5_LeftHand/SID_13"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LThumb_pose_matrix" name="Sokobanchar5_LThumb_pose_matrix">
+   <animation id="keyframedAnimations79">
     <source id="genericSource80">
      <float_array id="Sokobanchar5_LThumb_pose_matrix81-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -305,6 +358,10 @@
      <input semantic="OUTPUT" source="#genericSource82"/>
     </sampler>
     <channel source="#Sokobanchar5_LThumb_pose_matrix84" target="Sokobanchar5_LThumb/SID_14"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftFingerBase_pose_matrix" name="Sokobanchar5_LeftFingerBase_pose_matrix">
+   <animation id="keyframedAnimations85">
     <source id="genericSource86">
      <float_array id="Sokobanchar5_LeftFingerBase_pose_matrix87-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -326,6 +383,10 @@
      <input semantic="OUTPUT" source="#genericSource88"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftFingerBase_pose_matrix90" target="Sokobanchar5_LeftFingerBase/SID_15"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_LeftHandFinger1_pose_matrix" name="Sokobanchar5_LeftHandFinger1_pose_matrix">
+   <animation id="keyframedAnimations91">
     <source id="genericSource92">
      <float_array id="Sokobanchar5_LeftHandFinger1_pose_matrix93-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -347,6 +408,10 @@
      <input semantic="OUTPUT" source="#genericSource94"/>
     </sampler>
     <channel source="#Sokobanchar5_LeftHandFinger1_pose_matrix96" target="Sokobanchar5_LeftHandFinger1/SID_16"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_Neck_pose_matrix" name="Sokobanchar5_Neck_pose_matrix">
+   <animation id="keyframedAnimations97">
     <source id="genericSource98">
      <float_array id="Sokobanchar5_Neck_pose_matrix99-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -368,6 +433,10 @@
      <input semantic="OUTPUT" source="#genericSource100"/>
     </sampler>
     <channel source="#Sokobanchar5_Neck_pose_matrix102" target="Sokobanchar5_Neck/SID_17"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_Neck1_pose_matrix" name="Sokobanchar5_Neck1_pose_matrix">
+   <animation id="keyframedAnimations103">
     <source id="genericSource104">
      <float_array id="Sokobanchar5_Neck1_pose_matrix105-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -389,6 +458,10 @@
      <input semantic="OUTPUT" source="#genericSource106"/>
     </sampler>
     <channel source="#Sokobanchar5_Neck1_pose_matrix108" target="Sokobanchar5_Neck1/SID_18"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_Head_pose_matrix" name="Sokobanchar5_Head_pose_matrix">
+   <animation id="keyframedAnimations109">
     <source id="genericSource110">
      <float_array id="Sokobanchar5_Head_pose_matrix111-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -410,6 +483,10 @@
      <input semantic="OUTPUT" source="#genericSource112"/>
     </sampler>
     <channel source="#Sokobanchar5_Head_pose_matrix114" target="Sokobanchar5_Head/SID_19"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightShoulder_pose_matrix" name="Sokobanchar5_RightShoulder_pose_matrix">
+   <animation id="keyframedAnimations115">
     <source id="genericSource116">
      <float_array id="Sokobanchar5_RightShoulder_pose_matrix117-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -431,6 +508,10 @@
      <input semantic="OUTPUT" source="#genericSource118"/>
     </sampler>
     <channel source="#Sokobanchar5_RightShoulder_pose_matrix120" target="Sokobanchar5_RightShoulder/SID_20"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightArm_pose_matrix" name="Sokobanchar5_RightArm_pose_matrix">
+   <animation id="keyframedAnimations121">
     <source id="genericSource122">
      <float_array id="Sokobanchar5_RightArm_pose_matrix123-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -452,6 +533,10 @@
      <input semantic="OUTPUT" source="#genericSource124"/>
     </sampler>
     <channel source="#Sokobanchar5_RightArm_pose_matrix126" target="Sokobanchar5_RightArm/SID_21"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightForeArm_pose_matrix" name="Sokobanchar5_RightForeArm_pose_matrix">
+   <animation id="keyframedAnimations127">
     <source id="genericSource128">
      <float_array id="Sokobanchar5_RightForeArm_pose_matrix129-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -473,6 +558,10 @@
      <input semantic="OUTPUT" source="#genericSource130"/>
     </sampler>
     <channel source="#Sokobanchar5_RightForeArm_pose_matrix132" target="Sokobanchar5_RightForeArm/SID_22"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightHand_pose_matrix" name="Sokobanchar5_RightHand_pose_matrix">
+   <animation id="keyframedAnimations133">
     <source id="genericSource134">
      <float_array id="Sokobanchar5_RightHand_pose_matrix135-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -494,6 +583,10 @@
      <input semantic="OUTPUT" source="#genericSource136"/>
     </sampler>
     <channel source="#Sokobanchar5_RightHand_pose_matrix138" target="Sokobanchar5_RightHand/SID_23"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RThumb_pose_matrix" name="Sokobanchar5_RThumb_pose_matrix">
+   <animation id="keyframedAnimations139">
     <source id="genericSource140">
      <float_array id="Sokobanchar5_RThumb_pose_matrix141-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -515,6 +608,10 @@
      <input semantic="OUTPUT" source="#genericSource142"/>
     </sampler>
     <channel source="#Sokobanchar5_RThumb_pose_matrix144" target="Sokobanchar5_RThumb/SID_24"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightFingerBase_pose_matrix" name="Sokobanchar5_RightFingerBase_pose_matrix">
+   <animation id="keyframedAnimations145">
     <source id="genericSource146">
      <float_array id="Sokobanchar5_RightFingerBase_pose_matrix147-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -536,6 +633,10 @@
      <input semantic="OUTPUT" source="#genericSource148"/>
     </sampler>
     <channel source="#Sokobanchar5_RightFingerBase_pose_matrix150" target="Sokobanchar5_RightFingerBase/SID_25"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightHandFinger1_pose_matrix" name="Sokobanchar5_RightHandFinger1_pose_matrix">
+   <animation id="keyframedAnimations151">
     <source id="genericSource152">
      <float_array id="Sokobanchar5_RightHandFinger1_pose_matrix153-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -557,6 +658,10 @@
      <input semantic="OUTPUT" source="#genericSource154"/>
     </sampler>
     <channel source="#Sokobanchar5_RightHandFinger1_pose_matrix156" target="Sokobanchar5_RightHandFinger1/SID_26"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RHipJoint_pose_matrix" name="Sokobanchar5_RHipJoint_pose_matrix">
+   <animation id="keyframedAnimations157">
     <source id="genericSource158">
      <float_array id="Sokobanchar5_RHipJoint_pose_matrix159-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -578,6 +683,10 @@
      <input semantic="OUTPUT" source="#genericSource160"/>
     </sampler>
     <channel source="#Sokobanchar5_RHipJoint_pose_matrix162" target="Sokobanchar5_RHipJoint/SID_27"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightUpLeg_pose_matrix" name="Sokobanchar5_RightUpLeg_pose_matrix">
+   <animation id="keyframedAnimations163">
     <source id="genericSource164">
      <float_array id="Sokobanchar5_RightUpLeg_pose_matrix165-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -599,6 +708,10 @@
      <input semantic="OUTPUT" source="#genericSource166"/>
     </sampler>
     <channel source="#Sokobanchar5_RightUpLeg_pose_matrix168" target="Sokobanchar5_RightUpLeg/SID_28"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightLeg_pose_matrix" name="Sokobanchar5_RightLeg_pose_matrix">
+   <animation id="keyframedAnimations169">
     <source id="genericSource170">
      <float_array id="Sokobanchar5_RightLeg_pose_matrix171-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -620,6 +733,10 @@
      <input semantic="OUTPUT" source="#genericSource172"/>
     </sampler>
     <channel source="#Sokobanchar5_RightLeg_pose_matrix174" target="Sokobanchar5_RightLeg/SID_29"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightFoot_pose_matrix" name="Sokobanchar5_RightFoot_pose_matrix">
+   <animation id="keyframedAnimations175">
     <source id="genericSource176">
      <float_array id="Sokobanchar5_RightFoot_pose_matrix177-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -641,6 +758,10 @@
      <input semantic="OUTPUT" source="#genericSource178"/>
     </sampler>
     <channel source="#Sokobanchar5_RightFoot_pose_matrix180" target="Sokobanchar5_RightFoot/SID_30"/>
+   </animation>
+  </animation>
+  <animation id="Sokobanchar5_RightToeBase_pose_matrix" name="Sokobanchar5_RightToeBase_pose_matrix">
+   <animation id="keyframedAnimations181">
     <source id="genericSource182">
      <float_array id="Sokobanchar5_RightToeBase_pose_matrix183-array" count="69">0 0.0416666 0.0833333 0.125 0.166667 0.208333 0.25 0.291667 0.333333 0.375 0.416667 0.458333 0.5 0.541667 0.583333 0.625 0.666667 0.708333 0.75 0.791667 0.833333 0.875 0.916667 0.958333 1 1.04167 1.08333 1.125 1.16667 1.20833 1.25 1.29167 1.33333 1.375 1.41667 1.45833 1.5 1.54167 1.58333 1.625 1.66667 1.70833 1.75 1.79167 1.83333 1.875 1.91667 1.95833 2 2.04167 2.08333 2.125 2.16667 2.20833 2.25 2.29167 2.33333 2.375 2.41667 2.45833 2.5 2.54167 2.58333 2.625 2.66667 2.70833 2.75 2.79167 2.83333 </float_array>
      <technique_common>
@@ -662,8 +783,10 @@
      <input semantic="OUTPUT" source="#genericSource184"/>
     </sampler>
     <channel source="#Sokobanchar5_RightToeBase_pose_matrix186" target="Sokobanchar5_RightToeBase/SID_31"/>
- </animation>
-</library_animations> <library_visual_scenes>
+   </animation>
+  </animation>
+ </library_animations>
+ <library_visual_scenes>
   <visual_scene id="scene187">
    <node id="Sokobanchar5" name="Sokobanchar5">
     <node id="Sokobanchar5_Hips" name="Hips" type="JOINT">
