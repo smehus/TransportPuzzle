@@ -13,6 +13,8 @@ import SceneKit
 struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     // MARK: Static properties
     
+    static var shouldNotify = [ColliderType: Bool]()
+    
     /// A dictionary to specify which `ColliderType`s should be notified of contacts with other `ColliderType`s.
     static var requestedContactNotifications = [ColliderType: [ColliderType]]()
     
@@ -21,7 +23,7 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     
     // MARK: Properties
     
-    let rawValue: UInt32
+    let rawValue: Int
     
     // MARK: Options
     
@@ -38,30 +40,18 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     // MARK: CustomDebugStringConvertible
     
     var debugDescription: String {
-        switch self.rawValue {
-        case ColliderType.box.rawValue:
-            return "ColliderType.Obstacle"
-            
-        case ColliderType.player.rawValue:
-            return "ColliderType.PlayerBot"
-            
-        case ColliderType.plane.rawValue:
-            return "ColliderType.TaskBot"
-            
-        default:
-            return "UnknownColliderType(\(self.rawValue))"
-        }
+        return "UnknownColliderType(\(self.rawValue))"
     }
     
     // MARK: SpriteKit Physics Convenience
     
     /// A value that can be assigned to a 'SKPhysicsBody`'s `categoryMask` property.
-    var categoryMask: UInt32 {
+    var categoryMask: Int {
         return rawValue
     }
     
     /// A value that can be assigned to a 'SKPhysicsBody`'s `collisionMask` property.
-    var collisionMask: UInt32 {
+    var collisionMask: Int {
         // Combine all of the collision requests for this type using a bitwise or.
         let mask = ColliderType.definedCollisions[self]?.reduce(ColliderType()) { initial, colliderType in
             return initial.union(colliderType)
@@ -72,7 +62,7 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     }
     
     /// A value that can be assigned to a 'SKPhysicsBody`'s `contactMask` property.
-    var contactMask: UInt32 {
+    var contactMask: Int {
         // Combine all of the contact requests for this type using a bitwise or.
         let mask = ColliderType.requestedContactNotifications[self]?.reduce(ColliderType()) { initial, colliderType in
             return initial.union(colliderType)
@@ -89,6 +79,7 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
      notified of contact with the passed `ColliderType`.
      */
     func notifyOnContactWith(_ colliderType: ColliderType) -> Bool {
+        guard let notify = ColliderType.shouldNotify[self], notify else { return false }
         if let requestedContacts = ColliderType.requestedContactNotifications[self] {
             return requestedContacts.contains(colliderType)
         }
@@ -119,6 +110,7 @@ final class GameViewController: UIViewController {
 
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.black
+        setupCollisions()
         setupNodes()
     }
     
@@ -177,11 +169,34 @@ final class GameViewController: UIViewController {
 
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        
+
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
 
+        let colliderTypeA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
+        let colliderTypeB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
+        
+        // Determine which `ColliderType` should be notified of the contact.
+        let aWantsCallback = colliderTypeA.notifyOnContactWith(colliderTypeB)
+        let bWantsCallback = colliderTypeB.notifyOnContactWith(colliderTypeA)
+        
+        guard aWantsCallback || bWantsCallback else { return }
+        
+        let box = colliderTypeA == .box ? contact.nodeA : contact.nodeB
+        
+        
+        switch contact.contactPoint {
+        case _ where contact.contactPoint.x < box.position.x:
+            print("Move Box Right")
+        case _ where contact.contactPoint.x > box.position.x:
+            print("MOVE BOX LEFT")
+        case _ where contact.contactPoint.z < box.position.z:
+            print("Move Box Down")
+        case _ where contact.contactPoint.z > box.position.z:
+            print("Move Box Up")
+        default: break
+        }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
@@ -208,16 +223,26 @@ extension GameViewController {
     private func setupCollisions() {
         ColliderType.requestedContactNotifications[.box] = [.player]
         ColliderType.requestedContactNotifications[.player] = [.box]
+        
+        ColliderType.definedCollisions[.player] = [.box]
+        ColliderType.definedCollisions[.box] = [.player, .plane]
+        ColliderType.definedCollisions[.plane] = [.box]
     }
     
     private func setupNodes() {
         player = scene.rootNode.childNode(withName: "player", recursively: true)
-
+        player.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
+        player.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
+        player.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         
         box = scene.rootNode.childNode(withName: "box", recursively: true)
-
+        box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
+        box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
+        box.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
         
         plane = scene.rootNode.childNode(withName: "plane", recursively: true)
-
+        plane.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
+        plane.physicsBody!.collisionBitMask = ColliderType.plane.collisionMask
+        plane.physicsBody!.contactTestBitMask = ColliderType.plane.contactMask
     }
 }
