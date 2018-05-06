@@ -1,0 +1,12 @@
+xcuserdata/*
+xcuserdata
+*.xcuserdatad/
+
+.DS_Store
+
+UserInterfaceState.xcuserstate
+PiratesBooty.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.xcuserstate
+*.ipa
+*.dSYM
+*.zip
