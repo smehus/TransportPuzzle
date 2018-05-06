@@ -19,7 +19,7 @@ final class GameViewController: UIViewController {
     private var box: SCNNode!
     private var character: SCNNode!
     private var lastUpdate: TimeInterval = 0
-    private var walkingAnimation: CAAnimation!
+    private var walkingAnimation: SCNAnimationPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,8 +156,8 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walkingAnimation.scn")
-        character.addAnimation(walkingAnimation, forKey: "Walk")
+        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walkingAnimation.dae")!
+        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
     }
     
     private func setupCollisions() {
@@ -177,7 +177,7 @@ extension GameViewController {
     
     private func setupNodes() {
         
-        character = scene.rootNode.childNode(withName: "character", recursively: true)
+        character = scene.rootNode.childNode(withName: "sokoban3", recursively: true)
 
         player = scene.rootNode.childNode(withName: "player", recursively: true)
         player.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
@@ -197,12 +197,12 @@ extension GameViewController {
 }
 
 extension CAAnimation {
-    static func animationWithScene(named name: String) -> CAAnimation? {
-        var animation: CAAnimation?
+    static func animationWithScene(named name: String) -> SCNAnimationPlayer? {
+        var animation: SCNAnimationPlayer?
         if let scene = SCNScene(named: name) {
             scene.rootNode.enumerateChildNodes { (node, stop) in
                 if node.animationKeys.count > 0 {
-                    animation = node.animation(forKey: node.animationKeys.first!)
+                    animation = node.animationPlayer(forKey: node.animationKeys.first!)
                     stop.initialize(to: true)
                 }
             }
