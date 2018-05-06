@@ -169,11 +169,6 @@ final class GameViewController: UIViewController {
 
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-
-    }
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
-
         let colliderTypeA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
         let colliderTypeB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
         
@@ -185,18 +180,33 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         let box = colliderTypeA == .box ? contact.nodeA : contact.nodeB
         
+        ColliderType.shouldNotify[colliderTypeA] = false
+        ColliderType.shouldNotify[colliderTypeB] = false
         
-        switch contact.contactPoint {
-        case _ where contact.contactPoint.x < box.position.x:
-            print("Move Box Right")
-        case _ where contact.contactPoint.x > box.position.x:
-            print("MOVE BOX LEFT")
-        case _ where contact.contactPoint.z < box.position.z:
-            print("Move Box Down")
-        case _ where contact.contactPoint.z > box.position.z:
-            print("Move Box Up")
+        var moveVector = box.position
+        switch contact.contactNormal {
+        case _ where contact.contactNormal.x == -1:
+            moveVector.x += 1
+        case _ where contact.contactNormal.x == 1:
+            moveVector.x -= 1
+        case _ where contact.contactNormal.z == -1:
+            moveVector.z += 1
+        case _ where contact.contactNormal.z == 1:
+            moveVector.z -= 1
         default: break
         }
+        
+        let action = SCNAction.move(to: moveVector, duration: 0.3)
+        let wait = SCNAction.run { _ in
+            ColliderType.shouldNotify[colliderTypeA] = true
+            ColliderType.shouldNotify[colliderTypeB] = true
+        }
+        box.runAction(SCNAction.sequence([action, wait]))
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+
+
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
@@ -221,6 +231,12 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupCollisions() {
+        
+        ColliderType.shouldNotify[.player] = true
+        ColliderType.shouldNotify[.box] = true
+        
+        ColliderType.requestedContactNotifications[.player] = [.box]
+        
         ColliderType.requestedContactNotifications[.box] = [.player]
         ColliderType.requestedContactNotifications[.player] = [.box]
         
