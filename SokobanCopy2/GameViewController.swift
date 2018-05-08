@@ -14,7 +14,6 @@ final class GameViewController: UIViewController {
 
     private var scene: SCNScene!
     private var scnView: SCNView!
-    private var player: SCNNode!
     private var plane: SCNNode!
     private var box: SCNNode!
     private var character: SCNNode!
@@ -54,31 +53,35 @@ final class GameViewController: UIViewController {
         guard let hit = scnView.hitTest(location, options: nil).first else { return }
         
         let coord = hit.worldCoordinates
+        let charPosition = scene.rootNode.convertPosition(character.position, from: character.parent!)
         
-        let zOFfset = abs(coord.z.distance(to: player.position.z))
-        let xOffset = abs(coord.x.distance(to: player.position.x))
+        let zOFfset = abs(coord.z.distance(to: charPosition.z))
+        let xOffset = abs(coord.x.distance(to: charPosition.x))
         
-        var moveVector = SCNVector3(player.position.x, player.position.y, player.position.z)
+        var moveVector = charPosition
         
         if zOFfset.isLess(than: xOffset) {
             // use x value
             switch coord {
-            case _ where coord.x < player.position.x:
+            case _ where coord.x < charPosition.x:
                 moveVector.x -= 1
-            case _ where coord.x > player.position.x:
+            case _ where coord.x > charPosition.x:
                 moveVector.x += 1
             default: break
             }
         } else {
             // use z value
             switch coord {
-            case _ where coord.z < player.position.z:
+            case _ where coord.z < charPosition.z:
                 moveVector.z -= 1
-            case _ where coord.z > player.position.z:
+            case _ where coord.z > charPosition.z:
                 moveVector.z += 1
             default: break
             }
         }
+        
+        
+        
         
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
@@ -87,7 +90,8 @@ final class GameViewController: UIViewController {
         }
         let move = SCNAction.move(to: moveVector, duration: 0.3)
         scnView.isUserInteractionEnabled = false
-        player.runAction(SCNAction.sequence([move, wait]))
+        character.runAction(SCNAction.sequence([move, wait]))
+
     }
 }
 
@@ -157,7 +161,7 @@ extension GameViewController {
     
     private func setupAnimations() {
         walkingAnimation = CAAnimation.animationWithScene(named: "collada.scnassets/walking.dae")!
-        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+//        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
     }
     
     private func setupCollisions() {
@@ -177,12 +181,13 @@ extension GameViewController {
     
     private func setupNodes() {
         
+//        let body = scene.rootNode.childNode(withName: "Sokobanchar5_Body", recursively: true)
         character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
-
-        player = scene.rootNode.childNode(withName: "player", recursively: true)
-        player.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
-        player.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
-        player.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
+        let geom = SCNBox(width: 10.0, height: 10.0, length: 10.0, chamferRadius: 0)
+        character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: geom, options: nil))
+        character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
+        character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
+        character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         
         box = scene.rootNode.childNode(withName: "box", recursively: true)
         box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
