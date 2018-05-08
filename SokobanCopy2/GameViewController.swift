@@ -32,6 +32,7 @@ final class GameViewController: UIViewController {
 
         scnView.showsStatistics = true
         scnView.backgroundColor = UIColor.black
+        scnView.debugOptions = [.showPhysicsShapes]
         setupCollisions()
         setupNodes()
         setupAnimations()
@@ -193,7 +194,7 @@ extension GameViewController {
         scene.rootNode.addChildNode(character)
     
         
-        let geom = SCNBox(width: 1, height: 12, length: 1, chamferRadius: 0)
+        let geom = SCNBox(width: 1, height: 5, length: 1, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
         character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
