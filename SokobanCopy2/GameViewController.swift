@@ -180,16 +180,17 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-        let charScene = SCNScene(named: "art.scnassets/malecharacter.dae", inDirectory: nil, options: [.convertToYUp : true])
-        
+        let charScene = SCNScene(named: "art.scnassets/tiny_male_character.dae", inDirectory: nil, options: [.convertToYUp : true])
         character = charScene?.rootNode.childNode(withName: "Malecharacter_Body", recursively: true)
-        
         scene.rootNode.addChildNode(character)
+    
         
-//        character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
-//        character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
-//        character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
-//        character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
+        let geom = SCNBox(width: 1, height: 12, length: 1, chamferRadius: 0)
+        let shape = SCNPhysicsShape(geometry: geom, options: nil)
+        character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
+        character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
+        character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
+        character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
 
         box = scene.rootNode.childNode(withName: "box", recursively: true)
         box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
