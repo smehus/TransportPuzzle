@@ -87,18 +87,8 @@ final class GameViewController: UIViewController {
         let direction = float2(x: lengthX, y: lengthY)
         let normalized = normalize(direction)
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
-//
-//        let first: (CGFloat, CGFloat) = (degrees.distance(to: 90), 90)
-//        let second: (CGFloat, CGFloat) = (degrees.distance(to: 180), 180)
-//        let third: (CGFloat, CGFloat) = (degrees.distance(to: -90), -90)
-//        let fourth: (CGFloat, CGFloat) = (degrees.distance(to: -180), -180)
-//
-//        guard let nearest = [first, second, third, fourth].sorted (by: { abs($0.0) < abs($1.0) }).first else {
-//            assertionFailure()
-//            return
-//        }
         
-        let nearest = [90, -90, 180, -180].nearestElement(to: degrees)
+        let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
         let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(nearest.degreesToRadians()), z: 0.0, duration: 0.3)
 
         let wait = SCNAction.run { _ in
@@ -206,11 +196,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         
     }
-}
-
-private enum Vector {
-    case x(Float)
-    case z(Float)
 }
 
 extension GameViewController: SCNSceneRendererDelegate {
