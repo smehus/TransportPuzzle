@@ -87,19 +87,19 @@ final class GameViewController: UIViewController {
         let direction = float2(x: lengthX, y: lengthY)
         let normalized = normalize(direction)
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
-
-        let first: (CGFloat, CGFloat) = (degrees.distance(to: 90), 90)
-        let second: (CGFloat, CGFloat) = (degrees.distance(to: 180), 180)
-        let third: (CGFloat, CGFloat) = (degrees.distance(to: -90), -90)
-        let fourth: (CGFloat, CGFloat) = (degrees.distance(to: -180), -180)
+//
+//        let first: (CGFloat, CGFloat) = (degrees.distance(to: 90), 90)
+//        let second: (CGFloat, CGFloat) = (degrees.distance(to: 180), 180)
+//        let third: (CGFloat, CGFloat) = (degrees.distance(to: -90), -90)
+//        let fourth: (CGFloat, CGFloat) = (degrees.distance(to: -180), -180)
+//
+//        guard let nearest = [first, second, third, fourth].sorted (by: { abs($0.0) < abs($1.0) }).first else {
+//            assertionFailure()
+//            return
+//        }
         
-    
-        guard let nearest = [first, second, third, fourth].sorted (by: { abs($0.0) < abs($1.0) }).first else {
-            assertionFailure()
-            return
-        }
-        
-        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(nearest.1.degreesToRadians()), z: 0.0, duration: 0.3)
+        let nearest = [90, -90, 180, -180].nearestElement(to: degrees)
+        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(nearest.degreesToRadians()), z: 0.0, duration: 0.3)
 
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
@@ -110,6 +110,32 @@ final class GameViewController: UIViewController {
         scnView.isUserInteractionEnabled = false
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
+}
+
+extension Sequence where Iterator.Element: SignedNumeric & Comparable {
+    
+    /// Finds the nearest (offset, element) to the specified element.
+    func nearestOffsetAndElement(to toElement: Iterator.Element) -> (offset: Int, element: Iterator.Element) {
+        
+        guard let nearest = enumerated().min( by: {
+            let left = $0.1 - toElement
+            let right = $1.1 - toElement
+            return abs(left) <= abs(right)
+        } ) else {
+            return (offset: 0, element: toElement)
+        }
+        
+        return nearest
+    }
+    
+    func nearestElement(to element: Iterator.Element) -> Iterator.Element {
+        return nearestOffsetAndElement(to: element).element
+    }
+    
+    func indexOfNearestElement(to element: Iterator.Element) -> Int {
+        return nearestOffsetAndElement(to: element).offset
+    }
+    
 }
 
 let π = CGFloat(Double.pi)
