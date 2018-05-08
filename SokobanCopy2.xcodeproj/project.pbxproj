@@ -50,13 +50,6 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		A5E44617209F40F7002AE653 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		AFE717E2209DE99400552814 = {
 			isa = PBXGroup;
 			children = (
@@ -76,7 +69,6 @@
 		AFE717ED209DE99400552814 /* SokobanCopy2 */ = {
 			isa = PBXGroup;
 			children = (
-				A5E44617209F40F7002AE653 /* Entities */,
 				A5E44612209F3EF6002AE653 /* Utilities */,
 				AFE717EE209DE99400552814 /* AppDelegate.swift */,
 				AFE717F0209DE99400552814 /* art.scnassets */,

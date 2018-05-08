@@ -160,8 +160,8 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-        walkingAnimation = CAAnimation.animationWithScene(named: "collada.scnassets/animation.dae")!
-        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+//        walkingAnimation = CAAnimation.animationWithScene(named: "collada.scnassets/animation.dae")!
+//        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
     }
     
     private func setupCollisions() {
@@ -180,7 +180,13 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-        character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
+        
+        let charScene = SCNScene(named: "art.scnassets/malecharacter.scn")
+        character = charScene?.rootNode.childNode(withName: "Malecharacter_Body", recursively: true)
+        
+        scene.rootNode.addChildNode(character)
+        
+//        character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
 //        character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
 //        character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
 //        character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
