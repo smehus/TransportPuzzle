@@ -82,7 +82,7 @@ final class GameViewController: UIViewController {
         }
         
         
-        let lengthY = coord.y - charPosition.y
+        let lengthY = coord.z - charPosition.z
         let lengthX = coord.x - charPosition.x
         let direction = float2(x: lengthX, y: lengthY)
         let normalized = normalize(direction)
@@ -139,6 +139,8 @@ extension GameViewController: SCNPhysicsContactDelegate {
             default: break
             }
         }
+
+
         
         let action = SCNAction.move(to: moveVector, duration: 0.3)
         let wait = SCNAction.run { _ in
