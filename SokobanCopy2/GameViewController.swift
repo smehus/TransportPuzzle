@@ -87,8 +87,9 @@ final class GameViewController: UIViewController {
         let direction = float2(x: lengthX, y: lengthY)
         let normalized = normalize(direction)
         let degree = atan2(normalized.x, normalized.y)
-        
         let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(degree), z: 0.0, duration: 0.3)
+
+        
         
         
         let wait = SCNAction.run { _ in
@@ -99,8 +100,12 @@ final class GameViewController: UIViewController {
         let move = SCNAction.move(to: moveVector, duration: 0.3)
         scnView.isUserInteractionEnabled = false
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
-//        character.runAction(SCNAction.sequence([move, wait]))
+    }
+}
 
+extension Float {
+    func roundToAngle() {
+        
     }
 }
 
