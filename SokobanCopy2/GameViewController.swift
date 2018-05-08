@@ -180,8 +180,8 @@ extension GameViewController {
     }
     
     private func setupNodes() {
+        let charScene = SCNScene(named: "art.scnassets/malecharacter.dae", inDirectory: nil, options: [.convertToYUp : true])
         
-        let charScene = SCNScene(named: "art.scnassets/malecharacter.scn")
         character = charScene?.rootNode.childNode(withName: "Malecharacter_Body", recursively: true)
         
         scene.rootNode.addChildNode(character)
