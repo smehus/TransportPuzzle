@@ -93,11 +93,11 @@ final class GameViewController: UIViewController {
         let third: (CGFloat, CGFloat) = (degrees.distance(to: -90), -90)
         let fourth: (CGFloat, CGFloat) = (degrees.distance(to: -180), -180)
         
+    
         guard let nearest = [first, second, third, fourth].sorted (by: { abs($0.0) < abs($1.0) }).first else {
             assertionFailure()
             return
         }
-        
         
         let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(nearest.1.degreesToRadians()), z: 0.0, duration: 0.3)
 
