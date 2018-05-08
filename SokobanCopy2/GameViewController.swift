@@ -181,14 +181,13 @@ extension GameViewController {
     
     private func setupNodes() {
         
-//        let body = scene.rootNode.childNode(withName: "Sokobanchar5_Body", recursively: true)
-        character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
-        let geom = SCNBox(width: 10.0, height: 10.0, length: 10.0, chamferRadius: 0)
-        character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: geom, options: nil))
-        character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
-        character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
-        character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
+        let characterBox = scene.rootNode.childNode(withName: "physicsBox", recursively: true)!
+        characterBox.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
+        characterBox.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
+        characterBox.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         
+        character = scene.rootNode.childNode(withName: "Sokobanchar5", recursively: true)
+
         box = scene.rootNode.childNode(withName: "box", recursively: true)
         box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
         box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
