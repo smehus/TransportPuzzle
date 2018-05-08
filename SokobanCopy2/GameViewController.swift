@@ -86,12 +86,21 @@ final class GameViewController: UIViewController {
         let lengthX = coord.x - charPosition.x
         let direction = float2(x: lengthX, y: lengthY)
         let normalized = normalize(direction)
-        let degree = atan2(normalized.x, normalized.y)
-        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(degree), z: 0.0, duration: 0.3)
+        let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
 
+        let first: (CGFloat, CGFloat) = (degrees.distance(to: 90), 90)
+        let second: (CGFloat, CGFloat) = (degrees.distance(to: 180), 180)
+        let third: (CGFloat, CGFloat) = (degrees.distance(to: -90), -90)
+        let fourth: (CGFloat, CGFloat) = (degrees.distance(to: -180), -180)
+        
+        guard let nearest = [first, second, third, fourth].sorted (by: { abs($0.0) < abs($1.0) }).first else {
+            assertionFailure()
+            return
+        }
         
         
-        
+        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(nearest.1.degreesToRadians()), z: 0.0, duration: 0.3)
+
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
@@ -103,9 +112,16 @@ final class GameViewController: UIViewController {
     }
 }
 
-extension Float {
-    func roundToAngle() {
-        
+let π = CGFloat(Double.pi)
+
+public extension CGFloat {
+
+    public func degreesToRadians() -> CGFloat {
+        return π * self / 180.0
+    }
+    
+    public func radiansToDegrees() -> CGFloat {
+        return self * 180.0 / π
     }
 }
 
