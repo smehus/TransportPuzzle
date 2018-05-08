@@ -121,16 +121,23 @@ extension GameViewController: SCNPhysicsContactDelegate {
         ColliderType.shouldNotify[colliderTypeB] = false
         
         var moveVector = box.position
-        switch contact.contactNormal {
-        case _ where contact.contactNormal.x == -1:
-            moveVector.x += 1
-        case _ where contact.contactNormal.x == 1:
-            moveVector.x -= 1
-        case _ where contact.contactNormal.z == -1:
-            moveVector.z += 1
-        case _ where contact.contactNormal.z == 1:
-            moveVector.z -= 1
-        default: break
+
+        if abs(contact.contactNormal.x) > abs(contact.contactNormal.z) {
+            switch contact.contactNormal {
+            case _ where contact.contactNormal.x < 0:
+                moveVector.x += 1
+            case _ where contact.contactNormal.x > 0:
+                moveVector.x -= 1
+            default: break
+            }
+        } else {
+            switch contact.contactNormal {
+            case _ where contact.contactNormal.z < 0:
+                moveVector.z += 1
+            case _ where contact.contactNormal.z > 0:
+                moveVector.z -= 1
+            default: break
+            }
         }
         
         let action = SCNAction.move(to: moveVector, duration: 0.3)
@@ -150,6 +157,11 @@ extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         
     }
+}
+
+private enum Vector {
+    case x(Float)
+    case z(Float)
 }
 
 extension GameViewController: SCNSceneRendererDelegate {
