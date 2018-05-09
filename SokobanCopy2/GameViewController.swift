@@ -89,7 +89,7 @@ final class GameViewController: UIViewController {
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
         
         let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
-        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(nearest.degreesToRadians()), z: 0.0, duration: 0.3)
+        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(charPosition.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.3)
 
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
@@ -100,6 +100,18 @@ final class GameViewController: UIViewController {
         scnView.isUserInteractionEnabled = false
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
+}
+
+public func shortestAngleBetween(_ angle1: CGFloat, angle2: CGFloat) -> CGFloat {
+    let twoπ = π * 2.0
+    var angle = (angle2 - angle1).truncatingRemainder(dividingBy: twoπ)
+    if (angle >= π) {
+        angle = angle - twoπ
+    }
+    if (angle <= -π) {
+        angle = angle + twoπ
+    }
+    return angle
 }
 
 extension Sequence where Iterator.Element: SignedNumeric & Comparable {
