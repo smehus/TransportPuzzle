@@ -89,6 +89,7 @@ final class GameViewController: UIViewController {
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
         
         let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
+        // shortest angle only works with rotating by???
         let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(charPosition.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.3)
 
         let wait = SCNAction.run { _ in
@@ -247,9 +248,11 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-        let charScene = SCNScene(named: "art.scnassets/tiny_male_character.dae", inDirectory: nil, options: [.convertToYUp : true])
-        character = charScene?.rootNode.childNode(withName: "Malecharacter_Body", recursively: true)
-        scene.rootNode.addChildNode(character)
+//        let charScene = SCNScene(named: "art.scnassets/small_female.dae", inDirectory: nil, options: [.convertToYUp : true])
+        
+        
+        character = scene.rootNode.childNode(withName: "Female_character", recursively: true)
+//        scene.rootNode.addChildNode(character)
     
         
         let geom = SCNBox(width: 1, height: 5, length: 1, chamferRadius: 0)
