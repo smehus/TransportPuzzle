@@ -228,8 +228,8 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-//        walkingAnimation = CAAnimation.animationWithScene(named: "collada.scnassets/animation.dae")!
-//        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/fun_times.dae")!
+        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
     }
     
     private func setupCollisions() {
