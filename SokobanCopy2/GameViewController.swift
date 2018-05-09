@@ -19,6 +19,7 @@ final class GameViewController: UIViewController {
     private var character: SCNNode!
     private var lastUpdate: TimeInterval = 0
     private var walkingAnimation: SCNAnimationPlayer!
+    private var idleAnimation: SCNAnimationPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +96,8 @@ final class GameViewController: UIViewController {
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
-                self.character.removeAnimation(forKey: "walking")
+                self.character.removeAllAnimations()
+                self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
             }
         }
         let move = SCNAction.move(to: moveVector, duration: 0.3)
@@ -231,6 +233,8 @@ extension GameViewController {
     
     private func setupAnimations() {
         walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking_loop.dae")!
+        idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
+        character.addAnimationPlayer(idleAnimation, forKey: "idle")
     }
     
     private func setupCollisions() {
