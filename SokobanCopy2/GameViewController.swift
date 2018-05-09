@@ -95,10 +95,12 @@ final class GameViewController: UIViewController {
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
+                self.character.removeAnimation(forKey: "walking")
             }
         }
         let move = SCNAction.move(to: moveVector, duration: 0.3)
         scnView.isUserInteractionEnabled = false
+        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
 }
@@ -228,8 +230,7 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/fun_times.dae")!
-        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking_loop.dae")!
     }
     
     private func setupCollisions() {
