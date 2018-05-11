@@ -104,7 +104,7 @@ final class GameViewController: UIViewController {
         }
         let move = SCNAction.move(to: moveVector, duration: 1.0)
         scnView.isUserInteractionEnabled = false
-//        character.addAnimationPlayer(rollAnimation, forKey: "walking")
+        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
 }
@@ -198,7 +198,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
 
 
         
-        let action = SCNAction.move(to: moveVector, duration: 0.3)
+        let action = SCNAction.move(to: moveVector, duration: 1.0)
         let wait = SCNAction.run { _ in
             ColliderType.shouldNotify[colliderTypeA] = true
             ColliderType.shouldNotify[colliderTypeB] = true
@@ -261,7 +261,7 @@ extension GameViewController {
     private func setupNodes() {
         character = scene.rootNode.childNode(withName: "Female_character", recursively: true)
         
-        let geom = SCNBox(width: 0.3, height: 2, length: 0.3, chamferRadius: 0)
+        let geom = SCNBox(width: 0.9, height: 2, length: 0.9, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
         character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
