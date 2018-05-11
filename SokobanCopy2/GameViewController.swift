@@ -20,6 +20,8 @@ final class GameViewController: UIViewController {
     private var lastUpdate: TimeInterval = 0
     private var walkingAnimation: SCNAnimationPlayer!
     private var idleAnimation: SCNAnimationPlayer!
+    private var pushAnimation: SCNAnimationPlayer!
+    private var rollAnimation: SCNAnimationPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,9 +102,9 @@ final class GameViewController: UIViewController {
                 self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
             }
         }
-        let move = SCNAction.move(to: moveVector, duration: 0.3)
+        let move = SCNAction.move(to: moveVector, duration: 1.0)
         scnView.isUserInteractionEnabled = false
-        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+//        character.addAnimationPlayer(rollAnimation, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
 }
@@ -203,6 +205,8 @@ extension GameViewController: SCNPhysicsContactDelegate {
         }
         
         box.runAction(SCNAction.sequence([action, wait]))
+        character.removeAllAnimations()
+        character.addAnimationPlayer(pushAnimation, forKey: "push")
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
@@ -234,6 +238,8 @@ extension GameViewController {
     private func setupAnimations() {
         walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking_loop.dae")!
         idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
+        pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/pushingHeavy.dae")!
+        rollAnimation = CAAnimation.animationWithScene(named: "art.scnassets/roll.dae")!
         character.addAnimationPlayer(idleAnimation, forKey: "idle")
     }
     
@@ -253,12 +259,7 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-//        let charScene = SCNScene(named: "art.scnassets/small_female.dae", inDirectory: nil, options: [.convertToYUp : true])
-        
-        
         character = scene.rootNode.childNode(withName: "Female_character", recursively: true)
-//        scene.rootNode.addChildNode(character)
-    
         
         let geom = SCNBox(width: 0.3, height: 2, length: 0.3, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
