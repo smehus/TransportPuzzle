@@ -237,8 +237,7 @@ extension GameViewController {
     private func setupAnimations() {
         walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking_loop.dae")!
         idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
-        pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/pushingHeavy.dae")!
-        rollAnimation = CAAnimation.animationWithScene(named: "art.scnassets/roll.dae")!
+        pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/push.dae")!
         character.addAnimationPlayer(idleAnimation, forKey: "idle")
     }
     
@@ -258,7 +257,7 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-        character = scene.rootNode.childNode(withName: "Female_character", recursively: true)
+        character = scene.rootNode.childNode(withName: "Female_needs_clothes", recursively: true)
         
         let geom = SCNBox(width: 0.8, height: 2, length: 0.8, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
