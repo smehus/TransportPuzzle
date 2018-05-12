@@ -94,7 +94,6 @@ final class GameViewController: UIViewController {
         let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
         // shortest angle only works with rotating by???
         let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(charPosition.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.3)
-
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
