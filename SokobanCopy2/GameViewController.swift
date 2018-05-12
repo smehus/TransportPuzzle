@@ -261,7 +261,7 @@ extension GameViewController {
     private func setupNodes() {
         character = scene.rootNode.childNode(withName: "Female_character", recursively: true)
         
-        let geom = SCNBox(width: 0.9, height: 2, length: 0.9, chamferRadius: 0)
+        let geom = SCNBox(width: 0.8, height: 2, length: 0.8, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
         character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
