@@ -102,7 +102,7 @@ final class GameViewController: UIViewController {
                 self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
             }
         }
-        let move = SCNAction.move(to: moveVector, duration: 1.0)
+        let move = SCNAction.move(to: moveVector, duration: 0.3)
         scnView.isUserInteractionEnabled = false
         character.addAnimationPlayer(walkingAnimation, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
@@ -198,7 +198,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
 
 
         
-        let action = SCNAction.move(to: moveVector, duration: 1.0)
+        let action = SCNAction.move(to: moveVector, duration: 0.3)
         let wait = SCNAction.run { _ in
             ColliderType.shouldNotify[colliderTypeA] = true
             ColliderType.shouldNotify[colliderTypeB] = true
