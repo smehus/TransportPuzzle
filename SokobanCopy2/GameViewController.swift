@@ -93,7 +93,7 @@ final class GameViewController: UIViewController {
         
         let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
         // shortest angle only works with rotating by???
-        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(charPosition.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.3)
+        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(charPosition.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.1)
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
@@ -101,9 +101,9 @@ final class GameViewController: UIViewController {
 //                self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
             }
         }
-        let move = SCNAction.move(to: moveVector, duration: 0.3)
+        let move = SCNAction.move(to: moveVector, duration: walkingAnimation.animation.duration)
         scnView.isUserInteractionEnabled = false
-//        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
 }
@@ -235,7 +235,7 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking_loop.dae")!
+        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_walking.dae")!
         idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
         pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/push.dae")!
 //        character.addAnimationPlayer(idleAnimation, forKey: "idle")
