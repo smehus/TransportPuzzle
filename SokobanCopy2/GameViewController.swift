@@ -257,7 +257,7 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-        character = scene.rootNode.childNode(withName: "Female_needs_clothes", recursively: true)
+        character = scene.rootNode.childNode(withName: "Skinny_female_2", recursively: true)
         
         let geom = SCNBox(width: 0.8, height: 2, length: 0.8, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
