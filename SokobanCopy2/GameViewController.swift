@@ -98,12 +98,12 @@ final class GameViewController: UIViewController {
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
                 self.character.removeAllAnimations()
-                self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
+//                self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
             }
         }
         let move = SCNAction.move(to: moveVector, duration: 0.3)
         scnView.isUserInteractionEnabled = false
-        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+//        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
     }
 }
@@ -205,7 +205,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         box.runAction(SCNAction.sequence([action, wait]))
         character.removeAllAnimations()
-        character.addAnimationPlayer(pushAnimation, forKey: "push")
+//        character.addAnimationPlayer(pushAnimation, forKey: "push")
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
@@ -238,7 +238,7 @@ extension GameViewController {
         walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking_loop.dae")!
         idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
         pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/push.dae")!
-        character.addAnimationPlayer(idleAnimation, forKey: "idle")
+//        character.addAnimationPlayer(idleAnimation, forKey: "idle")
     }
     
     private func setupCollisions() {
@@ -257,7 +257,7 @@ extension GameViewController {
     }
     
     private func setupNodes() {
-        character = scene.rootNode.childNode(withName: "Skinny_female_2", recursively: true)
+        character = scene.rootNode.childNode(withName: "Character", recursively: true)
         
         let geom = SCNBox(width: 0.8, height: 2, length: 0.8, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
