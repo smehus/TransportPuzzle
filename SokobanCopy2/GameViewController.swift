@@ -10,6 +10,34 @@ import UIKit
 import QuartzCore
 import SceneKit
 
+enum Animation {
+    case step
+    case altStep
+    
+    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_walking.dae")!
+    private static let altStepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_walking_alt.dae")!
+    
+    var player: SCNAnimationPlayer {
+        switch self {
+        case .step: return Animation.stepAnimation
+        case .altStep: return Animation.altStepAnimation
+        }
+    }
+    
+    var nextAnimation: Animation {
+        switch self {
+        case .step:
+            return .altStep
+        case .altStep:
+            return .step
+        }
+    }
+    
+    var animationDuration: TimeInterval {
+        return Animation.step.player.animation.duration
+    }
+}
+
 final class GameViewController: UIViewController {
 
     private var scene: SCNScene!
@@ -18,10 +46,7 @@ final class GameViewController: UIViewController {
     private var box: SCNNode!
     private var character: SCNNode!
     private var lastUpdate: TimeInterval = 0
-    private var walkingAnimation: SCNAnimationPlayer!
-    private var idleAnimation: SCNAnimationPlayer!
-    private var pushAnimation: SCNAnimationPlayer!
-    private var rollAnimation: SCNAnimationPlayer!
+    private var lastAnimation: Animation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,10 +126,19 @@ final class GameViewController: UIViewController {
 //                self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
             }
         }
-        let move = SCNAction.move(to: moveVector, duration: walkingAnimation.animation.duration)
+        
         scnView.isUserInteractionEnabled = false
-        character.addAnimationPlayer(walkingAnimation, forKey: "walking")
+        
+        var animation: Animation = .step
+        if let last = lastAnimation {
+            animation = last.nextAnimation
+        }
+        
+        let move = SCNAction.move(to: moveVector, duration: animation.animationDuration)
+        character.addAnimationPlayer(animation.player, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
+        
+        lastAnimation = animation
     }
 }
 
@@ -235,9 +269,6 @@ extension GameViewController: SCNSceneRendererDelegate {
 extension GameViewController {
     
     private func setupAnimations() {
-        walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_walking.dae")!
-        idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
-        pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/push.dae")!
 //        character.addAnimationPlayer(idleAnimation, forKey: "idle")
     }
     
