@@ -135,7 +135,7 @@ final class GameViewController: UIViewController {
         }
         
         let move = SCNAction.move(to: moveVector, duration: animation.animationDuration)
-        character.addAnimationPlayer(animation.player, forKey: "walking")
+//        character.addAnimationPlayer(animation.player, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
         
         lastAnimation = animation
@@ -290,7 +290,7 @@ extension GameViewController {
     private func setupNodes() {
         character = scene.rootNode.childNode(withName: "Character", recursively: true)
         
-        let geom = SCNBox(width: 0.8, height: 2, length: 0.8, chamferRadius: 0)
+        let geom = SCNBox(width: 1, height: 2, length: 1, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
         character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
