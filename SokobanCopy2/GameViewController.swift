@@ -297,10 +297,10 @@ extension GameViewController {
         character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
         character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
 
-        box = scene.rootNode.childNode(withName: "box", recursively: true)
-        box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
-        box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
-        box.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
+//        box = scene.rootNode.childNode(withName: "box", recursively: true)
+//        box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
+//        box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
+//        box.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
         
         plane = scene.rootNode.childNode(withName: "plane", recursively: true)
         plane.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
