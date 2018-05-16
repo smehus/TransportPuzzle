@@ -19,6 +19,7 @@ final class GameViewController: UIViewController {
     private var character: SCNNode!
     private var lastUpdate: TimeInterval = 0
     private var lastAnimation: Animation?
+    private var hiddenCollision: SCNNode!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,6 @@ final class GameViewController: UIViewController {
         scnView.debugOptions = [.showPhysicsShapes]
         setupCollisions()
         setupNodes()
-        setupAnimations()
     }
     
     
@@ -177,32 +177,41 @@ extension GameViewController: SCNPhysicsContactDelegate {
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         let _ = Double(time - lastUpdate)
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
-
+        updatePositions()
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         
     }
+    
+    private func updatePositions() {
+        hiddenCollision.position = character.position
+    }
 }
 
 extension GameViewController {
     
-    private func setupAnimations() {
-//        character.addAnimationPlayer(idleAnimation, forKey: "idle")
-    }
     
     private func setupCollisions() {
         
         ColliderType.shouldNotify[.player] = true
         ColliderType.shouldNotify[.box] = true
-        
-        ColliderType.requestedContactNotifications[.player] = [.box]
-        
+        ColliderType.shouldNotify[.hiddenBack] = true
+        ColliderType.shouldNotify[.hiddenFront] = true
+        ColliderType.shouldNotify[.hiddenLeft] = true
+        ColliderType.shouldNotify[.hiddenRight] = true
+
         ColliderType.requestedContactNotifications[.box] = [.player]
         ColliderType.requestedContactNotifications[.player] = [.box]
+        
+        ColliderType.requestedContactNotifications[.hiddenFront] =  [.box]
+        ColliderType.requestedContactNotifications[.hiddenBack] =   [.box]
+        ColliderType.requestedContactNotifications[.hiddenLeft] =   [.box]
+        ColliderType.requestedContactNotifications[.hiddenRight] =  [.box]
         
         ColliderType.definedCollisions[.player] = [.box]
         ColliderType.definedCollisions[.box] = [.player, .plane]
@@ -210,6 +219,9 @@ extension GameViewController {
     }
     
     private func setupNodes() {
+        
+        hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true)
+        
         character = scene.rootNode.childNode(withName: "Character", recursively: true)
         
         let geom = SCNBox(width: 0.5, height: 2, length: 0.5, chamferRadius: 0)
