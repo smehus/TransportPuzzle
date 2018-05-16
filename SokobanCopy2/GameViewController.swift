@@ -10,43 +10,6 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-enum Animation {
-    case step
-    case altStep
-    case push
-    
-    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_push.dae")!
-    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
-    private static let altStepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
-    
-    var player: SCNAnimationPlayer {
-        switch self {
-        case .step: return Animation.stepAnimation
-        case .altStep: return Animation.altStepAnimation
-        case .push: return Animation.pushAnimation
-        }
-    }
-    
-    var nextAnimation: Animation {
-        switch self {
-        case .step:
-            return .altStep
-        case .altStep:
-            return .step
-        default: return .step
-        }
-    }
-    
-    var animationDuration: TimeInterval {
-        switch self {
-        case .step, .altStep:
-            return Animation.step.player.animation.duration
-        case .push:
-            return Animation.push.player.animation.duration
-        }
-    }
-}
-
 final class GameViewController: UIViewController {
 
     private var scene: SCNScene!
@@ -151,56 +114,6 @@ final class GameViewController: UIViewController {
     }
 }
 
-public func shortestAngleBetween(_ angle1: CGFloat, angle2: CGFloat) -> CGFloat {
-    let twoπ = π * 2.0
-    var angle = (angle2 - angle1).truncatingRemainder(dividingBy: twoπ)
-    if (angle >= π) {
-        angle = angle - twoπ
-    }
-    if (angle <= -π) {
-        angle = angle + twoπ
-    }
-    return angle
-}
-
-extension Sequence where Iterator.Element: SignedNumeric & Comparable {
-    
-    /// Finds the nearest (offset, element) to the specified element.
-    func nearestOffsetAndElement(to toElement: Iterator.Element) -> (offset: Int, element: Iterator.Element) {
-        
-        guard let nearest = enumerated().min( by: {
-            let left = $0.1 - toElement
-            let right = $1.1 - toElement
-            return abs(left) <= abs(right)
-        } ) else {
-            return (offset: 0, element: toElement)
-        }
-        
-        return nearest
-    }
-    
-    func nearestElement(to element: Iterator.Element) -> Iterator.Element {
-        return nearestOffsetAndElement(to: element).element
-    }
-    
-    func indexOfNearestElement(to element: Iterator.Element) -> Int {
-        return nearestOffsetAndElement(to: element).offset
-    }
-    
-}
-
-let π = CGFloat(Double.pi)
-
-public extension CGFloat {
-
-    public func degreesToRadians() -> CGFloat {
-        return π * self / 180.0
-    }
-    
-    public func radiansToDegrees() -> CGFloat {
-        return self * 180.0 / π
-    }
-}
 
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
@@ -240,7 +153,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
 
 
         
-        let action = SCNAction.move(to: moveVector, duration: 0.3)
+        let action = SCNAction.move(to: moveVector, duration: Animation.step.animationDuration)
         let wait = SCNAction.run { _ in
             ColliderType.shouldNotify[colliderTypeA] = true
             ColliderType.shouldNotify[colliderTypeB] = true
@@ -318,21 +231,5 @@ extension GameViewController {
         plane.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
         plane.physicsBody!.collisionBitMask = ColliderType.plane.collisionMask
         plane.physicsBody!.contactTestBitMask = ColliderType.plane.contactMask
-    }
-}
-
-extension CAAnimation {
-    static func animationWithScene(named name: String) -> SCNAnimationPlayer? {
-        var animation: SCNAnimationPlayer?
-        if let scene = SCNScene(named: name) {
-            scene.rootNode.enumerateChildNodes { (node, stop) in
-                if node.animationKeys.count > 0 {
-                    animation = node.animationPlayer(forKey: node.animationKeys.first!)
-                    stop.initialize(to: true)
-                }
-            }
-        }
-        
-        return animation
     }
 }
