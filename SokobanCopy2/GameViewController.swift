@@ -14,8 +14,8 @@ enum Animation {
     case step
     case altStep
     
-    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_walking.dae")!
-    private static let altStepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_walking_alt.dae")!
+    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
+    private static let altStepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
     
     var player: SCNAnimationPlayer {
         switch self {
@@ -135,7 +135,7 @@ final class GameViewController: UIViewController {
         }
         
         let move = SCNAction.move(to: moveVector, duration: animation.animationDuration)
-//        character.addAnimationPlayer(animation.player, forKey: "walking")
+        character.addAnimationPlayer(animation.player, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
         
         lastAnimation = animation
