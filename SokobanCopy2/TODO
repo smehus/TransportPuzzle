@@ -1,4 +1,6 @@
 
 Need to add hidden geometry to start the pushing animation sooner - refer to page 433 in book
 Add idling
-Be able to move multiple spaces at once
+Be able to move multiple spaces at once - Pathfinding probably
+make the animations faster
+
