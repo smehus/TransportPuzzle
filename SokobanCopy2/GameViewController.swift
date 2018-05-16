@@ -13,7 +13,9 @@ import SceneKit
 enum Animation {
     case step
     case altStep
+    case push
     
+    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_push.dae")!
     private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
     private static let altStepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
     
@@ -21,6 +23,7 @@ enum Animation {
         switch self {
         case .step: return Animation.stepAnimation
         case .altStep: return Animation.altStepAnimation
+        case .push: return Animation.pushAnimation
         }
     }
     
@@ -30,11 +33,17 @@ enum Animation {
             return .altStep
         case .altStep:
             return .step
+        default: return .step
         }
     }
     
     var animationDuration: TimeInterval {
-        return Animation.step.player.animation.duration
+        switch self {
+        case .step, .altStep:
+            return Animation.step.player.animation.duration
+        case .push:
+            return Animation.push.player.animation.duration
+        }
     }
 }
 
@@ -239,7 +248,7 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         box.runAction(SCNAction.sequence([action, wait]))
         character.removeAllAnimations()
-//        character.addAnimationPlayer(pushAnimation, forKey: "push")
+        character.addAnimationPlayer(Animation.push.player, forKey: "push")
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
