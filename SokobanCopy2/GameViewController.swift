@@ -297,10 +297,13 @@ extension GameViewController {
         character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
         character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
 
-//        box = scene.rootNode.childNode(withName: "box", recursively: true)
-//        box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
-//        box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
-//        box.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
+        box = scene.rootNode.childNode(withName: "Cube", recursively: true)
+        let boxGeom = SCNBox(width: 1, height: 2, length: 1, chamferRadius: 0)
+        let boxShape = SCNPhysicsShape(geometry: boxGeom, options: nil)
+        box.physicsBody = SCNPhysicsBody(type: .kinematic, shape: boxShape)
+        box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
+        box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
+        box.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
         
         plane = scene.rootNode.childNode(withName: "plane", recursively: true)
         plane.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
