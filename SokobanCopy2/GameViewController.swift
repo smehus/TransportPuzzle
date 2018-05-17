@@ -20,6 +20,7 @@ final class GameViewController: UIViewController {
     private var lastUpdate: TimeInterval = 0
     private var lastAnimation: Animation?
     private var hiddenCollision: SCNNode!
+    private var currentHiddenContact: ColliderType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,13 +127,35 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         guard aWantsCallback || bWantsCallback else { return }
         
-        let box = colliderTypeA == .box ? contact.nodeA : contact.nodeB
+        switch colliderTypeA.union(colliderTypeB) {
+        case ColliderType.hiddenLeft.union(.box):
+            currentHiddenContact = .hiddenLeft
+        case ColliderType.hiddenRight.union(.box):
+            currentHiddenContact = .hiddenRight
+        case ColliderType.hiddenBack.union(.box):
+            currentHiddenContact = .hiddenBack
+        case ColliderType.hiddenFront.union(.box):
+            currentHiddenContact = .hiddenFront
+        default: break
+        }
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+
+
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        
+    }
+    
+    private func moveBox(colliderTypeA: ColliderType, colliderTypeB: ColliderType, contact: SCNPhysicsContact) {
         
         ColliderType.shouldNotify[colliderTypeA] = false
         ColliderType.shouldNotify[colliderTypeB] = false
+
         
         var moveVector = box.position
-
         if abs(contact.contactNormal.x) > abs(contact.contactNormal.z) {
             switch contact.contactNormal {
             case _ where contact.contactNormal.x < 0:
@@ -150,8 +173,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
             default: break
             }
         }
-
-
         
         let action = SCNAction.move(to: moveVector, duration: Animation.step.animationDuration)
         let wait = SCNAction.run { _ in
@@ -162,15 +183,6 @@ extension GameViewController: SCNPhysicsContactDelegate {
         box.runAction(SCNAction.sequence([action, wait]))
         character.removeAllAnimations()
         character.addAnimationPlayer(Animation.push.player, forKey: "push")
-    }
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
-
-
-    }
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        
     }
 }
 
@@ -190,6 +202,7 @@ extension GameViewController: SCNSceneRendererDelegate {
     
     private func updatePositions() {
         hiddenCollision.position = character.position
+        hiddenCollision.rotation = character.rotation
     }
 }
 
@@ -221,6 +234,21 @@ extension GameViewController {
     private func setupNodes() {
         
         hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true)
+        let hiddenLeft = hiddenCollision.childNode(withName: "left", recursively: true)
+        hiddenLeft!.physicsBody!.categoryBitMask = ColliderType.hiddenLeft.categoryMask
+        hiddenLeft!.physicsBody!.contactTestBitMask = ColliderType.hiddenLeft.contactMask
+        
+        let hiddenRight = hiddenCollision.childNode(withName: "right", recursively: true)
+        hiddenRight!.physicsBody!.categoryBitMask = ColliderType.hiddenRight.categoryMask
+        hiddenRight!.physicsBody!.contactTestBitMask = ColliderType.hiddenRight.contactMask
+        
+        let hiddenFront = hiddenCollision.childNode(withName: "front", recursively: true)
+        hiddenFront!.physicsBody!.categoryBitMask = ColliderType.hiddenFront.categoryMask
+        hiddenFront!.physicsBody!.contactTestBitMask = ColliderType.hiddenFront.contactMask
+        
+        let hiddenBack = hiddenCollision.childNode(withName: "back", recursively: true)
+        hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
+        hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
         
         character = scene.rootNode.childNode(withName: "Character", recursively: true)
         
