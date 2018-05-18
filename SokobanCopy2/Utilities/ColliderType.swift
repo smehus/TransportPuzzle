@@ -42,7 +42,24 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     // MARK: CustomDebugStringConvertible
     
     var debugDescription: String {
-        return "UnknownColliderType(\(self.rawValue))"
+        switch self {
+        case .player:
+            return "Player"
+        case .box:
+            return "Box"
+        case .plane:
+            return "Plane"
+        case .hiddenLeft:
+            return "Hidden Left"
+        case .hiddenRight:
+            return "Hidden Right"
+        case .hiddenFront:
+            return "Hidden Front"
+        case .hiddenBack:
+            return "Hidden Back"
+        default:
+            return "UnknownColliderType(\(self.rawValue))"
+        }
     }
     
     // MARK: SpriteKit Physics Convenience
