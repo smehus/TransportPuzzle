@@ -22,7 +22,7 @@ enum Animation {
         switch self {
         case .walk: return Animation.walkAnimation
         case .push: return Animation.pushAnimation
-        case .idle: return Animation.walkAnimation
+        case .idle: return Animation.idleAnimation
         }
     }
     
