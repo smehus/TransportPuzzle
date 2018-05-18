@@ -10,26 +10,26 @@ import UIKit
 import SceneKit
 
 enum Animation {
-    case step
+    case walk
     case push
     case idle
     
-    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_push.dae")!
-    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking.dae")!
+    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/pushing.dae")!
+    private static let walkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking.dae")!
     private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
     
     var player: SCNAnimationPlayer {
         switch self {
-        case .step: return Animation.stepAnimation
+        case .walk: return Animation.walkAnimation
         case .push: return Animation.pushAnimation
-        case .idle: return Animation.idleAnimation
+        case .idle: return Animation.walkAnimation
         }
     }
     
     var animationDuration: TimeInterval {
         switch self {
-        case .step:
-            return Animation.step.player.animation.duration
+        case .walk:
+            return Animation.walk.player.animation.duration
         case .push:
             return Animation.push.player.animation.duration
         case .idle:
