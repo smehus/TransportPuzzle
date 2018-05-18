@@ -101,7 +101,7 @@ final class GameViewController: UIViewController {
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
                 self.character.removeAllAnimations()
-                self.character.addAnimationPlayer(Animation.idle.player, forKey: "idle")
+//                self.character.addAnimationPlayer(Animation.idle.player, forKey: "idle")
             }
         }
         
@@ -114,7 +114,7 @@ final class GameViewController: UIViewController {
         } 
         
         let move = SCNAction.move(to: moveVector, duration: animation.animationDuration)
-        character.addAnimationPlayer(animation.player, forKey: "walking")
+//        character.addAnimationPlayer(animation.player, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
         
         lastAnimation = animation
