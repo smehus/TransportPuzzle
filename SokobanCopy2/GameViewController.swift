@@ -20,7 +20,7 @@ final class GameViewController: UIViewController {
     private var lastUpdate: TimeInterval = 0
     private var lastAnimation: Animation?
     private var hiddenCollision: SCNNode!
-    private var currentContacts: Set<ColliderType> = []
+    private var currentContacts: [ColliderType: SCNVector3] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,8 +108,9 @@ final class GameViewController: UIViewController {
         scnView.isUserInteractionEnabled = false
         
         var animation: Animation = .step
-        if let col = collider, currentContacts.contains(col) {
+        if let col = collider, let normal = currentContacts[col] {
             animation = Animation.push
+            moveBox(normal: normal)
         } else {
             if let last = lastAnimation {
                 animation = last.nextAnimation
@@ -138,13 +139,13 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         switch colliderTypeA.union(colliderTypeB) {
         case ColliderType.hiddenLeft.union(.box):
-            currentContacts.insert(.hiddenLeft)
+            currentContacts[.hiddenLeft] = contact.contactNormal
         case ColliderType.hiddenRight.union(.box):
-            currentContacts.insert(.hiddenRight)
+            currentContacts[.hiddenRight] = contact.contactNormal
         case ColliderType.hiddenBack.union(.box):
-            currentContacts.insert(.hiddenBack)
+            currentContacts[.hiddenBack] = contact.contactNormal
         case ColliderType.hiddenFront.union(.box):
-            currentContacts.insert(.hiddenFront)
+            currentContacts[.hiddenFront] = contact.contactNormal
         default: break
         }
     }
@@ -160,52 +161,50 @@ extension GameViewController: SCNPhysicsContactDelegate {
         
         switch colliderTypeA.union(colliderTypeB) {
         case ColliderType.hiddenLeft.union(.box):
-            currentContacts.remove(.hiddenLeft)
+            currentContacts.removeValue(forKey: .hiddenLeft)
         case ColliderType.hiddenRight.union(.box):
-            currentContacts.remove(.hiddenRight)
+            currentContacts.removeValue(forKey: .hiddenRight)
         case ColliderType.hiddenBack.union(.box):
-            currentContacts.remove(.hiddenBack)
+            currentContacts.removeValue(forKey: .hiddenBack)
         case ColliderType.hiddenFront.union(.box):
-            currentContacts.remove(.hiddenFront)
+            currentContacts.removeValue(forKey: .hiddenFront)
         default: break
         }
         
     }
     
-    private func moveBox(colliderTypeA: ColliderType, colliderTypeB: ColliderType, contact: SCNPhysicsContact) {
+    private func moveBox(normal: SCNVector3) {
         
-        ColliderType.shouldNotify[colliderTypeA] = false
-        ColliderType.shouldNotify[colliderTypeB] = false
+        ColliderType.shouldNotify[.box] = false
+        ColliderType.shouldNotify[.player] = false
 
         
         var moveVector = box.position
-        if abs(contact.contactNormal.x) > abs(contact.contactNormal.z) {
-            switch contact.contactNormal {
-            case _ where contact.contactNormal.x < 0:
+        if abs(normal.x) > abs(normal.z) {
+            switch normal {
+            case _ where normal.x < 0:
                 moveVector.x += 1
-            case _ where contact.contactNormal.x > 0:
+            case _ where normal.x > 0:
                 moveVector.x -= 1
             default: break
             }
         } else {
-            switch contact.contactNormal {
-            case _ where contact.contactNormal.z < 0:
+            switch normal {
+            case _ where normal.z < 0:
                 moveVector.z += 1
-            case _ where contact.contactNormal.z > 0:
+            case _ where normal.z > 0:
                 moveVector.z -= 1
             default: break
             }
         }
         
-        let action = SCNAction.move(to: moveVector, duration: Animation.step.animationDuration)
+        let action = SCNAction.move(to: moveVector, duration: Animation.push.animationDuration)
         let wait = SCNAction.run { _ in
-            ColliderType.shouldNotify[colliderTypeA] = true
-            ColliderType.shouldNotify[colliderTypeB] = true
+            ColliderType.shouldNotify[.box] = true
+            ColliderType.shouldNotify[.player] = true
         }
         
         box.runAction(SCNAction.sequence([action, wait]))
-        character.removeAllAnimations()
-        character.addAnimationPlayer(Animation.push.player, forKey: "push")
     }
 }
 
@@ -225,7 +224,7 @@ extension GameViewController: SCNSceneRendererDelegate {
     
     private func updatePositions() {
         hiddenCollision.position = character.position
-        hiddenCollision.rotation = character.rotation
+//        hiddenCollision.rotation = character.rotation
     }
 }
 
