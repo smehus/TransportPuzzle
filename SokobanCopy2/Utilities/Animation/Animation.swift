@@ -11,37 +11,29 @@ import SceneKit
 
 enum Animation {
     case step
-    case altStep
     case push
+    case idle
     
     private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_push.dae")!
-    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
-    private static let altStepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/character_step.dae")!
+    private static let stepAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking.dae")!
+    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
     
     var player: SCNAnimationPlayer {
         switch self {
         case .step: return Animation.stepAnimation
-        case .altStep: return Animation.altStepAnimation
         case .push: return Animation.pushAnimation
-        }
-    }
-    
-    var nextAnimation: Animation {
-        switch self {
-        case .step:
-            return .altStep
-        case .altStep:
-            return .step
-        default: return .step
+        case .idle: return Animation.idleAnimation
         }
     }
     
     var animationDuration: TimeInterval {
         switch self {
-        case .step, .altStep:
+        case .step:
             return Animation.step.player.animation.duration
         case .push:
             return Animation.push.player.animation.duration
+        case .idle:
+            return Animation.idle.player.animation.duration
         }
     }
 }

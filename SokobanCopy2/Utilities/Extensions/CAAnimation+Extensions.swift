@@ -12,7 +12,7 @@ import SceneKit
 extension CAAnimation {
     static func animationWithScene(named name: String) -> SCNAnimationPlayer? {
         var animation: SCNAnimationPlayer?
-        if let scene = SCNScene(named: name) {
+        if let scene = SCNScene(named: name, inDirectory: nil, options: [.convertToYUp : true]) {
             scene.rootNode.enumerateChildNodes { (node, stop) in
                 if node.animationKeys.count > 0 {
                     animation = node.animationPlayer(forKey: node.animationKeys.first!)

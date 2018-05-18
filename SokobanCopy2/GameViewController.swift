@@ -101,7 +101,7 @@ final class GameViewController: UIViewController {
             DispatchQueue.main.async {
                 self.scnView.isUserInteractionEnabled = true
                 self.character.removeAllAnimations()
-//                self.character.addAnimationPlayer(self.idleAnimation, forKey: "idle")
+                self.character.addAnimationPlayer(Animation.idle.player, forKey: "idle")
             }
         }
         
@@ -111,11 +111,7 @@ final class GameViewController: UIViewController {
         if let col = collider, let normal = currentContacts[col] {
             animation = Animation.push
             moveBox(normal: normal)
-        } else {
-            if let last = lastAnimation {
-                animation = last.nextAnimation
-            }
-        }
+        } 
         
         let move = SCNAction.move(to: moveVector, duration: animation.animationDuration)
         character.addAnimationPlayer(animation.player, forKey: "walking")
@@ -272,7 +268,7 @@ extension GameViewController {
         hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
         hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
         
-        character = scene.rootNode.childNode(withName: "Character", recursively: true)
+        character = scene.rootNode.childNode(withName: "Armature", recursively: true)
         
         let geom = SCNBox(width: 0.5, height: 2, length: 0.5, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
