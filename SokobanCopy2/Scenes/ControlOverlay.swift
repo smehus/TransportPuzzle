@@ -21,6 +21,22 @@ enum ControlDirection: String {
         case .right: return .hiddenRight
         }
     }
+    
+    var moveVector: SCNVector3 {
+        var vector = SCNVector3(0, 0, 0)
+        switch self {
+        case .bottom:
+            vector.z += 1
+        case .top:
+            vector.z -= 1
+        case .left:
+            vector.x -= 1
+        case .right:
+            vector.x += 1
+        }
+        
+        return vector
+    }
 }
 
 final class ControlOverlay: SKScene {

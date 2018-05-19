@@ -21,9 +21,9 @@ extension MovableComponent: ControlOverlayResponder {
         }
         
         if let boxEntity = entity as? BoxEntity,
-            let collision = currentCollisions[direction.collider],
+            let _ = currentCollisions[direction.collider],
             let component = boxEntity.component(ofType: GKSCNNodeComponent.self) {
-            let newPosition = component.node.position + collision.flipped()
+            let newPosition = component.node.position + direction.moveVector
             
             let moveAction = SCNAction.move(to: newPosition, duration: Animation.push.animationDuration)
             component.node.runAction(moveAction)
