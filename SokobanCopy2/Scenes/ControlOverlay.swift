@@ -94,6 +94,8 @@ final class ControlOverlay: SKScene {
             let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.5))
             let unhighlight = highlightAction(color: .clear)
             tappedNode.run(SKAction.sequence([highlight, unhighlight]))
+            
+            characterEntity.move(direction: control)
         }
     }
 }

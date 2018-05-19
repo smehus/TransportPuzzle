@@ -27,4 +27,23 @@ final class CharacterEntity: GKEntity {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func move(direction: ControlDirection) {
+        guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { assertionFailure(); return }
+        
+        var vector = node.position
+        switch direction {
+        case .left:
+            vector.x -= 1
+        case .right:
+            vector.x += 1
+        case .top:
+            vector.z -= 1
+        case .bottom:
+            vector.z += 1
+        }
+        
+        let moveAction = SCNAction.move(to: vector, duration: 0.3)
+        node.runAction(moveAction)
+    }
 }
