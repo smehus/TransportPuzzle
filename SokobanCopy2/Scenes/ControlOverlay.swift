@@ -80,7 +80,6 @@ final class ControlOverlay: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        guard let characterEntity: CharacterEntity = EntityManager.shared.entity() else { assertionFailure(); return }
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         let tappedNodes = nodes(at: location)
@@ -102,7 +101,7 @@ final class ControlOverlay: SKScene {
                 tappedNode = rightNode
             }
             
-            let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.5))
+            let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.2))
             let unhighlight = highlightAction(color: .clear)
             tappedNode.run(SKAction.sequence([highlight, unhighlight]))
             

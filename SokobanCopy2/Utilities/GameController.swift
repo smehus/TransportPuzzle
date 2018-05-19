@@ -18,7 +18,6 @@ final class GameController: NSObject {
     private var sceneRenderer: SCNSceneRenderer?
 
     private var lastUpdate: TimeInterval = 0
-    private var currentContacts: [ColliderType: SCNVector3] = [:]
     
     init(scnView: SCNView) {
         super.init()
@@ -38,7 +37,7 @@ final class GameController: NSObject {
         
         sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
-        sceneRenderer!.debugOptions = [.showPhysicsShapes]
+//        sceneRenderer!.debugOptions = [.showPhysicsShapes]
         sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
         
         setupCollisions()
