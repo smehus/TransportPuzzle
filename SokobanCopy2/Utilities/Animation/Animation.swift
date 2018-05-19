@@ -14,13 +14,15 @@ enum Animation {
     case push
     case idle
     
-    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/pushing.dae")!
-    private static let walkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/walking.dae")!
-    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/idle.dae")!
+    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/pushing.dae")!
+    private static let walkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/walking.dae")!
+    private static let walkStopAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/walk_stop.dae")!
+    private static let toughWalkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/tough_walk.dae")!
+    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/idle.dae")!
     
     var player: SCNAnimationPlayer {
         switch self {
-        case .walk: return Animation.walkAnimation
+        case .walk: return Animation.walkStopAnimation
         case .push: return Animation.pushAnimation
         case .idle: return Animation.idleAnimation
         }
