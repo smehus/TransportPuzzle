@@ -22,6 +22,7 @@ final class CharacterEntity: GKEntity {
         node.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         
         addComponent(GKSCNNodeComponent(node: node))
+        addComponent(MovableComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {

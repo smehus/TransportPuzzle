@@ -20,11 +20,15 @@ final class BoxEntity: GKEntity {
         node.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
         node.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
         node.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
+        node.entity = self
         
         addComponent(GKSCNNodeComponent(node: node))
+        addComponent(MovableComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
 }

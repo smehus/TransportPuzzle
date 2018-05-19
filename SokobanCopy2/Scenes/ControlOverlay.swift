@@ -89,7 +89,7 @@ final class ControlOverlay: SKScene {
                 tappedNode = bottomNode
             case .left:
                 tappedNode = leftNode
-            case .right:
+            case .right:characterEntity
                 tappedNode = rightNode
             }
             
@@ -97,7 +97,7 @@ final class ControlOverlay: SKScene {
             let unhighlight = highlightAction(color: .clear)
             tappedNode.run(SKAction.sequence([highlight, unhighlight]))
             
-            characterEntity.move(direction: control)
+            EntityManager.shared.controlOverlayDidSelect(direction: control)
         }
     }
 }

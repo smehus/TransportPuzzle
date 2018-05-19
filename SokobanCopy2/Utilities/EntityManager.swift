@@ -9,31 +9,42 @@
 import Foundation
 import GameplayKit
 
-protocol ToucheDetector {
-    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+protocol ControlOverlayResponder {
+    func didSelect(direction: ControlDirection)
 }
 
 protocol CollisionDetector {
-    func didBegin(_ contact: SKPhysicsContact)
+    func didBegin(_ contact: SCNPhysicsContact)
+    func didEnd(_ contact: SCNPhysicsContact)
 }
 
 class ComponentSystem: GKComponentSystem<GKComponent> {
-
-    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    func didSelect(direction: ControlDirection) {
         for component in components {
-            if let detector = component as? ToucheDetector {
-                detector.touchesBegan(touches, with: event)
+            if let responder = component as? ControlOverlayResponder {
+                responder.didSelect(direction: direction)
             }
         }
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
+    func didBegin(_ contact: SCNPhysicsContact) {
         for component in components {
             if let detector = component as? CollisionDetector {
                 detector.didBegin(contact)
             }
         }
     }
+    
+    func didEnd(_ contact: SCNPhysicsContact) {
+        for component in components {
+            if let detector = component as? CollisionDetector {
+                detector.didBegin(contact)
+            }
+        }
+    }
+    
+    
 }
 
 final class EntityManager: NSObject {
@@ -48,7 +59,8 @@ final class EntityManager: NSObject {
         // Manages all instances of the DirectionalComponent
 
         let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
-        return [touchControlComponent]
+        let movableComponent = ComponentSystem(componentClass: MovableComponent.self)
+        return [touchControlComponent, movableComponent]
     }()
     
     weak var controller: GameController!
@@ -109,15 +121,21 @@ final class EntityManager: NSObject {
         toRemove.removeAll()
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
+    func didBegin(_ contact: SCNPhysicsContact) {
         componentSystems.forEach { (system) in
             system.didBegin(contact)
         }
     }
     
-    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func didEnd(_ contact: SCNPhysicsContact) {
         componentSystems.forEach { (system) in
-            system.touchesBegan(touches, with: event)
+            system.didEnd(contact)
+        }
+    }
+    
+    func controlOverlayDidSelect(direction: ControlDirection) {
+        componentSystems.forEach { (system) in
+            system.didSelect(direction: direction)
         }
     }
     

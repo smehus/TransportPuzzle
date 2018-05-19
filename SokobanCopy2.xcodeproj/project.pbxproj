@@ -12,7 +12,7 @@
 		AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* CharacterEntity.swift */; };
 		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
 		AF556B9920B054D000B532E3 /* ControlOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9820B054D000B532E3 /* ControlOverlay.swift */; };
-		AF556B9C20B0551B00B532E3 /* NodeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9B20B0551B00B532E3 /* NodeComponent.swift */; };
+		AF556B9C20B0551B00B532E3 /* MovableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9B20B0551B00B532E3 /* MovableComponent.swift */; };
 		AF556B9E20B0557C00B532E3 /* TouchControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9D20B0557C00B532E3 /* TouchControlComponent.swift */; };
 		AF556BA120B05F6600B532E3 /* OverlayEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BA020B05F6600B532E3 /* OverlayEntity.swift */; };
 		AF556BA320B06F5600B532E3 /* BoxEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BA220B06F5600B532E3 /* BoxEntity.swift */; };
@@ -39,7 +39,7 @@
 		AF556B9420AFC09800B532E3 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		AF556B9820B054D000B532E3 /* ControlOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlOverlay.swift; sourceTree = "<group>"; };
-		AF556B9B20B0551B00B532E3 /* NodeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeComponent.swift; sourceTree = "<group>"; };
+		AF556B9B20B0551B00B532E3 /* MovableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableComponent.swift; sourceTree = "<group>"; };
 		AF556B9D20B0557C00B532E3 /* TouchControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchControlComponent.swift; sourceTree = "<group>"; };
 		AF556BA020B05F6600B532E3 /* OverlayEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayEntity.swift; sourceTree = "<group>"; };
 		AF556BA220B06F5600B532E3 /* BoxEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxEntity.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		AF556B9A20B0550F00B532E3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				AF556B9B20B0551B00B532E3 /* NodeComponent.swift */,
+				AF556B9B20B0551B00B532E3 /* MovableComponent.swift */,
 				AF556B9D20B0557C00B532E3 /* TouchControlComponent.swift */,
 			);
 			path = Components;
@@ -245,7 +245,7 @@
 			files = (
 				AF556BA520B06FF000B532E3 /* PlaneEntity.swift in Sources */,
 				AF556BA320B06F5600B532E3 /* BoxEntity.swift in Sources */,
-				AF556B9C20B0551B00B532E3 /* NodeComponent.swift in Sources */,
+				AF556B9C20B0551B00B532E3 /* MovableComponent.swift in Sources */,
 				AF8D9AD020ABCFEE00D9CF07 /* Sequence+Extensions.swift in Sources */,
 				AFE717F3209DE99400552814 /* GameViewController.swift in Sources */,
 				AF556B9920B054D000B532E3 /* ControlOverlay.swift in Sources */,
