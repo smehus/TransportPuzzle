@@ -60,7 +60,8 @@ final class EntityManager: NSObject {
 
         let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
         let movableComponent = ComponentSystem(componentClass: MovableComponent.self)
-        return [touchControlComponent, movableComponent]
+        let hidddenCollisionComponent = ComponentSystem(componentClass: HiddenCollisionComponent.self)
+        return [touchControlComponent, movableComponent, hidddenCollisionComponent]
     }()
     
     weak var controller: GameController!

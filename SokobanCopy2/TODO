@@ -5,3 +5,5 @@ Be able to move multiple spaces at once - Pathfinding probably
 make the animations faster
 
 Make the collision system use the hidden collisons in combination with the contact normals... I'm too tired to figure this out now
+
+Make a collision manager component - to keep track of collisions. Right now I have two that do the same thing

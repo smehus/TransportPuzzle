@@ -34,6 +34,7 @@ final class HiddenCollisionEntity: GKEntity {
         
 
         addComponent(GKSCNNodeComponent(node: node))
+        addComponent(HiddenCollisionComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,5 +47,9 @@ final class HiddenCollisionEntity: GKEntity {
         guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { return }
         
         node.position = charNode.position
+    }
+    
+    func collision(for direction: ControlDirection) -> ColliderType? {
+        return component(ofType: HiddenCollisionComponent.self)?.collision(for: direction)
     }
 }

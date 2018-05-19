@@ -10,18 +10,14 @@ import Foundation
 import GameplayKit
 
 final class MovableComponent: GKComponent {
-    private var currentCollisions: [ColliderType: SCNVector3] = [:] {
-        didSet {
-            print("CURRENT COLLISIONS \(currentCollisions)")
-        }
-    }
+    private var currentCollisions: [ColliderType: SCNVector3] = [:]
 }
 
 extension MovableComponent: ControlOverlayResponder {
     
     func didSelect(direction: ControlDirection) {
         if let character = entity as? CharacterEntity {
-            character.move(direction: direction)
+            character.move(controlDirection: direction)
         }
         
         if let boxEntity = entity as? BoxEntity,
@@ -49,20 +45,5 @@ extension MovableComponent: CollisionDetector {
         let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
         guard let colliderType = colliderForCollision(collider: colliderA.union(colliderB)) else { return }
         currentCollisions[colliderType] = nil
-    }
-    
-    private func colliderForCollision(collider: ColliderType) -> ColliderType? {
-        switch collider {
-        case ColliderType.hiddenLeft.union(.box):
-            return .hiddenLeft
-        case ColliderType.hiddenRight.union(.box):
-            return .hiddenRight
-        case ColliderType.hiddenFront.union(.box):
-            return .hiddenFront
-        case ColliderType.hiddenBack.union(.box):
-            return .hiddenBack
-        default:
-            return nil
-        }
     }
 }

@@ -29,11 +29,11 @@ final class CharacterEntity: GKEntity {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func move(direction: ControlDirection) {
+    func move(controlDirection: ControlDirection) {
         guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { assertionFailure(); return }
         
         var vector = node.position
-        switch direction {
+        switch controlDirection {
         case .left:
             vector.x -= 1
         case .right:
@@ -64,9 +64,14 @@ final class CharacterEntity: GKEntity {
                 }
             }
         }
+        var animation: Animation = .walk
+        if let hidden: HiddenCollisionEntity = EntityManager.shared.entity(),
+            let _ = hidden.collision(for: controlDirection) {
+            animation = .push
+        }
         
-        let moveAction = SCNAction.move(to: vector, duration: Animation.walk.animationDuration)
+        let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
         node.runAction(SCNAction.sequence([SCNAction.group([moveAction, rotate]), wait]))
-        node.addAnimationPlayer(Animation.walk.player, forKey: "walk")
+        node.addAnimationPlayer(animation.player, forKey: "animation")
     }
 }
