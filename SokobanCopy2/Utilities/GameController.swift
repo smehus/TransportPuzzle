@@ -15,10 +15,7 @@ final class GameController: NSObject {
     
     private var scene: SCNScene!
     private var sceneRenderer: SCNSceneRenderer?
-    
-    private var plane: SCNNode!
-    private var box: SCNNode!
-    private var character: SCNNode!
+
     private var lastUpdate: TimeInterval = 0
     private var hiddenCollision: SCNNode!
     private var currentContacts: [ColliderType: SCNVector3] = [:]
@@ -64,7 +61,7 @@ extension GameController: SCNSceneRendererDelegate {
     }
     
     private func updatePositions() {
-        hiddenCollision.position = character.position
+//        hiddenCollision.position = character.position
         //        hiddenCollision.rotation = character.rotation
     }
 }
@@ -94,9 +91,7 @@ extension GameController {
     }
     
     private func setupNodes() {
-        
-//        let controlOverlay =
-//
+
         hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true)
         let hiddenLeft = hiddenCollision.childNode(withName: "left", recursively: true)
         hiddenLeft!.physicsBody!.categoryBitMask = ColliderType.hiddenLeft.categoryMask
@@ -114,30 +109,15 @@ extension GameController {
         hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
         hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
         
-        character = scene.rootNode.childNode(withName: "Armature", recursively: true)
+        guard let character = scene.rootNode.childNode(withName: "Armature", recursively: true) else { assertionFailure(); return }
+        entityManager.add(CharacterEntity(node: character))
         
-        let geom = SCNBox(width: 0.5, height: 2, length: 0.5, chamferRadius: 0)
-        let shape = SCNPhysicsShape(geometry: geom, options: nil)
-        character.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
-        character.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
-        character.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
-        character.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
+        guard let box = scene.rootNode.childNode(withName: "Cube", recursively: true) else { assertionFailure(); return }
+        entityManager.add(BoxEntity(node: box))
         
-        box = scene.rootNode.childNode(withName: "Cube", recursively: true)
-        let boxGeom = SCNBox(width: 1, height: 2, length: 1, chamferRadius: 0)
-        let boxShape = SCNPhysicsShape(geometry: boxGeom, options: nil)
-        box.physicsBody = SCNPhysicsBody(type: .kinematic, shape: boxShape)
-        box.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
-        box.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
-        box.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
-        
-        plane = scene.rootNode.childNode(withName: "plane", recursively: true)
-        plane.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
-        plane.physicsBody!.collisionBitMask = ColliderType.plane.collisionMask
-        plane.physicsBody!.contactTestBitMask = ColliderType.plane.contactMask
+        guard let plane = scene.rootNode.childNode(withName: "plane", recursively: true) else { assertionFailure(); return }
+        entityManager.add(PlaneEntity(node: plane))
     }
-    
-    
 }
 
 extension GameController: SCNPhysicsContactDelegate {
@@ -187,7 +167,7 @@ extension GameController: SCNPhysicsContactDelegate {
         }
         
     }
-    
+    /*
     private func moveBox(normal: SCNVector3) {
         
         ColliderType.shouldNotify[.box] = false
@@ -221,6 +201,7 @@ extension GameController: SCNPhysicsContactDelegate {
         
         box.runAction(SCNAction.sequence([action, wait]))
     }
+     */
 }
 
 extension GameController {
