@@ -25,7 +25,7 @@ enum Animation {
     
     var player: SCNAnimationPlayer {
         switch self {
-        case .walk: return Animation.toughWalkAnimation
+        case .walk: return Animation.walkStopAnimation
         case .push: return Animation.pushAnimation
         case .idle: return Animation.idleStraightAnimation
         }
@@ -34,7 +34,7 @@ enum Animation {
     var animationDuration: TimeInterval {
         switch self {
         case .walk:
-            return Animation.walk.player.animation.duration
+            return Animation.walk.player.animation.duration / 2
         case .push:
             return Animation.push.player.animation.duration
         case .idle:
