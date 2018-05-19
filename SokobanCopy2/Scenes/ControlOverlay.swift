@@ -15,8 +15,8 @@ enum ControlDirection: String {
     
     var collider: ColliderType {
         switch self {
-        case .bottom: return .hiddenBack
-        case .top: return .hiddenFront
+        case .bottom: return .hiddenFront
+        case .top: return .hiddenBack
         case .left: return .hiddenLeft
         case .right: return .hiddenRight
         }
