@@ -16,6 +16,7 @@ enum Animation {
     
     private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/pushing.dae")!
     private static let closePushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/close_push.dae")!
+    private static let closePushLoopAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/close_push_loop.dae")!
     
     private static let walkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/walking.dae")!
     private static let walkStopAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/walk_stop.dae")!
@@ -27,7 +28,7 @@ enum Animation {
     var player: SCNAnimationPlayer {
         switch self {
         case .walk: return Animation.walkStopAnimation
-        case .push: return Animation.closePushAnimation
+        case .push: return Animation.closePushLoopAnimation
         case .idle: return Animation.idleStraightAnimation
         }
     }
