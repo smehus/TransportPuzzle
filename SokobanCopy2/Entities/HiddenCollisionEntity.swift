@@ -11,6 +11,8 @@ import GameplayKit
 
 final class HiddenCollisionEntity: GKEntity {
     
+    private var character: CharacterEntity? = EntityManager.shared.entity()
+    
     init(node: SCNNode) {
         super.init()
         
@@ -31,10 +33,18 @@ final class HiddenCollisionEntity: GKEntity {
         hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
         
 
+        addComponent(GKSCNNodeComponent(node: node))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
+        guard let charNode = character?.component(ofType: GKSCNNodeComponent.self)?.node else { return }
+        guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { return }
+        
+        node.position = charNode.position
+    }
 }

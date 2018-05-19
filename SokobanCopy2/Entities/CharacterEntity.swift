@@ -43,7 +43,24 @@ final class CharacterEntity: GKEntity {
             vector.z += 1
         }
         
-        let moveAction = SCNAction.move(to: vector, duration: 0.3)
-        node.runAction(moveAction)
+        let lengthZ = vector.z - node.position.z
+        let lengthX = vector.x - node.position.x
+        let direction = float2(x: lengthX, y: lengthZ)
+        let normalized = normalize(direction)
+        let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
+        
+        let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
+        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.1)
+        
+        let wait = SCNAction.run { _ in
+            DispatchQueue.main.async {
+                node.removeAllAnimations()
+                node.addAnimationPlayer(Animation.idle.player, forKey: "idle")
+            }
+        }
+        
+        let moveAction = SCNAction.move(to: vector, duration: Animation.walk.animationDuration)
+        node.runAction(SCNAction.sequence([SCNAction.group([moveAction, rotate]), wait]))
+        node.addAnimationPlayer(Animation.walk.player, forKey: "walk")
     }
 }
