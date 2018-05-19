@@ -12,10 +12,18 @@ import SceneKit
 
 final class ControlOverlay: SKScene {
     
-    override init(size: CGSize, controller: GameController) {
+    init(size: CGSize, controller: GameController) {
         super.init(size: size)
-        
         scaleMode = .resizeFill
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        print("TOUCHHHCHCHCHCH")
+    }
 }

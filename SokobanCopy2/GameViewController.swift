@@ -13,10 +13,13 @@ import SceneKit
 final class GameViewController: UIViewController {
 
     private var scnView: SCNView!
+    private var controller: GameController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scnView = self.view as! SCNView
+        
+        controller = GameController(scnView: scnView)
     }
     
     

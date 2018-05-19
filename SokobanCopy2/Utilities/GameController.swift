@@ -40,11 +40,10 @@ final class GameController: NSObject {
         sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
         sceneRenderer!.debugOptions = [.showPhysicsShapes]
-        sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
+//        sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
         
         setupCollisions()
         setupNodes()
-        
     }
 }
 
