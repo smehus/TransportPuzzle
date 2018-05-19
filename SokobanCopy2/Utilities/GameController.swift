@@ -11,7 +11,7 @@ import SceneKit
 
 final class GameController: NSObject {
     
-    private var entityManager: EntityManager?
+    private var entityManager = EntityManager.shared
     
     private var scene: SCNScene!
     private var sceneRenderer: SCNSceneRenderer?
@@ -29,10 +29,11 @@ final class GameController: NSObject {
         sceneRenderer = scnView
         sceneRenderer!.delegate = self
         
-        entityManager = EntityManager(controller: self, renderer: sceneRenderer!)
+        entityManager.controller = self
+        entityManager.renderer = sceneRenderer!
         
         // Add ControlOverlay
-        entityManager?.add(OverlayEntity(size: scnView.bounds.size, controller: self))
+        entityManager.add(OverlayEntity(size: scnView.bounds.size, controller: self))
         
         scene = SCNScene(named: "art.scnassets/Scenes/game.scn")!
         scene.physicsWorld.contactDelegate = self

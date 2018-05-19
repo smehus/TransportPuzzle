@@ -16,6 +16,8 @@ final class TouchControlComponent: GKComponent {
     init(size: CGSize, controller: GameController) {
         scene = ControlOverlay(size: size, controller: controller)
         super.init()
+        
+        scene.entity = entity
     }
     
     required init?(coder aDecoder: NSCoder) {

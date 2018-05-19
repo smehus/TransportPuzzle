@@ -36,7 +36,9 @@ class ComponentSystem: GKComponentSystem<GKComponent> {
     }
 }
 
-final class EntityManager {
+final class EntityManager: NSObject {
+    
+    static let shared = EntityManager()
     
     var entities = Set<GKEntity>()
     var toRemove = Set<GKEntity>()
@@ -45,16 +47,17 @@ final class EntityManager {
     lazy var componentSystems: [ComponentSystem] = {
         // Manages all instances of the DirectionalComponent
 
-        return []
+        let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
+        return [touchControlComponent]
     }()
     
-    private unowned var controller: GameController
-    private unowned var renderer: SCNSceneRenderer
+    weak var controller: GameController!
+    weak var renderer: SCNSceneRenderer!
     
-    init(controller: GameController, renderer: SCNSceneRenderer) {
-        self.controller = controller
-        self.renderer = renderer
+    override init() {
+        super.init()
     }
+    
     
     func add(_ entity: GKEntity) {
         entities.insert(entity)

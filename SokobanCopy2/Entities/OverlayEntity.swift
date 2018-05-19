@@ -12,10 +12,10 @@ import GameplayKit
 final class OverlayEntity: GKEntity {
     
     init(size: CGSize, controller: GameController) {
-        
         super.init()
-        
         addComponent(TouchControlComponent(size: size, controller: controller))
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
