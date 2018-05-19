@@ -14,7 +14,7 @@ final class BoxEntity: GKEntity {
     init(node: SCNNode) {
         super.init()
         
-        let boxGeom = SCNBox(width: 1, height: 2, length: 1, chamferRadius: 0)
+        let boxGeom = SCNBox(width: 2, height: 4, length: 2, chamferRadius: 0)
         let boxShape = SCNPhysicsShape(geometry: boxGeom, options: nil)
         node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: boxShape)
         node.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
@@ -29,6 +29,5 @@ final class BoxEntity: GKEntity {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 }

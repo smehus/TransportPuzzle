@@ -12,6 +12,15 @@ import SceneKit
 
 enum ControlDirection: String {
     case bottom, top, left, right
+    
+    var collider: ColliderType {
+        switch self {
+        case .bottom: return .hiddenBack
+        case .top: return .hiddenFront
+        case .left: return .hiddenLeft
+        case .right: return .hiddenRight
+        }
+    }
 }
 
 final class ControlOverlay: SKScene {
@@ -89,7 +98,7 @@ final class ControlOverlay: SKScene {
                 tappedNode = bottomNode
             case .left:
                 tappedNode = leftNode
-            case .right:characterEntity
+            case .right:
                 tappedNode = rightNode
             }
             

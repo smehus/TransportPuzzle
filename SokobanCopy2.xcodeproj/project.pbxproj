@@ -19,6 +19,7 @@
 		AF556BA520B06FF000B532E3 /* PlaneEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BA420B06FF000B532E3 /* PlaneEntity.swift */; };
 		AF556BA720B071D400B532E3 /* HiddenCollisionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BA620B071D400B532E3 /* HiddenCollisionEntity.swift */; };
 		AF556BA920B07E7A00B532E3 /* Comparable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BA820B07E7A00B532E3 /* Comparable+Extensions.swift */; };
+		AF556BAB20B097A600B532E3 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BAA20B097A600B532E3 /* SCNVector3+Extensions.swift */; };
 		AF8D9AC420ABCCD700D9CF07 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = AF8D9AC320ABCCD700D9CF07 /* TODO */; };
 		AF8D9AC720ABCF3200D9CF07 /* CAAnimation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9AC620ABCF3200D9CF07 /* CAAnimation+Extensions.swift */; };
 		AF8D9AC920ABCF5300D9CF07 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */; };
@@ -46,6 +47,7 @@
 		AF556BA420B06FF000B532E3 /* PlaneEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneEntity.swift; sourceTree = "<group>"; };
 		AF556BA620B071D400B532E3 /* HiddenCollisionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenCollisionEntity.swift; sourceTree = "<group>"; };
 		AF556BA820B07E7A00B532E3 /* Comparable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Extensions.swift"; sourceTree = "<group>"; };
+		AF556BAA20B097A600B532E3 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		AF8D9AC320ABCCD700D9CF07 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		AF8D9AC620ABCF3200D9CF07 /* CAAnimation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAAnimation+Extensions.swift"; sourceTree = "<group>"; };
 		AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */,
 				AF8D9ACF20ABCFEE00D9CF07 /* Sequence+Extensions.swift */,
 				AF556BA820B07E7A00B532E3 /* Comparable+Extensions.swift */,
+				AF556BAA20B097A600B532E3 /* SCNVector3+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				AF556B9E20B0557C00B532E3 /* TouchControlComponent.swift in Sources */,
 				AF8D9ACC20ABCFA500D9CF07 /* Animation.swift in Sources */,
 				AFE717EF209DE99400552814 /* AppDelegate.swift in Sources */,
+				AF556BAB20B097A600B532E3 /* SCNVector3+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -113,7 +113,7 @@ extension GameController {
 extension GameController: SCNPhysicsContactDelegate {
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        entityManager.didEnd(contact)
+        entityManager.didBegin(contact)
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) { }

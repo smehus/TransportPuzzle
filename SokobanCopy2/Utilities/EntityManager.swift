@@ -39,7 +39,7 @@ class ComponentSystem: GKComponentSystem<GKComponent> {
     func didEnd(_ contact: SCNPhysicsContact) {
         for component in components {
             if let detector = component as? CollisionDetector {
-                detector.didBegin(contact)
+                detector.didEnd(contact)
             }
         }
     }
