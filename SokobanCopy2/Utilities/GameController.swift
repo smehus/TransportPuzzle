@@ -11,11 +11,10 @@ import SceneKit
 
 final class GameController: NSObject {
     
+    private var entityManager: EntityManager?
+    
     private var scene: SCNScene!
     private var sceneRenderer: SCNSceneRenderer?
-    
-    /// Overlays
-    var overlay: ControlOverlay?
     
     private var plane: SCNNode!
     private var box: SCNNode!
@@ -26,12 +25,14 @@ final class GameController: NSObject {
     
     init(scnView: SCNView) {
         super.init()
-        
+    
         sceneRenderer = scnView
         sceneRenderer!.delegate = self
         
-        overlay = ControlOverlay(size: scnView.bounds.size, controller: self)
-        scnView.overlaySKScene = overlay
+        entityManager = EntityManager(controller: self, renderer: sceneRenderer!)
+        
+        // Add ControlOverlay
+        entityManager?.add(OverlayEntity(size: scnView.bounds.size, controller: self))
         
         scene = SCNScene(named: "art.scnassets/Scenes/game.scn")!
         scene.physicsWorld.contactDelegate = self
@@ -40,7 +41,7 @@ final class GameController: NSObject {
         sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
         sceneRenderer!.debugOptions = [.showPhysicsShapes]
-//        sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
+        sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
         
         setupCollisions()
         setupNodes()

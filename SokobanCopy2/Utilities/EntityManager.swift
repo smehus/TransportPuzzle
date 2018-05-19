@@ -48,8 +48,20 @@ final class EntityManager {
         return []
     }()
     
+    private unowned var controller: GameController
+    private unowned var renderer: SCNSceneRenderer
+    
+    init(controller: GameController, renderer: SCNSceneRenderer) {
+        self.controller = controller
+        self.renderer = renderer
+    }
+    
     func add(_ entity: GKEntity) {
         entities.insert(entity)
+        
+        if let overlayScene = entity.component(ofType: TouchControlComponent.self)?.scene {
+            renderer.overlaySKScene = overlayScene
+        }
         
         for system in componentSystems {
             // Looks through all of the components in the entity,

@@ -1,5 +1,5 @@
 //
-//  TouchControlComponent.swift
+//  OverlayEntity.swift
 //  SokobanCopy2
 //
 //  Created by Scott Mehus on 5/19/18.
@@ -9,20 +9,16 @@
 import Foundation
 import GameplayKit
 
-final class TouchControlComponent: GKComponent {
-    
-    let scene: SKScene
+final class OverlayEntity: GKEntity {
     
     init(size: CGSize, controller: GameController) {
-        scene = ControlOverlay(size: size, controller: controller)
+        
         super.init()
+        
+        addComponent(TouchControlComponent(size: size, controller: controller))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        super.update(deltaTime: seconds)
     }
 }
