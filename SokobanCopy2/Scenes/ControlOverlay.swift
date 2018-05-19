@@ -76,6 +76,8 @@ final class ControlOverlay: SKScene {
         let location = touch.location(in: self)
         let tappedNodes = nodes(at: location)
         
+        isUserInteractionEnabled = false
+        
         if let name = tappedNodes.first?.name,
             let control = ControlDirection(rawValue: name) {
             

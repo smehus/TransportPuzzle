@@ -56,6 +56,11 @@ final class CharacterEntity: GKEntity {
             DispatchQueue.main.async {
                 node.removeAllAnimations()
                 node.addAnimationPlayer(Animation.idle.player, forKey: "idle")
+                
+                // Reset user interaction
+                if let overlay: OverlayEntity = EntityManager.shared.entity(), let comp = overlay.component(ofType: TouchControlComponent.self) {
+                    comp.scene.isUserInteractionEnabled = true
+                }
             }
         }
         
