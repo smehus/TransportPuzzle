@@ -8,6 +8,7 @@
 
 import Foundation
 import SceneKit
+import GameplayKit
 
 final class GameController: NSObject {
     
@@ -17,7 +18,6 @@ final class GameController: NSObject {
     private var sceneRenderer: SCNSceneRenderer?
 
     private var lastUpdate: TimeInterval = 0
-    private var hiddenCollision: SCNNode!
     private var currentContacts: [ColliderType: SCNVector3] = [:]
     
     init(scnView: SCNView) {
@@ -61,8 +61,12 @@ extension GameController: SCNSceneRendererDelegate {
     }
     
     private func updatePositions() {
-//        hiddenCollision.position = character.position
-        //        hiddenCollision.rotation = character.rotation
+        guard let character: CharacterEntity = entityManager.entity() else { return }
+        guard let characterComponent = character.component(ofType: GKSCNNodeComponent.self) else { return }
+        guard let hiddenCollision: HiddenCollisionEntity = entityManager.entity() else { return }
+        guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
+        hiddenComponent.node.position = characterComponent.node.position
+//        hiddenCollision.rotation = character.rotation
     }
 }
 
@@ -92,22 +96,8 @@ extension GameController {
     
     private func setupNodes() {
 
-        hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true)
-        let hiddenLeft = hiddenCollision.childNode(withName: "left", recursively: true)
-        hiddenLeft!.physicsBody!.categoryBitMask = ColliderType.hiddenLeft.categoryMask
-        hiddenLeft!.physicsBody!.contactTestBitMask = ColliderType.hiddenLeft.contactMask
-        
-        let hiddenRight = hiddenCollision.childNode(withName: "right", recursively: true)
-        hiddenRight!.physicsBody!.categoryBitMask = ColliderType.hiddenRight.categoryMask
-        hiddenRight!.physicsBody!.contactTestBitMask = ColliderType.hiddenRight.contactMask
-        
-        let hiddenFront = hiddenCollision.childNode(withName: "front", recursively: true)
-        hiddenFront!.physicsBody!.categoryBitMask = ColliderType.hiddenFront.categoryMask
-        hiddenFront!.physicsBody!.contactTestBitMask = ColliderType.hiddenFront.contactMask
-        
-        let hiddenBack = hiddenCollision.childNode(withName: "back", recursively: true)
-        hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
-        hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
+        guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
+        entityManager.add(HiddenCollisionEntity(node: hiddenCollision))
         
         guard let character = scene.rootNode.childNode(withName: "Armature", recursively: true) else { assertionFailure(); return }
         entityManager.add(CharacterEntity(node: character))

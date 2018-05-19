@@ -54,6 +54,10 @@ final class EntityManager: NSObject {
     weak var controller: GameController!
     weak var renderer: SCNSceneRenderer!
     
+    
+    /// Not sure what i'll use this for yet...
+    private var gkScene = GKScene()
+    
     override init() {
         super.init()
     }
@@ -61,6 +65,7 @@ final class EntityManager: NSObject {
     
     func add(_ entity: GKEntity) {
         entities.insert(entity)
+        gkScene.addEntity(entity)
         
         if let overlayScene = entity.component(ofType: TouchControlComponent.self)?.scene {
             renderer.overlaySKScene = overlayScene
@@ -87,6 +92,7 @@ final class EntityManager: NSObject {
 
         entities.remove(entity)
         toRemove.insert(entity)
+        gkScene.removeEntity(entity)
     }
     
     func update(_ deltaTime: CFTimeInterval) {
