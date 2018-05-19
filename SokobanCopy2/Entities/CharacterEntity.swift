@@ -61,6 +61,8 @@ final class CharacterEntity: GKEntity {
                 // Reset user interaction
                 if let overlay: OverlayEntity = EntityManager.shared.entity(), let comp = overlay.component(ofType: TouchControlComponent.self) {
                     comp.scene.isUserInteractionEnabled = true
+                } else {
+                    assertionFailure()
                 }
             }
         }
