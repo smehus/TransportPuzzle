@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44613209F3F02002AE653 /* ColliderType.swift */; };
 		A5E44616209F3FCA002AE653 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44615209F3FCA002AE653 /* EntityManager.swift */; };
+		AF556B9520AFC09800B532E3 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* Character.swift */; };
+		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
+		AF556B9920B054D000B532E3 /* ControlOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9820B054D000B532E3 /* ControlOverlay.swift */; };
+		AF556B9C20B0551B00B532E3 /* NodeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9B20B0551B00B532E3 /* NodeComponent.swift */; };
+		AF556B9E20B0557C00B532E3 /* TouchControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9D20B0557C00B532E3 /* TouchControlComponent.swift */; };
 		AF8D9AC420ABCCD700D9CF07 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = AF8D9AC320ABCCD700D9CF07 /* TODO */; };
 		AF8D9AC720ABCF3200D9CF07 /* CAAnimation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9AC620ABCF3200D9CF07 /* CAAnimation+Extensions.swift */; };
 		AF8D9AC920ABCF5300D9CF07 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */; };
@@ -26,6 +31,11 @@
 /* Begin PBXFileReference section */
 		A5E44613209F3F02002AE653 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
 		A5E44615209F3FCA002AE653 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		AF556B9420AFC09800B532E3 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+		AF556B9820B054D000B532E3 /* ControlOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlOverlay.swift; sourceTree = "<group>"; };
+		AF556B9B20B0551B00B532E3 /* NodeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeComponent.swift; sourceTree = "<group>"; };
+		AF556B9D20B0557C00B532E3 /* TouchControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchControlComponent.swift; sourceTree = "<group>"; };
 		AF8D9AC320ABCCD700D9CF07 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		AF8D9AC620ABCF3200D9CF07 /* CAAnimation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAAnimation+Extensions.swift"; sourceTree = "<group>"; };
 		AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -61,8 +71,27 @@
 				A5E44613209F3F02002AE653 /* ColliderType.swift */,
 				A5E44615209F3FCA002AE653 /* EntityManager.swift */,
 				AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */,
+				AF556B9620AFC2C600B532E3 /* GameController.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AF556B9320AFC08A00B532E3 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				AF556B9420AFC09800B532E3 /* Character.swift */,
+				AF556B9820B054D000B532E3 /* ControlOverlay.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AF556B9A20B0550F00B532E3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AF556B9B20B0551B00B532E3 /* NodeComponent.swift */,
+				AF556B9D20B0557C00B532E3 /* TouchControlComponent.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		AF8D9AC520ABCF1C00D9CF07 /* Extensions */ = {
@@ -102,6 +131,8 @@
 		AFE717ED209DE99400552814 /* SokobanCopy2 */ = {
 			isa = PBXGroup;
 			children = (
+				AF556B9A20B0550F00B532E3 /* Components */,
+				AF556B9320AFC08A00B532E3 /* Entities */,
 				A5E44612209F3EF6002AE653 /* Utilities */,
 				AFE717EE209DE99400552814 /* AppDelegate.swift */,
 				AFE717F0209DE99400552814 /* art.scnassets */,
@@ -189,13 +220,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF556B9C20B0551B00B532E3 /* NodeComponent.swift in Sources */,
 				AF8D9AD020ABCFEE00D9CF07 /* Sequence+Extensions.swift in Sources */,
 				AFE717F3209DE99400552814 /* GameViewController.swift in Sources */,
+				AF556B9920B054D000B532E3 /* ControlOverlay.swift in Sources */,
 				AF8D9AC720ABCF3200D9CF07 /* CAAnimation+Extensions.swift in Sources */,
 				A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */,
 				AF8D9ACE20ABCFD400D9CF07 /* Helpers.swift in Sources */,
 				A5E44616209F3FCA002AE653 /* EntityManager.swift in Sources */,
 				AF8D9AC920ABCF5300D9CF07 /* CGFloat+Extensions.swift in Sources */,
+				AF556B9520AFC09800B532E3 /* Character.swift in Sources */,
+				AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */,
+				AF556B9E20B0557C00B532E3 /* TouchControlComponent.swift in Sources */,
 				AF8D9ACC20ABCFA500D9CF07 /* Animation.swift in Sources */,
 				AFE717EF209DE99400552814 /* AppDelegate.swift in Sources */,
 			);
