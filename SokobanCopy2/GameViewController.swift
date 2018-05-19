@@ -28,7 +28,7 @@ final class GameViewController: UIViewController {
         scnView = self.view as! SCNView
         scnView.delegate = self
 
-        scene = SCNScene(named: "art.scnassets/game.scn")!
+        scene = SCNScene(named: "art.scnassets/Scenes/game.scn")!
         scene.physicsWorld.contactDelegate = self
         scnView.scene = scene
 
