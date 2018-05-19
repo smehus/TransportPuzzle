@@ -10,8 +10,12 @@ import Foundation
 import GameplayKit
 import SceneKit
 
-final class ControlOverlay: GKEntity {
+final class ControlOverlay: SKScene {
     
-    
+    override init(size: CGSize, controller: GameController) {
+        super.init(size: size)
+        
+        scaleMode = .resizeFill
+    }
     
 }

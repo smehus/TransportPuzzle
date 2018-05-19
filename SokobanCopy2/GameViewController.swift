@@ -13,8 +13,6 @@ import SceneKit
 final class GameViewController: UIViewController {
 
     private var scnView: SCNView!
-
-
     
     override func viewDidLoad() {
         super.viewDidLoad()

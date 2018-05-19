@@ -12,6 +12,11 @@ import SceneKit
 final class GameController: NSObject {
     
     private var scene: SCNScene!
+    private var sceneRenderer: SCNSceneRenderer?
+    
+    /// Overlays
+    var overlay: ControlOverlay?
+    
     private var plane: SCNNode!
     private var box: SCNNode!
     private var character: SCNNode!
@@ -20,16 +25,23 @@ final class GameController: NSObject {
     private var currentContacts: [ColliderType: SCNVector3] = [:]
     
     init(scnView: SCNView) {
+        super.init()
         
-        scnView.delegate = self
+        sceneRenderer = scnView
+        sceneRenderer!.delegate = self
+        
+        overlay = ControlOverlay(size: scnView.bounds.size, controller: self)
+        scnView.overlaySKScene = overlay
         
         scene = SCNScene(named: "art.scnassets/Scenes/game.scn")!
         scene.physicsWorld.contactDelegate = self
-        scnView.scene = scene
+        sceneRenderer!.scene = scene
         
-        scnView.showsStatistics = true
+        sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
-        scnView.debugOptions = [.showPhysicsShapes]
+        sceneRenderer!.debugOptions = [.showPhysicsShapes]
+        sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
+        
         setupCollisions()
         setupNodes()
         
@@ -213,6 +225,7 @@ extension GameController: SCNPhysicsContactDelegate {
 extension GameController {
     
     // This will be a delegate fucntion of the control overlay
+    /*(
     override func tap(at location: SCNVector3) {
         
         guard let hit = scnView.hitTest(location, options: nil).first else { return }
@@ -276,7 +289,7 @@ extension GameController {
         let move = SCNAction.move(to: moveVector, duration: animation.animationDuration)
         character.addAnimationPlayer(animation.player, forKey: "walking")
         character.runAction(SCNAction.sequence([SCNAction.group([move, rotate]), wait]))
-        
-        
     }
+ 
+ */
 }
