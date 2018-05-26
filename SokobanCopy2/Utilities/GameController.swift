@@ -104,8 +104,8 @@ extension GameController {
         guard let box = scene.rootNode.childNode(withName: "Cube", recursively: true) else { assertionFailure(); return }
         entityManager.add(BoxEntity(node: box))
         
-        guard let plane = scene.rootNode.childNode(withName: "plane", recursively: true) else { assertionFailure(); return }
-        entityManager.add(PlaneEntity(node: plane))
+//        guard let plane = scene.rootNode.childNode(withName: "plane", recursively: true) else { assertionFailure(); return }
+//        entityManager.add(PlaneEntity(node: plane))
     }
 }
 
