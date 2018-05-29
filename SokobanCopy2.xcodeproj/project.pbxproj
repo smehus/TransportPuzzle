@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44613209F3F02002AE653 /* ColliderType.swift */; };
 		A5E44616209F3FCA002AE653 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44615209F3FCA002AE653 /* EntityManager.swift */; };
+		AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1E5920BD8F0000D09D70 /* Properties.swift */; };
 		AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* CharacterEntity.swift */; };
 		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
 		AF556B9920B054D000B532E3 /* ControlOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9820B054D000B532E3 /* ControlOverlay.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		A5E44613209F3F02002AE653 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
 		A5E44615209F3FCA002AE653 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		AF4D1E5920BD8F0000D09D70 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		AF556B9420AFC09800B532E3 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		AF556B9820B054D000B532E3 /* ControlOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlOverlay.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				A5E44615209F3FCA002AE653 /* EntityManager.swift */,
 				AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */,
 				AF556B9620AFC2C600B532E3 /* GameController.swift */,
+				AF4D1E5920BD8F0000D09D70 /* Properties.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				AF556B9E20B0557C00B532E3 /* TouchControlComponent.swift in Sources */,
 				AF8D9ACC20ABCFA500D9CF07 /* Animation.swift in Sources */,
 				AFE717EF209DE99400552814 /* AppDelegate.swift in Sources */,
+				AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */,
 				AF556BAF20B09D0700B532E3 /* HiddenCollisionComponent.swift in Sources */,
 				AF556BAB20B097A600B532E3 /* SCNVector3+Extensions.swift in Sources */,
 			);

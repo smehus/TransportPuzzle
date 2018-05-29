@@ -26,13 +26,13 @@ enum ControlDirection: String {
         var vector = SCNVector3(0, 0, 0)
         switch self {
         case .bottom:
-            vector.z += 1
+            vector.z += CHARACTER_MOVE_AMT
         case .top:
-            vector.z -= 1
+            vector.z -= CHARACTER_MOVE_AMT
         case .left:
-            vector.x -= 1
+            vector.x -= CHARACTER_MOVE_AMT
         case .right:
-            vector.x += 1
+            vector.x += CHARACTER_MOVE_AMT
         }
         
         return vector

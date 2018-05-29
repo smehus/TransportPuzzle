@@ -10,7 +10,7 @@ import Foundation
 import GameplayKit
 
 final class CharacterEntity: GKEntity {
-    
+
     init(node: SCNNode) {
         super.init()
         
@@ -35,13 +35,13 @@ final class CharacterEntity: GKEntity {
         var vector = node.position
         switch controlDirection {
         case .left:
-            vector.x -= 1
+            vector.x -= CHARACTER_MOVE_AMT
         case .right:
-            vector.x += 1
+            vector.x += CHARACTER_MOVE_AMT
         case .top:
-            vector.z -= 1
+            vector.z -= CHARACTER_MOVE_AMT
         case .bottom:
-            vector.z += 1
+            vector.z += CHARACTER_MOVE_AMT
         }
         
         let lengthZ = vector.z - node.position.z
