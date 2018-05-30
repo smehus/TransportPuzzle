@@ -31,6 +31,7 @@
 		AF8D9ACC20ABCFA500D9CF07 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9ACB20ABCFA500D9CF07 /* Animation.swift */; };
 		AF8D9ACE20ABCFD400D9CF07 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */; };
 		AF8D9AD020ABCFEE00D9CF07 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9ACF20ABCFEE00D9CF07 /* Sequence+Extensions.swift */; };
+		AFB02A3F20BF70C0007891B7 /* PathGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB02A3E20BF70C0007891B7 /* PathGesture.swift */; };
 		AFE717EF209DE99400552814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE717EE209DE99400552814 /* AppDelegate.swift */; };
 		AFE717F1209DE99400552814 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = AFE717F0209DE99400552814 /* art.scnassets */; };
 		AFE717F3209DE99400552814 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE717F2209DE99400552814 /* GameViewController.swift */; };
@@ -64,6 +65,7 @@
 		AF8D9ACB20ABCFA500D9CF07 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		AF8D9ACF20ABCFEE00D9CF07 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
+		AFB02A3E20BF70C0007891B7 /* PathGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathGesture.swift; sourceTree = "<group>"; };
 		AFE717EB209DE99400552814 /* SokobanCopy2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SokobanCopy2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFE717EE209DE99400552814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFE717F0209DE99400552814 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */,
 				AF556B9620AFC2C600B532E3 /* GameController.swift */,
 				AF4D1E5920BD8F0000D09D70 /* Properties.swift */,
+				AFB02A3E20BF70C0007891B7 /* PathGesture.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */,
 				AF0803EC20BE25680046236A /* PathCreatorComponent.swift in Sources */,
 				AF556BAF20B09D0700B532E3 /* HiddenCollisionComponent.swift in Sources */,
+				AFB02A3F20BF70C0007891B7 /* PathGesture.swift in Sources */,
 				AF556BAB20B097A600B532E3 /* SCNVector3+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
