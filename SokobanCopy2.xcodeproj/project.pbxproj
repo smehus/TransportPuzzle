@@ -10,6 +10,7 @@
 		A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44613209F3F02002AE653 /* ColliderType.swift */; };
 		A5E44616209F3FCA002AE653 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E44615209F3FCA002AE653 /* EntityManager.swift */; };
 		AF0803EC20BE25680046236A /* PathCreatorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0803EB20BE25680046236A /* PathCreatorComponent.swift */; };
+		AF0803EF20BEE7010046236A /* HighlighterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0803EE20BEE7010046236A /* HighlighterNode.swift */; };
 		AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1E5920BD8F0000D09D70 /* Properties.swift */; };
 		AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* CharacterEntity.swift */; };
 		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
@@ -42,6 +43,7 @@
 		A5E44613209F3F02002AE653 /* ColliderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
 		A5E44615209F3FCA002AE653 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		AF0803EB20BE25680046236A /* PathCreatorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathCreatorComponent.swift; sourceTree = "<group>"; };
+		AF0803EE20BEE7010046236A /* HighlighterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlighterNode.swift; sourceTree = "<group>"; };
 		AF4D1E5920BD8F0000D09D70 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		AF556B9420AFC09800B532E3 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,14 @@
 				AF4D1E5920BD8F0000D09D70 /* Properties.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AF0803ED20BEE6E70046236A /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				AF0803EE20BEE7010046236A /* HighlighterNode.swift */,
+			);
+			path = Nodes;
 			sourceTree = "<group>";
 		};
 		AF556B9320AFC08A00B532E3 /* Entities */ = {
@@ -168,6 +178,7 @@
 		AFE717ED209DE99400552814 /* SokobanCopy2 */ = {
 			isa = PBXGroup;
 			children = (
+				AF0803ED20BEE6E70046236A /* Nodes */,
 				AF556B9F20B059F000B532E3 /* Scenes */,
 				AF556B9A20B0550F00B532E3 /* Components */,
 				AF556B9320AFC08A00B532E3 /* Entities */,
@@ -268,6 +279,7 @@
 				AF8D9AC720ABCF3200D9CF07 /* CAAnimation+Extensions.swift in Sources */,
 				AF556BA720B071D400B532E3 /* HiddenCollisionEntity.swift in Sources */,
 				AF556BA120B05F6600B532E3 /* OverlayEntity.swift in Sources */,
+				AF0803EF20BEE7010046236A /* HighlighterNode.swift in Sources */,
 				A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */,
 				AF556BA920B07E7A00B532E3 /* Comparable+Extensions.swift in Sources */,
 				AF8D9ACE20ABCFD400D9CF07 /* Helpers.swift in Sources */,
