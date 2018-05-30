@@ -15,6 +15,7 @@ final class PathCreatorComponent: GKComponent {
 
 extension PathCreatorComponent: TouchResponder {
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
         
     }
     

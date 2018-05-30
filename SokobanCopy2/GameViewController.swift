@@ -30,7 +30,8 @@ final class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
+
+    /*
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         controller.entityManager.touchesBegan(touches, with: event)
@@ -45,4 +46,5 @@ final class GameViewController: UIViewController {
         super.touchesEnded(touches, with: event)
         controller.entityManager.touchesEnded(touches, with: event)
     }
+ */
 }

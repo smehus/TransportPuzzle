@@ -9,6 +9,70 @@
 import Foundation
 import SceneKit
 import GameplayKit
+import UIKit.UIGestureRecognizerSubclass
+
+final class PathGesture: UIGestureRecognizer {
+    
+    private var lastLocation: SCNVector3?
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard lastLocation == nil else {
+//            assertionFailure("Why is the last location no nil")
+            return
+        }
+        guard let result = hitResult(touches, with: event) else {
+            lastLocation = nil
+            return
+        }
+        
+        
+        print("BEGAN")
+        state = .began
+        lastLocation = result.localCoordinates
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard let last = lastLocation else {
+            ignore(touches.first!, for: event)
+            return
+        }
+        guard let result = hitResult(touches, with: event) else {
+            ignore(touches.first!, for: event)
+            return
+        }
+        guard Int(last.x).distance(to: Int(result.localCoordinates.x)) >= 2 || Int(last.z).distance(to: Int(result.localCoordinates.z)) >= 2 else {
+//            ignore(touches.first!, for: event)
+            return
+        }
+        
+        print("MOVED")
+        state = .changed
+        lastLocation = result.localCoordinates
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+        guard let last = lastLocation else { return }
+        
+        
+        
+        print("ENDED")
+        state = .ended
+    }
+    
+    override func reset() {
+        super.reset()
+        print("ressettttinngg")
+        lastLocation = nil
+    }
+    
+    private func hitResult(_ touches: Set<UITouch>, with event: UIEvent) -> SCNHitTestResult? {
+        guard let touch = touches.first else { return nil }
+        guard let scnView = view as? SCNView else { assertionFailure(); return nil }
+        let location = touch.location(in: scnView)
+        let hitResults = scnView.hitTest(location, options: [:])
+        return hitResults.first
+    }
+}
 
 final class GameController: NSObject {
     
@@ -42,8 +106,37 @@ final class GameController: NSObject {
         
         setupCollisions()
         setupNodes()
+        setupGestures()
+    }
+    
+    private func setupGestures() {
+        guard let view = sceneRenderer as? SCNView else { assertionFailure(); return }
+        let touchDownGesture = PathGesture(target: self, action: #selector(touchDown(gesture:)))
+        view.addGestureRecognizer(touchDownGesture)
+    }
+    
+    @objc private func touchDown(gesture: UIGestureRecognizer) {
+        guard let view = sceneRenderer as? SCNView else { assertionFailure(); return }
+        let location = gesture.location(in: view)
+        let hitResults = view.hitTest(location, options: [:])
+        guard let result = hitResults.first else { return }
+        
+        if let plane = result.node.entity as? PlaneEntity {
+            guard let comp = plane.component(ofType: GKSCNNodeComponent.self) else { return }
+            
+            guard Int(result.localCoordinates.x) % 2 == 0 else { return }
+            guard Int(result.localCoordinates.z) % 2 == 0 else { return }
+            let g = SCNSphere(radius: 0.5)
+            g.materials.first?.diffuse.contents = UIColor.yellow
+            let highlighter = SCNNode(geometry: g)
+            highlighter.eulerAngles = SCNVector3(-90, 0, 0)
+            highlighter.position = SCNVector3(Int(result.localCoordinates.x), Int(result.localCoordinates.y), Int(result.localCoordinates.z))
+            comp.node.addChildNode(highlighter)
+            print("creating highlighter state \(gesture.state == .changed)")
+        }
     }
 }
+
 
 extension GameController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
