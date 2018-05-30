@@ -18,6 +18,12 @@ protocol CollisionDetector {
     func didEnd(_ contact: SCNPhysicsContact)
 }
 
+protocol TouchResponder {
+    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
+    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+}
+
 class ComponentSystem: GKComponentSystem<GKComponent> {
     
     func didSelect(direction: ControlDirection) {
@@ -27,6 +33,8 @@ class ComponentSystem: GKComponentSystem<GKComponent> {
             }
         }
     }
+    
+    // Collision Detector
     
     func didBegin(_ contact: SCNPhysicsContact) {
         for component in components {
@@ -44,6 +52,31 @@ class ComponentSystem: GKComponentSystem<GKComponent> {
         }
     }
     
+    // Touch Responder
+    
+    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for component in components {
+            if let responder = component as? TouchResponder {
+                responder.touchesBegan(touches, with: event)
+            }
+        }
+    }
+    
+    func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for component in components {
+            if let responder = component as? TouchResponder {
+                responder.touchesMoved(touches, with: event)
+            }
+        }
+    }
+    
+    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for component in components {
+            if let responder = component as? TouchResponder {
+                responder.touchesEnded(touches, with: event)
+            }
+        }
+    }
     
 }
 
@@ -61,7 +94,8 @@ final class EntityManager: NSObject {
         let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
         let movableComponent = ComponentSystem(componentClass: MovableComponent.self)
         let hidddenCollisionComponent = ComponentSystem(componentClass: HiddenCollisionComponent.self)
-        return [touchControlComponent, movableComponent, hidddenCollisionComponent]
+        let pathCreatorComponent = ComponentSystem(componentClass: PathCreatorComponent.self)
+        return [touchControlComponent, movableComponent, hidddenCollisionComponent, pathCreatorComponent]
     }()
     
     weak var controller: GameController!
@@ -79,7 +113,7 @@ final class EntityManager: NSObject {
     func add(_ entity: GKEntity) {
         entities.insert(entity)
         gkScene.addEntity(entity)
-        
+         
         if let overlayScene = entity.component(ofType: TouchControlComponent.self)?.scene {
             renderer.overlaySKScene = overlayScene
         }
@@ -122,6 +156,18 @@ final class EntityManager: NSObject {
         toRemove.removeAll()
     }
     
+    func controlOverlayDidSelect(direction: ControlDirection) {
+        componentSystems.forEach { (system) in
+            system.didSelect(direction: direction)
+        }
+    }
+    
+    func entity<T: GKEntity>() -> T? {
+        return entities.first(where: { $0 is T }) as? T
+    }
+}
+
+extension EntityManager {
     func didBegin(_ contact: SCNPhysicsContact) {
         componentSystems.forEach { (system) in
             system.didBegin(contact)
@@ -133,14 +179,24 @@ final class EntityManager: NSObject {
             system.didEnd(contact)
         }
     }
-    
-    func controlOverlayDidSelect(direction: ControlDirection) {
+}
+
+extension EntityManager {
+    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         componentSystems.forEach { (system) in
-            system.didSelect(direction: direction)
+            system.touchesBegan(touches, with: event)
         }
     }
     
-    func entity<T: GKEntity>() -> T? {
-        return entities.first(where: { $0 is T }) as? T
+    func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        componentSystems.forEach { (system) in
+            system.touchesMoved(touches, with: event)
+        }
+    }
+    
+    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        componentSystems.forEach { (system) in
+            system.touchesEnded(touches, with: event)
+        }
     }
 }

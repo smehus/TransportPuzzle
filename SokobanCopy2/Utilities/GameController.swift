@@ -12,7 +12,7 @@ import GameplayKit
 
 final class GameController: NSObject {
     
-    private var entityManager = EntityManager.shared
+    var entityManager = EntityManager.shared
     
     private var scene: SCNScene!
     private var sceneRenderer: SCNSceneRenderer?
@@ -29,7 +29,7 @@ final class GameController: NSObject {
         entityManager.renderer = sceneRenderer!
         
         // Add ControlOverlay
-        entityManager.add(OverlayEntity(size: scnView.bounds.size, controller: self))
+//        entityManager.add(OverlayEntity(size: scnView.bounds.size, controller: self))
         
         scene = SCNScene(named: "art.scnassets/Scenes/game.scn")!
         scene.physicsWorld.contactDelegate = self
@@ -104,8 +104,8 @@ extension GameController {
         guard let box = scene.rootNode.childNode(withName: "Cube", recursively: true) else { assertionFailure(); return }
         entityManager.add(BoxEntity(node: box))
         
-//        guard let plane = scene.rootNode.childNode(withName: "plane", recursively: true) else { assertionFailure(); return }
-//        entityManager.add(PlaneEntity(node: plane))
+        guard let plane = scene.rootNode.childNode(withName: "Plane", recursively: true) else { assertionFailure(); return }
+        entityManager.add(PlaneEntity(node: plane))
     }
 }
 

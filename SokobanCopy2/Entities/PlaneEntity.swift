@@ -14,10 +14,11 @@ final class PlaneEntity: GKEntity {
     init(node: SCNNode) {
         super.init()
         
-        node.physicsBody!.categoryBitMask = ColliderType.plane.categoryMask
-        node.physicsBody!.collisionBitMask = ColliderType.plane.collisionMask
-        node.physicsBody!.contactTestBitMask = ColliderType.plane.contactMask
+        node.physicsBody?.categoryBitMask = ColliderType.plane.categoryMask
+        node.physicsBody?.collisionBitMask = ColliderType.plane.collisionMask
+        node.physicsBody?.contactTestBitMask = ColliderType.plane.contactMask
         addComponent(GKSCNNodeComponent(node: node))
+        addComponent(PathCreatorComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {
