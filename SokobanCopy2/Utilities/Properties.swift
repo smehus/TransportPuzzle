@@ -9,3 +9,4 @@
 import Foundation
 
 let CHARACTER_MOVE_AMT: Float = 2
+let GRID_WIDTH_HEIGHT: Float = CHARACTER_MOVE_AMT

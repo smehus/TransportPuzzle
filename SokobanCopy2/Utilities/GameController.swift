@@ -62,35 +62,11 @@ final class GameController: NSObject {
         guard let plane = result.node.entity as? PlaneEntity else { return }
         guard let comp = plane.component(ofType: GKSCNNodeComponent.self) else { return }
  
-//        if
-//            gesture.state == .changed,
-//            let last = gesture.lastLocation,
-//            Int(abs(last.x)).distance(to: Int(abs(result.localCoordinates.x))) < 2 &&
-//                Int(abs(last.z)).distance(to: Int(abs(result.localCoordinates.z))) < 2
-//        {
-////            print("Pan Failed last \(Int(abs(last.x)).distance(to: Int(abs(result.localCoordinates.x)))) result \(Int(abs(last.z)).distance(to: Int(abs(result.localCoordinates.z))))")
-//            return
-//        }
-        
         guard Int(round(result.localCoordinates.x)) % 2 == 0 else { return }
         guard Int(round(result.localCoordinates.z)) % 2 == 0 else { return }
-    
-//        gesture.lastLocation = createHighligher(with: result, component: comp)
-        
-        let thing = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
-        
-        print("wtf")
-    }
-    
-    private func createHighligher(with result: SCNHitTestResult, component: GKSCNNodeComponent) -> SCNVector3 {
-        // Create entities and add to entitiy manager for this
-        // Also need to add collision to remove these
-        // Also need to manually create the highlighters for when the use presses far away from characgter
-        // Use Gameplaykit pathfinding for that?
-        let highlighter = HighlighterNode()
-        highlighter.position = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
-        component.node.addChildNode(highlighter)
-        return highlighter.position
+
+        let position = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
+        assert(graph.node(atGridPosition: vector_int2(Int32(position.x), Int32(position.z))) != nil)
     }
 }
 
@@ -162,14 +138,14 @@ extension GameController {
         graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: true)
         var graphNodes: [GKGridGraphNode] = []
         
-        stride(from: Int(node.boundingBox.min.x), to: Int(node.boundingBox.max.x), by: 2).forEach { (x) in
-            stride(from: Int(node.boundingBox.min.z), to: Int(node.boundingBox.max.z), by: 2).forEach({ (z) in
+        stride(from: Int(node.boundingBox.min.x + GRID_WIDTH_HEIGHT/2), to: Int(node.boundingBox.max.x + GRID_WIDTH_HEIGHT/2), by: 2).forEach { (x) in
+            stride(from: Int(node.boundingBox.min.z + GRID_WIDTH_HEIGHT/2), to: Int(node.boundingBox.max.z + GRID_WIDTH_HEIGHT/2), by: 2).forEach({ (z) in
                 let graphNode = GKGridGraphNode(gridPosition: vector_int2(Int32(x), Int32(z)))
                 graphNodes.append(graphNode)
                 
-                let highlighter = HighlighterNode()
-                highlighter.position = SCNVector3(Int(x), 0, Int(z))
-                node.addChildNode(highlighter)
+//                let highlighter = HighlighterNode()
+//                highlighter.position = SCNVector3(Int(x), 0, Int(z))
+//                node.addChildNode(highlighter)
             })
         }
         
