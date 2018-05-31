@@ -101,11 +101,16 @@ final class CharacterEntity: GKEntity {
             node.removeAllAnimations()
         }
         
-        
-        
-        
         node.runAction(.sequence([SCNAction.sequence(actions), stopAction]))
         node.addAnimationPlayer(Animation.walk.player, forKey: "animation")
+    }
+    
+    private func run(_ actions: [MoveAction]) {
+        var newActions = actions
+        
+        
+        
+        
     }
     
     private func nextPathPosition(_ index: Int, paths: [GKGridGraphNode], grid: SCNNode) -> SCNVector3? {
