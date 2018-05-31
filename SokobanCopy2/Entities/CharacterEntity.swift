@@ -79,6 +79,8 @@ final class CharacterEntity: GKEntity {
             let convertedPOS = grid.convertPosition(pos, to: node.parent!)
             
             let action = SCNAction.move(to: convertedPOS, duration: Animation.walk.animationDuration)
+            // This is broken because the characters position changes.......
+            // We set the rotation angel according to the original character position
             let rotate = rotateAction(to: convertedPOS)
             
             actions.append(SCNAction.group([action, rotate]))
