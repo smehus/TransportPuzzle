@@ -15,6 +15,8 @@ enum Animation {
     case push
     case idle
     
+    static let key = "animation"
+    
     private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/pushing.dae")!
     private static let closePushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/close_push.dae")!
     private static let closePushLoopAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/close_push_loop.dae")!
