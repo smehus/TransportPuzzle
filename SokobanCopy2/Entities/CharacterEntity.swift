@@ -29,7 +29,9 @@ final class CharacterEntity: GKEntity {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func move(controlDirection: ControlDirection) {
+        /*
         guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { assertionFailure(); return }
         
         var vector = node.position
@@ -44,7 +46,8 @@ final class CharacterEntity: GKEntity {
             vector.z += CHARACTER_MOVE_AMT
         }
         
-        let rotate = rotateAction(to: vector)
+        let rotateVector = rotateAction(to: vector)
+        let rotate = SCNAction.rotateTo(x: CGFloat(rotateVector.x), y: CGFloat(rotateVector.y), z: CGFloat(rotateVector.z), duration: 0.1)
         
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
@@ -68,27 +71,37 @@ final class CharacterEntity: GKEntity {
         let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
         node.runAction(SCNAction.sequence([SCNAction.group([moveAction, rotate]), wait]))
         node.addAnimationPlayer(animation.player, forKey: "animation")
+ */
     }
     
     func move(along paths: [GKGridGraphNode], on grid: SCNNode) {
         let node = component(ofType: GKSCNNodeComponent.self)!.node
         
         var actions: [SCNAction] = []
-        for (index, path) in paths.enumerated() {
+        var moveActions: [MoveAction] = []
+        
+        for (_, path) in paths.enumerated() {
             let pos = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
             let convertedPOS = grid.convertPosition(pos, to: node.parent!)
             
             let action = SCNAction.move(to: convertedPOS, duration: Animation.walk.animationDuration)
             // This is broken because the characters position changes.......
             // We set the rotation angel according to the original character position
-            let rotate = rotateAction(to: convertedPOS)
+            // Need to create an action queue
+            // Create action on the spot
+            let rotateVector = rotateAction(to: convertedPOS)
+            let rotate = SCNAction.rotateTo(x: CGFloat(rotateVector.x), y: CGFloat(rotateVector.y), z: CGFloat(rotateVector.z), duration: 0.1)
             
             actions.append(SCNAction.group([action, rotate]))
+            moveActions.append(MoveAction(to: convertedPOS, rotateTo: path))
+            
         }
         
         let stopAction = SCNAction.customAction(duration: 0.0) { (node, _) in
             node.removeAllAnimations()
         }
+        
+        
         
         
         node.runAction(.sequence([SCNAction.sequence(actions), stopAction]))
@@ -106,7 +119,7 @@ final class CharacterEntity: GKEntity {
         return nil
     }
     
-    private func rotateAction(to vector: SCNVector3) -> SCNAction {
+    private func rotateAction(to vector: SCNVector3) -> SCNVector3 {
         let node = component(ofType: GKSCNNodeComponent.self)!.node
         let lengthZ = vector.z - node.position.z
         let lengthX = vector.x - node.position.x
@@ -115,6 +128,11 @@ final class CharacterEntity: GKEntity {
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
         
         let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
-        return SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.1)
+        return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), 0)
     }
+}
+
+struct MoveAction {
+    let to: SCNVector3
+    let rotateTo: GKGridGraphNode
 }
