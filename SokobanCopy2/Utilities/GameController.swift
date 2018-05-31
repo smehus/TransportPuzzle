@@ -16,6 +16,7 @@ final class GameController: NSObject {
     
     private var scene: SCNScene!
     private var sceneRenderer: SCNSceneRenderer?
+    private var graph: GKGridGraph<GKGridGraphNode>!
 
     private var lastUpdate: TimeInterval = 0
     
@@ -61,20 +62,24 @@ final class GameController: NSObject {
         guard let plane = result.node.entity as? PlaneEntity else { return }
         guard let comp = plane.component(ofType: GKSCNNodeComponent.self) else { return }
  
-        if
-            gesture.state == .changed,
-            let last = gesture.lastLocation,
-            Int(abs(last.x)).distance(to: Int(abs(result.localCoordinates.x))) < 2 &&
-                Int(abs(last.z)).distance(to: Int(abs(result.localCoordinates.z))) < 2
-        {
-//            print("Pan Failed last \(Int(abs(last.x)).distance(to: Int(abs(result.localCoordinates.x)))) result \(Int(abs(last.z)).distance(to: Int(abs(result.localCoordinates.z))))")
-            return
-        }
+//        if
+//            gesture.state == .changed,
+//            let last = gesture.lastLocation,
+//            Int(abs(last.x)).distance(to: Int(abs(result.localCoordinates.x))) < 2 &&
+//                Int(abs(last.z)).distance(to: Int(abs(result.localCoordinates.z))) < 2
+//        {
+////            print("Pan Failed last \(Int(abs(last.x)).distance(to: Int(abs(result.localCoordinates.x)))) result \(Int(abs(last.z)).distance(to: Int(abs(result.localCoordinates.z))))")
+//            return
+//        }
         
-        guard Int(result.localCoordinates.x) % 2 == 0 else { return }
-        guard Int(result.localCoordinates.z) % 2 == 0 else { return }
+        guard Int(round(result.localCoordinates.x)) % 2 == 0 else { return }
+        guard Int(round(result.localCoordinates.z)) % 2 == 0 else { return }
     
-        gesture.lastLocation = createHighligher(with: result, component: comp)
+//        gesture.lastLocation = createHighligher(with: result, component: comp)
+        
+        let thing = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
+        
+        print("wtf")
     }
     
     private func createHighligher(with result: SCNHitTestResult, component: GKSCNNodeComponent) -> SCNVector3 {
@@ -83,7 +88,7 @@ final class GameController: NSObject {
         // Also need to manually create the highlighters for when the use presses far away from characgter
         // Use Gameplaykit pathfinding for that?
         let highlighter = HighlighterNode()
-        highlighter.position = SCNVector3(Int(result.localCoordinates.x), Int(result.localCoordinates.y), Int(result.localCoordinates.z))
+        highlighter.position = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
         component.node.addChildNode(highlighter)
         return highlighter.position
     }
@@ -150,6 +155,20 @@ extension GameController {
         
         guard let plane = scene.rootNode.childNode(withName: "Plane", recursively: true) else { assertionFailure(); return }
         entityManager.add(PlaneEntity(node: plane))
+        createGraph(with: plane)
+    }
+    
+    func createGraph(with node: SCNNode) {
+        graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: true)
+        var graphNodes: [GKGridGraphNode] = []
+        for x in 0...Int32(node.size.x) {
+            for y in 0...Int32(node.size.y) {
+                let graphNode = GKGridGraphNode(gridPosition: vector_int2(x, y))
+                graphNodes.append(graphNode)
+            }
+        }
+        
+        graph.add(graphNodes)
     }
 }
 

@@ -32,6 +32,7 @@
 		AF8D9ACE20ABCFD400D9CF07 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */; };
 		AF8D9AD020ABCFEE00D9CF07 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9ACF20ABCFEE00D9CF07 /* Sequence+Extensions.swift */; };
 		AFB02A3F20BF70C0007891B7 /* PathGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB02A3E20BF70C0007891B7 /* PathGesture.swift */; };
+		AFB02A4120BF745C007891B7 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB02A4020BF745C007891B7 /* SCNNode+Extensions.swift */; };
 		AFE717EF209DE99400552814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE717EE209DE99400552814 /* AppDelegate.swift */; };
 		AFE717F1209DE99400552814 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = AFE717F0209DE99400552814 /* art.scnassets */; };
 		AFE717F3209DE99400552814 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE717F2209DE99400552814 /* GameViewController.swift */; };
@@ -66,6 +67,7 @@
 		AF8D9ACD20ABCFD400D9CF07 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		AF8D9ACF20ABCFEE00D9CF07 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		AFB02A3E20BF70C0007891B7 /* PathGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathGesture.swift; sourceTree = "<group>"; };
+		AFB02A4020BF745C007891B7 /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
 		AFE717EB209DE99400552814 /* SokobanCopy2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SokobanCopy2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFE717EE209DE99400552814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFE717F0209DE99400552814 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				AF556BA820B07E7A00B532E3 /* Comparable+Extensions.swift */,
 				AF556BAA20B097A600B532E3 /* SCNVector3+Extensions.swift */,
 				AF556BAC20B09BE300B532E3 /* GKComponent+Extensions.swift */,
+				AFB02A4020BF745C007891B7 /* SCNNode+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				AF556BA120B05F6600B532E3 /* OverlayEntity.swift in Sources */,
 				AF0803EF20BEE7010046236A /* HighlighterNode.swift in Sources */,
 				A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */,
+				AFB02A4120BF745C007891B7 /* SCNNode+Extensions.swift in Sources */,
 				AF556BA920B07E7A00B532E3 /* Comparable+Extensions.swift in Sources */,
 				AF8D9ACE20ABCFD400D9CF07 /* Helpers.swift in Sources */,
 				A5E44616209F3FCA002AE653 /* EntityManager.swift in Sources */,

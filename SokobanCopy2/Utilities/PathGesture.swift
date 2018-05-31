@@ -23,19 +23,18 @@ final class PathGesture: UIGestureRecognizer {
             state = .failed
             return
         }
-        
+        print("began")
         state = .began
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         guard let _ = lastLocation else { return }
-        
+        print("changed")
         state = .changed
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
-        guard let _ = lastLocation else { return }
-        
+        print("ended")
         state = .ended
     }
     
