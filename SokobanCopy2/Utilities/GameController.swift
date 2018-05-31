@@ -28,10 +28,7 @@ final class GameController: NSObject {
         
         entityManager.controller = self
         entityManager.renderer = sceneRenderer!
-        
-        // Add ControlOverlay
-//        entityManager.add(OverlayEntity(size: scnView.bounds.size, controller: self))
-        
+    
         scene = SCNScene(named: "art.scnassets/Scenes/game.scn")!
         scene.physicsWorld.contactDelegate = self
         sceneRenderer!.scene = scene
@@ -67,6 +64,37 @@ final class GameController: NSObject {
 
         let position = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
         assert(graph.node(atGridPosition: vector_int2(Int32(position.x), Int32(position.z))) != nil)
+        
+        if gesture.state == .ended {
+            createPath(on: comp.node, targetPosition: position)
+        }
+    }
+    
+    private func createPath(on grid: SCNNode, targetPosition: SCNVector3) {
+        guard
+            let character: CharacterEntity = entityManager.entity(),
+            let charNode = character.component(ofType: GKSCNNodeComponent.self)?.node,
+            let charGridNode = graph.node(atGridPosition: vector_int2(Int32(round(charNode.convertPosition(charNode.position, to: grid).x)), Int32(round(charNode.convertPosition(charNode.position, to: grid).z)))),
+            let targetGridNode = graph.node(atGridPosition: vector_int2(Int32(targetPosition.x), Int32(targetPosition.z)))
+        else {
+            assertionFailure("Entity Manager Has No Character Entity")
+            return
+        }
+        
+        print("CREATING PATH")
+        
+        let paths = graph.findPath(from: charGridNode, to: targetGridNode)
+        guard !paths.isEmpty else {
+            print("❌ Graph couldn't find viable path 😭")
+            return
+        }
+        
+        for path in paths {
+            guard let gridPath = path as? GKGridGraphNode else { assertionFailure(); continue }
+            let highlight = HighlighterNode()
+            highlight.position = SCNVector3(Int(gridPath.gridPosition.x), 0, Int(gridPath.gridPosition.y))
+            grid.addChildNode(highlight)
+        }
     }
 }
 
@@ -90,7 +118,6 @@ extension GameController: SCNSceneRendererDelegate {
         guard let hiddenCollision: HiddenCollisionEntity = entityManager.entity() else { return }
         guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
         hiddenComponent.node.position = characterComponent.node.position
-//        hiddenCollision.rotation = character.rotation
     }
 }
 
@@ -135,21 +162,49 @@ extension GameController {
     }
     
     func createGraph(with node: SCNNode) {
-        graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: true)
+        graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: GRID_ALLOWS_DIAGONAL)
         var graphNodes: [GKGridGraphNode] = []
         
         stride(from: Int(node.boundingBox.min.x + GRID_WIDTH_HEIGHT/2), to: Int(node.boundingBox.max.x + GRID_WIDTH_HEIGHT/2), by: 2).forEach { (x) in
             stride(from: Int(node.boundingBox.min.z + GRID_WIDTH_HEIGHT/2), to: Int(node.boundingBox.max.z + GRID_WIDTH_HEIGHT/2), by: 2).forEach({ (z) in
                 let graphNode = GKGridGraphNode(gridPosition: vector_int2(Int32(x), Int32(z)))
                 graphNodes.append(graphNode)
-                
-//                let highlighter = HighlighterNode()
-//                highlighter.position = SCNVector3(Int(x), 0, Int(z))
-//                node.addChildNode(highlighter)
             })
         }
         
         graph.add(graphNodes)
+        removeOffCenterNodes()
+    }
+    
+    private func removeOffCenterNodes() {
+        guard let nodes = graph.nodes as? [GKGridGraphNode] else { return }
+        
+        var nodesToRemove: [GKGridGraphNode] = []
+        for node in nodes {
+            if node.gridPosition.x % 2 != 0 || node.gridPosition.y % 2 != 0 {
+                nodesToRemove.append(node)
+            }
+        }
+        
+        graph.remove(nodesToRemove)
+//        createDebugNodes()
+    }
+    
+    private func createDebugNodes() {
+        guard let nodes = graph.nodes else {
+            print("😡 Can't create debug nodes because they don't exist!!!")
+            return
+        }
+        
+        
+        guard let planeEntity: PlaneEntity = entityManager.entity() else { assertionFailure(); return }
+        guard let plane = planeEntity.component(ofType: GKSCNNodeComponent.self)?.node else { assertionFailure(); return }
+        nodes.forEach { (node) in
+            guard let gridNode = node as? GKGridGraphNode else { return }
+            let highlighter = HighlighterNode()
+            highlighter.position = SCNVector3(Int(gridNode.gridPosition.x), 0, Int(gridNode.gridPosition.y))
+            plane.addChildNode(highlighter)
+        }
     }
 }
 
