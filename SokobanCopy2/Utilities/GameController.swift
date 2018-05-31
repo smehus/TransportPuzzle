@@ -46,6 +46,7 @@ final class GameController: NSObject {
         setupCollisions()
         setupNodes()
         setupGestures()
+
     }
     
     private func setupGestures() {
@@ -94,13 +95,18 @@ final class GameController: NSObject {
             return
         }
         
-        for path in gridPaths {
+        let filteredPaths = gridPaths.filter { (p) -> Bool in
+            return (p.gridPosition.x % 2 == 0) && (p.gridPosition.y % 2 == 0)
+        }
+        
+        for path in filteredPaths {
+            
             let highlight = HighlighterNode()
             highlight.position = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
             grid.addChildNode(highlight)
         }
         
-        movePlayer(along: gridPaths)
+        movePlayer(along: filteredPaths)
     }
     
     private func movePlayer(along paths: [GKGridGraphNode]) {

@@ -77,18 +77,11 @@ final class CharacterEntity: GKEntity {
         for (index, path) in paths.enumerated() {
             let pos = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
             let convertedPOS = grid.convertPosition(pos, to: node.parent!)
-            let action = SCNAction.move(to: convertedPOS, duration: Animation.walk.animationDuration / 2)
             
-            if index + 1 <= (paths.count - 1) {
-                let nextPath = paths[index + 1]
-                let nextPos = SCNVector3(Int(nextPath.gridPosition.x), 0, Int(nextPath.gridPosition.y))
-                let nextConvertedPos = grid.convertPosition(nextPos, to: node.parent!)
-                let rotate = rotateAction(to: nextConvertedPos)
-                
-                actions.append(SCNAction.group([action, rotate]))
-            } else {
-                actions.append(action)
-            }
+            let action = SCNAction.move(to: convertedPOS, duration: Animation.walk.animationDuration)
+            let rotate = rotateAction(to: convertedPOS)
+            
+            actions.append(SCNAction.group([action, rotate]))
         }
         
         let stopAction = SCNAction.customAction(duration: 0.0) { (node, _) in
@@ -97,7 +90,18 @@ final class CharacterEntity: GKEntity {
         
         
         node.runAction(.sequence([SCNAction.sequence(actions), stopAction]))
-        node.addAnimationPlayer(Animation.walk.player, forKey: "animation")
+//        node.addAnimationPlayer(Animation.walk.player, forKey: "animation")
+    }
+    
+    private func nextPathPosition(_ index: Int, paths: [GKGridGraphNode], grid: SCNNode) -> SCNVector3? {
+        let node = component(ofType: GKSCNNodeComponent.self)!.node
+        if index + 1 <= (paths.count - 1) {
+            let nextPath = paths[index + 1]
+            let nextPos = SCNVector3(Int(nextPath.gridPosition.x), 0, Int(nextPath.gridPosition.y))
+            return grid.convertPosition(nextPos, to: node.parent!)
+        }
+        
+        return nil
     }
     
     private func rotateAction(to vector: SCNVector3) -> SCNAction {
