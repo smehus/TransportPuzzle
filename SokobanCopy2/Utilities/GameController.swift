@@ -162,6 +162,7 @@ extension GameController {
     }
     
     func createGraph(with node: SCNNode) {
+        
         graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: GRID_ALLOWS_DIAGONAL)
         var graphNodes: [GKGridGraphNode] = []
         
@@ -173,6 +174,7 @@ extension GameController {
         }
         
         graph.add(graphNodes)
+
         removeOffCenterNodes()
     }
     
@@ -181,13 +183,22 @@ extension GameController {
         
         var nodesToRemove: [GKGridGraphNode] = []
         for node in nodes {
-            if node.gridPosition.x % 2 != 0 || node.gridPosition.y % 2 != 0 {
+            if node.gridPosition.x % 2 != 0 && node.gridPosition.y % 2 != 0 {
                 nodesToRemove.append(node)
             }
         }
         
         graph.remove(nodesToRemove)
+//        connectAdjacents()
 //        createDebugNodes()
+    }
+    
+    private func connectAdjacents() {
+        let nodes = graph.nodes as! [GKGridGraphNode]
+        
+        for node in nodes {
+            graph.connectToLowestCostNode(node: node, bidirectional: true)
+        }
     }
     
     private func createDebugNodes() {
