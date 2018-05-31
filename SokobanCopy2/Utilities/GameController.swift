@@ -161,11 +161,16 @@ extension GameController {
     func createGraph(with node: SCNNode) {
         graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: true)
         var graphNodes: [GKGridGraphNode] = []
-        for x in 0...Int32(node.size.x) {
-            for y in 0...Int32(node.size.y) {
-                let graphNode = GKGridGraphNode(gridPosition: vector_int2(x, y))
+        
+        stride(from: Int(node.boundingBox.min.x), to: Int(node.boundingBox.max.x), by: 2).forEach { (x) in
+            stride(from: Int(node.boundingBox.min.z), to: Int(node.boundingBox.max.z), by: 2).forEach({ (z) in
+                let graphNode = GKGridGraphNode(gridPosition: vector_int2(Int32(x), Int32(z)))
                 graphNodes.append(graphNode)
-            }
+                
+                let highlighter = HighlighterNode()
+                highlighter.position = SCNVector3(Int(x), 0, Int(z))
+                node.addChildNode(highlighter)
+            })
         }
         
         graph.add(graphNodes)
