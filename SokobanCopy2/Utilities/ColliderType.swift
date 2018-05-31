@@ -32,6 +32,7 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     static var hiddenRight: ColliderType { return self.init(rawValue: 1 << 4) }
     static var hiddenFront: ColliderType { return self.init(rawValue: 1 << 5) }
     static var hiddenBack:  ColliderType { return self.init(rawValue: 1 << 6) }
+    static var highlighter: ColliderType { return self.init(rawValue: 1 << 7) }
     
     // MARK: Hashable
     
@@ -57,6 +58,10 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
             return "Hidden Front"
         case .hiddenBack:
             return "Hidden Back"
+        case .highlighter:
+            return "Highligher"
+        case ColliderType.player.union(.highlighter):
+            return "Player Collision With Highlighter"
         default:
             return "UnknownColliderType(\(self.rawValue))"
         }

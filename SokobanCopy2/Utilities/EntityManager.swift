@@ -91,11 +91,16 @@ final class EntityManager: NSObject {
     lazy var componentSystems: [ComponentSystem] = {
         // Manages all instances of the DirectionalComponent
 
+        let highlightComponent = ComponentSystem(componentClass: RemoveOnContactComponent.self)
         let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
         let movableComponent = ComponentSystem(componentClass: MovableComponent.self)
         let hidddenCollisionComponent = ComponentSystem(componentClass: HiddenCollisionComponent.self)
         let pathCreatorComponent = ComponentSystem(componentClass: PathCreatorComponent.self)
-        return [touchControlComponent, movableComponent, hidddenCollisionComponent, pathCreatorComponent]
+        return [touchControlComponent,
+                movableComponent,
+                hidddenCollisionComponent,
+                pathCreatorComponent,
+                highlightComponent]
     }()
     
     weak var controller: GameController!
@@ -110,9 +115,13 @@ final class EntityManager: NSObject {
     }
     
     
-    func add(_ entity: GKEntity) {
+    func add(_ entity: GKEntity, parent: SCNNode? = nil) {
         entities.insert(entity)
         gkScene.addEntity(entity)
+        
+        if let node = entity.component(ofType: GKSCNNodeComponent.self)?.node, let parent = parent {
+            parent.addChildNode(node)
+        }
          
         if let overlayScene = entity.component(ofType: TouchControlComponent.self)?.scene {
             renderer.overlaySKScene = overlayScene
@@ -140,6 +149,10 @@ final class EntityManager: NSObject {
         entities.remove(entity)
         toRemove.insert(entity)
         gkScene.removeEntity(entity)
+        
+        if let node = entity.component(ofType: GKSCNNodeComponent.self)?.node {
+            node.removeFromParentNode()
+        }
     }
     
     func update(_ deltaTime: CFTimeInterval) {

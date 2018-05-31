@@ -13,9 +13,12 @@ final class HighlighterNode: SCNNode {
     
     override init() {
         super.init()
-        let g = SCNSphere(radius: 0.5)
+        let g = SCNSphere(radius: 0.2)
         g.materials.first?.diffuse.contents = UIColor.yellow
         self.geometry = g
+        
+        physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: g, options: [:]))
+        configure(collider: .highlighter)
     }
     
     required init?(coder aDecoder: NSCoder) {

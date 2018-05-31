@@ -103,10 +103,8 @@ final class GameController: NSObject {
         }
         
         for path in filteredPaths {
-            
-            let highlight = HighlighterNode()
-            highlight.position = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
-            grid.addChildNode(highlight)
+            let highlightEntity = HighlighterEntity(position: SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y)))
+            entityManager.add(highlightEntity, parent: grid)
         }
         
         movePlayer(along: filteredPaths)
@@ -155,14 +153,18 @@ extension GameController {
         ColliderType.shouldNotify[.hiddenFront] = true
         ColliderType.shouldNotify[.hiddenLeft] = true
         ColliderType.shouldNotify[.hiddenRight] = true
+        ColliderType.shouldNotify[.highlighter] = true
         
         ColliderType.requestedContactNotifications[.box] = [.player]
-        ColliderType.requestedContactNotifications[.player] = [.box]
         
+        ColliderType.requestedContactNotifications[.player] = [.box, .highlighter]
+    
         ColliderType.requestedContactNotifications[.hiddenFront] =  [.box]
         ColliderType.requestedContactNotifications[.hiddenBack] =   [.box]
         ColliderType.requestedContactNotifications[.hiddenLeft] =   [.box]
         ColliderType.requestedContactNotifications[.hiddenRight] =  [.box]
+        
+        ColliderType.requestedContactNotifications[.highlighter] =  [.player]
         
         ColliderType.definedCollisions[.player] = [.box]
         ColliderType.definedCollisions[.box] = [.player, .plane]
