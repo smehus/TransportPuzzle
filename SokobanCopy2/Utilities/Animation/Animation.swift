@@ -11,6 +11,7 @@ import SceneKit
 
 enum Animation {
     case walk
+    case step
     case push
     case idle
     
@@ -27,7 +28,8 @@ enum Animation {
     
     var player: SCNAnimationPlayer {
         switch self {
-        case .walk: return Animation.walkStopAnimation
+        case .step: return Animation.walkStopAnimation
+        case .walk: return Animation.toughWalkAnimation
         case .push: return Animation.closePushLoopAnimation
         case .idle: return Animation.idleStraightAnimation
         }
@@ -35,8 +37,10 @@ enum Animation {
     
     var animationDuration: TimeInterval {
         switch self {
+        case .step:
+            return Animation.step.player.animation.duration / 2
         case .walk:
-            return Animation.walk.player.animation.duration / 2
+            return Animation.walk.player.animation.duration
         case .push:
             return Animation.push.player.animation.duration
         case .idle:
