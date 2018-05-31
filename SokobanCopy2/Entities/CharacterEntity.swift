@@ -44,14 +44,7 @@ final class CharacterEntity: GKEntity {
             vector.z += CHARACTER_MOVE_AMT
         }
         
-        let lengthZ = vector.z - node.position.z
-        let lengthX = vector.x - node.position.x
-        let direction = float2(x: lengthX, y: lengthZ)
-        let normalized = normalize(direction)
-        let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
-        
-        let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
-        let rotate = SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.1)
+        let rotate = rotateAction(to: vector)
         
         let wait = SCNAction.run { _ in
             DispatchQueue.main.async {
@@ -75,5 +68,47 @@ final class CharacterEntity: GKEntity {
         let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
         node.runAction(SCNAction.sequence([SCNAction.group([moveAction, rotate]), wait]))
         node.addAnimationPlayer(animation.player, forKey: "animation")
+    }
+    
+    func move(along paths: [GKGridGraphNode], on grid: SCNNode) {
+        let node = component(ofType: GKSCNNodeComponent.self)!.node
+        
+        var actions: [SCNAction] = []
+        for (index, path) in paths.enumerated() {
+            let pos = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
+            let convertedPOS = grid.convertPosition(pos, to: node.parent!)
+            let action = SCNAction.move(to: convertedPOS, duration: Animation.walk.animationDuration / 2)
+            
+            if index + 1 <= (paths.count - 1) {
+                let nextPath = paths[index + 1]
+                let nextPos = SCNVector3(Int(nextPath.gridPosition.x), 0, Int(nextPath.gridPosition.y))
+                let nextConvertedPos = grid.convertPosition(nextPos, to: node.parent!)
+                let rotate = rotateAction(to: nextConvertedPos)
+                
+                actions.append(SCNAction.group([action, rotate]))
+            } else {
+                actions.append(action)
+            }
+        }
+        
+        let stopAction = SCNAction.customAction(duration: 0.0) { (node, _) in
+            node.removeAllAnimations()
+        }
+        
+        
+        node.runAction(.sequence([SCNAction.sequence(actions), stopAction]))
+        node.addAnimationPlayer(Animation.walk.player, forKey: "animation")
+    }
+    
+    private func rotateAction(to vector: SCNVector3) -> SCNAction {
+        let node = component(ofType: GKSCNNodeComponent.self)!.node
+        let lengthZ = vector.z - node.position.z
+        let lengthX = vector.x - node.position.x
+        let direction = float2(x: lengthX, y: lengthZ)
+        let normalized = normalize(direction)
+        let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
+        
+        let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
+        return SCNAction.rotateTo(x: 0, y: CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), z: 0.0, duration: 0.1)
     }
 }

@@ -20,6 +20,11 @@ final class GameController: NSObject {
 
     private var lastUpdate: TimeInterval = 0
     
+    var grid: SCNNode! {
+        guard let entity: PlaneEntity = entityManager.entity() else { return nil }
+        return entity.component(ofType: GKSCNNodeComponent.self)!.node
+    }
+    
     init(scnView: SCNView) {
         super.init()
     
@@ -84,17 +89,27 @@ final class GameController: NSObject {
         print("CREATING PATH")
         
         let paths = graph.findPath(from: charGridNode, to: targetGridNode)
-        guard !paths.isEmpty else {
+        guard !paths.isEmpty, let gridPaths = paths as? [GKGridGraphNode] else {
             print("❌ Graph couldn't find viable path 😭")
             return
         }
         
-        for path in paths {
-            guard let gridPath = path as? GKGridGraphNode else { assertionFailure(); continue }
+        for path in gridPaths {
             let highlight = HighlighterNode()
-            highlight.position = SCNVector3(Int(gridPath.gridPosition.x), 0, Int(gridPath.gridPosition.y))
+            highlight.position = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
             grid.addChildNode(highlight)
         }
+        
+        movePlayer(along: gridPaths)
+    }
+    
+    private func movePlayer(along paths: [GKGridGraphNode]) {
+        guard let charEntity: CharacterEntity = entityManager.entity() else {
+            assertionFailure()
+            return
+        }
+        
+        charEntity.move(along: paths, on: grid)
     }
 }
 
