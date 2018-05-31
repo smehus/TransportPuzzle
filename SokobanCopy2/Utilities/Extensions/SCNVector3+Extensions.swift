@@ -27,3 +27,7 @@ func +(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
 func -(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
     return SCNVector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z)
 }
+
+func !=(lhs: SCNVector3, rhs: SCNVector3) -> Bool {
+    return (lhs.x != rhs.x) || (lhs.y != rhs.y) || (lhs.z != rhs.z)
+}

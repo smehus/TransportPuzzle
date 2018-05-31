@@ -96,7 +96,10 @@ final class GameController: NSObject {
         }
         
         let filteredPaths = gridPaths.filter { (p) -> Bool in
-            return (p.gridPosition.x % 2 == 0) && (p.gridPosition.y % 2 == 0)
+            let isGridPosition = (p.gridPosition.x % 2 == 0) && (p.gridPosition.y % 2 == 0)
+            let charPos = grid.convertPosition(charNode.position, from: charNode.parent)
+            let gridPos = SCNVector3(Int(p.gridPosition.x), 0, Int(p.gridPosition.y))
+            return isGridPosition && (charPos != gridPos)
         }
         
         for path in filteredPaths {

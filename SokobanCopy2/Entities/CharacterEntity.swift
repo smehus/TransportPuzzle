@@ -90,7 +90,7 @@ final class CharacterEntity: GKEntity {
         
         
         node.runAction(.sequence([SCNAction.sequence(actions), stopAction]))
-//        node.addAnimationPlayer(Animation.walk.player, forKey: "animation")
+        node.addAnimationPlayer(Animation.walk.player, forKey: "animation")
     }
     
     private func nextPathPosition(_ index: Int, paths: [GKGridGraphNode], grid: SCNNode) -> SCNVector3? {
