@@ -56,6 +56,13 @@ final class GameController: NSObject {
     }
     
     @objc private func path(gesture: PathGesture) {
+        if gesture.state == .began {
+            currentPaths.forEach { (entity) in
+                entity.removeFromManager()
+            }
+            
+            currentPaths.removeAll()
+        }
     
         guard let view = sceneRenderer as? SCNView else { assertionFailure(); return }
         let location = gesture.location(in: view)
