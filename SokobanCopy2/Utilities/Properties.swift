@@ -6,8 +6,9 @@
 //  Copyright © 2018 ScottMehus. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 let CHARACTER_MOVE_AMT: Float = 2
 let GRID_WIDTH_HEIGHT: Float = CHARACTER_MOVE_AMT
 let GRID_ALLOWS_DIAGONAL = false
+let DEFINED_ROTATIONS: [CGFloat] = [0, 90, -90, 180, -180]

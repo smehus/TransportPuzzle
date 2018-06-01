@@ -12,11 +12,19 @@ let π = CGFloat(Double.pi)
 
 public extension CGFloat {
     
+    var intValue: Int {
+        return Int(self)
+    }
+    
     public func degreesToRadians() -> CGFloat {
         return π * self / 180.0
     }
     
     public func radiansToDegrees() -> CGFloat {
         return self * 180.0 / π
+    }
+    
+    public func degreesToNormal() -> CGFloat {
+        return self > 0 ? 1 : -1
     }
 }

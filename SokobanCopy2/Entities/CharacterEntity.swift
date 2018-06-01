@@ -101,6 +101,27 @@ final class CharacterEntity: GKEntity {
         let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
     
         var animation: Animation = .walk
+        
+        if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
+            let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
+            
+            let vector = nextAction.vector - node.position
+            for (_, collision) in hiddenComp.currentCollisions {
+                
+                switch collision.hiddenCollider {
+                case .hiddenRight where vector.x > 0:
+                    animation = .push
+                case .hiddenLeft where vector.x < 0:
+                    animation = .push
+                case .hiddenFront where vector.z > 0:
+                    animation = .push
+                case .hiddenBack where vector.z < 0:
+                    animation = .push
+                default: break
+                }
+            }
+        }
+        
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group([moveAction, rotateAction])) {
             guard !newActions.isEmpty else { completed(); return }
@@ -127,7 +148,7 @@ final class CharacterEntity: GKEntity {
         let normalized = normalize(direction)
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
         
-        let nearest = [0, 90, -90, 180, -180].nearestElement(to: degrees)
+        let nearest = DEFINED_ROTATIONS.nearestElement(to: degrees)
         return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), 0)
     }
 }

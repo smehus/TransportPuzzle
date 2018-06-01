@@ -62,6 +62,8 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
             return "Highligher"
         case ColliderType.player.union(.highlighter):
             return "Player Collision With Highlighter"
+        case ColliderType.hiddenRight.union(.box):
+            return "Hidden Rigth Collide With Box"
         default:
             return "UnknownColliderType(\(self.rawValue))"
         }
