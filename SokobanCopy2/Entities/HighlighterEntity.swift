@@ -11,7 +11,9 @@ import GameplayKit
 
 final class HighlighterEntity: GKEntity {
     
-    init(position: SCNVector3) {
+    let gridPath: GKGridGraphNode
+    init(position: SCNVector3, gridPath: GKGridGraphNode) {
+        self.gridPath = gridPath
         super.init()
         
         let node = HighlighterNode()

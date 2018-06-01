@@ -19,6 +19,7 @@ final class GameController: NSObject {
     private var graph: GKGridGraph<GKGridGraphNode>!
 
     private var lastUpdate: TimeInterval = 0
+    private var currentPaths = [HighlighterEntity]()
     
     var grid: SCNNode! {
         guard let entity: PlaneEntity = entityManager.entity() else { return nil }
@@ -71,11 +72,21 @@ final class GameController: NSObject {
         let position = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
         assert(graph.node(atGridPosition: vector_int2(Int32(position.x), Int32(position.z))) != nil)
         
-        if gesture.state == .ended {
+        
+        switch gesture.state {
+        case .began, .changed:
             createPath(on: comp.node, targetPosition: position)
+        case .ended:
+            // This only works if it ends on the center of a grid tile
+            if !currentPaths.isEmpty {
+                movePlayer(along: currentPaths)
+            } else {
+                print("GESTURE ENDED: 😡 CURRENT PATHS ARE EMPTY")
+            }
+        default: break
         }
     }
-    
+
     private func createPath(on grid: SCNNode, targetPosition: SCNVector3) {
         guard
             let character: CharacterEntity = entityManager.entity(),
@@ -86,9 +97,7 @@ final class GameController: NSObject {
             assertionFailure("Entity Manager Has No Character Entity")
             return
         }
-        
-        print("CREATING PATH")
-        
+
         let paths = graph.findPath(from: charGridNode, to: targetGridNode)
         guard !paths.isEmpty, let gridPaths = paths as? [GKGridGraphNode] else {
             print("❌ Graph couldn't find viable path 😭")
@@ -102,21 +111,29 @@ final class GameController: NSObject {
             return isGridPosition && (charPos != gridPos)
         }
         
+        var constructedPaths: [HighlighterEntity] = []
         for path in filteredPaths {
-            let highlightEntity = HighlighterEntity(position: SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y)))
+            let highlightEntity = HighlighterEntity(position: SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y)),
+                                                    gridPath: path)
             entityManager.add(highlightEntity, parent: grid)
+            constructedPaths.append(highlightEntity)
         }
         
-        movePlayer(along: filteredPaths)
+        currentPaths.forEach { (entity) in
+            entity.removeFromManager()
+        }
+        
+        currentPaths = constructedPaths
     }
     
-    private func movePlayer(along paths: [GKGridGraphNode]) {
+    private func movePlayer(along paths: [HighlighterEntity]) {
+        print("MOVING PLAYER")
         guard let charEntity: CharacterEntity = entityManager.entity() else {
             assertionFailure()
             return
         }
         
-        charEntity.move(along: paths, on: grid)
+        charEntity.move(along: paths.map { $0.gridPath }, on: grid)
     }
 }
 
