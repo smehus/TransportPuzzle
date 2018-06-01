@@ -28,51 +28,6 @@ final class CharacterEntity: GKEntity {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func move(controlDirection: ControlDirection) {
-        /*
-        guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { assertionFailure(); return }
-        
-        var vector = node.position
-        switch controlDirection {
-        case .left:
-            vector.x -= CHARACTER_MOVE_AMT
-        case .right:
-            vector.x += CHARACTER_MOVE_AMT
-        case .top:
-            vector.z -= CHARACTER_MOVE_AMT
-        case .bottom:
-            vector.z += CHARACTER_MOVE_AMT
-        }
-        
-        let rotateVector = rotateAction(to: vector)
-        let rotate = SCNAction.rotateTo(x: CGFloat(rotateVector.x), y: CGFloat(rotateVector.y), z: CGFloat(rotateVector.z), duration: 0.1)
-        
-        let wait = SCNAction.run { _ in
-            DispatchQueue.main.async {
-                node.removeAllAnimations()
-                node.addAnimationPlayer(Animation.idle.player, forKey: "idle")
-                
-                // Reset user interaction
-                if let overlay: OverlayEntity = EntityManager.shared.entity(), let comp = overlay.component(ofType: TouchControlComponent.self) {
-                    comp.scene.isUserInteractionEnabled = true
-                } else {
-                    assertionFailure()
-                }
-            }
-        }
-        var animation: Animation = .walk
-        if let hidden: HiddenCollisionEntity = EntityManager.shared.entity(),
-            let _ = hidden.collision(for: controlDirection) {
-            animation = .push
-        }
-        
-        let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
-        node.runAction(SCNAction.sequence([SCNAction.group([moveAction, rotate]), wait]))
-        node.addAnimationPlayer(animation.player, forKey: "animation")
- */
-    }
-    
     func move(along paths: [GKGridGraphNode], on grid: SCNNode) {
         let node = component(ofType: GKSCNNodeComponent.self)!.node
         
@@ -131,17 +86,6 @@ final class CharacterEntity: GKEntity {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
-    }
-    
-    private func nextPathPosition(_ index: Int, paths: [GKGridGraphNode], grid: SCNNode) -> SCNVector3? {
-        let node = component(ofType: GKSCNNodeComponent.self)!.node
-        if index + 1 <= (paths.count - 1) {
-            let nextPath = paths[index + 1]
-            let nextPos = SCNVector3(Int(nextPath.gridPosition.x), 0, Int(nextPath.gridPosition.y))
-            return grid.convertPosition(nextPos, to: node.parent!)
-        }
-        
-        return nil
     }
     
     private func rotateVector(to vector: SCNVector3) -> SCNVector3 {
