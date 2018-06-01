@@ -65,6 +65,11 @@ final class GameController: NSObject {
         guard let result = hitResults.first else { return }
         guard let plane = result.node.entity as? PlaneEntity else { return }
         guard let comp = plane.component(ofType: GKSCNNodeComponent.self) else { return }
+        
+        if gesture.state == .ended, !currentPaths.isEmpty {
+            movePlayer(along: currentPaths)
+            return
+        }
  
         guard Int(round(result.localCoordinates.x)) % 2 == 0 else { return }
         guard Int(round(result.localCoordinates.z)) % 2 == 0 else { return }
@@ -76,13 +81,6 @@ final class GameController: NSObject {
         switch gesture.state {
         case .began, .changed:
             createPath(on: comp.node, targetPosition: position)
-        case .ended:
-            // This only works if it ends on the center of a grid tile
-            if !currentPaths.isEmpty {
-                movePlayer(along: currentPaths)
-            } else {
-                print("GESTURE ENDED: 😡 CURRENT PATHS ARE EMPTY")
-            }
         default: break
         }
     }
