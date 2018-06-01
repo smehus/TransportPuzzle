@@ -93,11 +93,9 @@ final class EntityManager: NSObject {
 
         let highlightComponent = ComponentSystem(componentClass: RemoveOnContactComponent.self)
         let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
-        let movableComponent = ComponentSystem(componentClass: MovableComponent.self)
         let hidddenCollisionComponent = ComponentSystem(componentClass: HiddenCollisionComponent.self)
         let pathCreatorComponent = ComponentSystem(componentClass: PathCreatorComponent.self)
         return [touchControlComponent,
-                movableComponent,
                 hidddenCollisionComponent,
                 pathCreatorComponent,
                 highlightComponent]

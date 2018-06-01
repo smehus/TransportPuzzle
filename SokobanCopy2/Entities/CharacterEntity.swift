@@ -22,7 +22,6 @@ final class CharacterEntity: GKEntity {
         node.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         
         addComponent(GKSCNNodeComponent(node: node))
-        addComponent(MovableComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -102,11 +101,6 @@ final class CharacterEntity: GKEntity {
         let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
     
         var animation: Animation = .walk
-        if let hidden: HiddenCollisionEntity = EntityManager.shared.entity(),
-            let _ = hidden.collision(for: Int(rotateVec.y.cg.radiansToDegrees())) {
-            animation = .push
-        }
-        
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group([moveAction, rotateAction])) {
             guard !newActions.isEmpty else { completed(); return }

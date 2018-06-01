@@ -23,7 +23,6 @@ final class BoxEntity: GKEntity {
         node.entity = self
         
         addComponent(GKSCNNodeComponent(node: node))
-        addComponent(MovableComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {

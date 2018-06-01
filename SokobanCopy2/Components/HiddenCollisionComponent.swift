@@ -11,10 +11,6 @@ import GameplayKit
 
 final class HiddenCollisionComponent: GKComponent {
     private var currentCollisions: Set<ColliderType> = []
-    
-    func collision(for direction: ControlDirection) -> ColliderType? {
-        return currentCollisions.first(where: { $0 == direction.collider })
-    }
 }
 
 extension HiddenCollisionComponent: CollisionDetector {
