@@ -111,12 +111,16 @@ final class CharacterEntity: GKEntity {
                 switch collision.hiddenCollider {
                 case .hiddenRight where vector.x > 0:
                     animation = .push
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
                 case .hiddenLeft where vector.x < 0:
                     animation = .push
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
                 case .hiddenFront where vector.z > 0:
                     animation = .push
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
                 case .hiddenBack where vector.z < 0:
                     animation = .push
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
                 default: break
                 }
             }
