@@ -31,6 +31,9 @@ final class CharacterEntity: GKEntity {
     func move(along paths: [GKGridGraphNode], on grid: SCNNode) {
         let node = component(ofType: GKSCNNodeComponent.self)!.node
         
+        node.removeAllActions()
+        node.removeAnimation(forKey: Animation.key)
+        
         var moveActions: [MoveAction] = []
         
         for (_, path) in paths.enumerated() {
@@ -39,7 +42,6 @@ final class CharacterEntity: GKEntity {
             moveActions.append(MoveAction(vector: convertedPOS))
         }
         
-        node.removeAnimation(forKey: Animation.key)
         run(moveActions) {
             node.removeAnimation(forKey: Animation.key)
             node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
@@ -82,7 +84,7 @@ final class CharacterEntity: GKEntity {
         }
         
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
-        node.runAction(SCNAction.group([moveAction, rotateAction])) {
+        node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: Animation.key) {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }

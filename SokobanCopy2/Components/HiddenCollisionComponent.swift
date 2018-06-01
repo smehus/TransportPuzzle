@@ -17,6 +17,16 @@ struct HiddenCollision {
 
 final class HiddenCollisionComponent: GKComponent {
     var currentCollisions: [ColliderType: HiddenCollision] = [:]
+    
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
+        
+        guard let character: CharacterEntity = EntityManager.shared.entity() else { return }
+        guard let characterComponent = character.component(ofType: GKSCNNodeComponent.self) else { return }
+        guard let hiddenCollision = entity as? HiddenCollisionEntity else { return }
+        guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
+        hiddenComponent.node.position = characterComponent.node.position
+    }
 }
 
 extension HiddenCollisionComponent: CollisionDetector {

@@ -42,7 +42,6 @@ final class GameController: NSObject {
         sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
 //        sceneRenderer!.debugOptions = [.showPhysicsShapes]
-        sceneRenderer!.pointOfView = scene!.rootNode.childNode(withName: "camera", recursively: true)
         
         setupCollisions()
         setupNodes()
@@ -138,23 +137,15 @@ final class GameController: NSObject {
 extension GameController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         let _ = Double(time - lastUpdate)
-        
+        entityManager.update(time)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
-        updatePositions()
+
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         
-    }
-    
-    private func updatePositions() {
-        guard let character: CharacterEntity = entityManager.entity() else { return }
-        guard let characterComponent = character.component(ofType: GKSCNNodeComponent.self) else { return }
-        guard let hiddenCollision: HiddenCollisionEntity = entityManager.entity() else { return }
-        guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
-        hiddenComponent.node.position = characterComponent.node.position
     }
 }
 
@@ -200,6 +191,10 @@ extension GameController {
         guard let plane = scene.rootNode.childNode(withName: "Plane", recursively: true) else { assertionFailure(); return }
         entityManager.add(PlaneEntity(node: plane))
         createGraph(with: plane)
+        
+        guard let camera = scene.rootNode.childNode(withName: "cameraContainer", recursively: true) else { assertionFailure(); return }
+        sceneRenderer!.pointOfView = camera.childNode(withName: "camera", recursively: true)
+        entityManager.add(CameraEntity(container: camera))
     }
     
     func createGraph(with node: SCNNode) {

@@ -12,6 +12,7 @@
 		AF0803EC20BE25680046236A /* PathCreatorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0803EB20BE25680046236A /* PathCreatorComponent.swift */; };
 		AF0803EF20BEE7010046236A /* HighlighterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0803EE20BEE7010046236A /* HighlighterNode.swift */; };
 		AF2B249E20C05C5E0095AA6F /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B249D20C05C5E0095AA6F /* Float+Extensions.swift */; };
+		AF2B24A020C1B08E0095AA6F /* CameraEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B249F20C1B08E0095AA6F /* CameraEntity.swift */; };
 		AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1E5920BD8F0000D09D70 /* Properties.swift */; };
 		AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* CharacterEntity.swift */; };
 		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
@@ -50,6 +51,7 @@
 		AF0803EB20BE25680046236A /* PathCreatorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathCreatorComponent.swift; sourceTree = "<group>"; };
 		AF0803EE20BEE7010046236A /* HighlighterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlighterNode.swift; sourceTree = "<group>"; };
 		AF2B249D20C05C5E0095AA6F /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		AF2B249F20C1B08E0095AA6F /* CameraEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraEntity.swift; sourceTree = "<group>"; };
 		AF4D1E5920BD8F0000D09D70 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		AF556B9420AFC09800B532E3 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				AF556BA420B06FF000B532E3 /* PlaneEntity.swift */,
 				AF556BA620B071D400B532E3 /* HiddenCollisionEntity.swift */,
 				AFB02A4720C02E45007891B7 /* HighlighterEntity.swift */,
+				AF2B249F20C1B08E0095AA6F /* CameraEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				AF8D9AC920ABCF5300D9CF07 /* CGFloat+Extensions.swift in Sources */,
 				AFB02A4620C02E10007891B7 /* RemovableEntity.swift in Sources */,
 				AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */,
+				AF2B24A020C1B08E0095AA6F /* CameraEntity.swift in Sources */,
 				AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */,
 				AFB02A4320C02C32007891B7 /* RemoveOnContactComponent.swift in Sources */,
 				AF556B9E20B0557C00B532E3 /* TouchControlComponent.swift in Sources */,
