@@ -52,4 +52,18 @@ final class HiddenCollisionEntity: GKEntity {
     func collision(for direction: ControlDirection) -> ColliderType? {
         return component(ofType: HiddenCollisionComponent.self)?.collision(for: direction)
     }
+    
+    func collision(for rotationDegrees: Int) -> ColliderType? {
+        switch rotationDegrees {
+        case 90:
+            return collision(for: .right)
+        case -90:
+            return collision(for: .left)
+        case 0:
+            return collision(for: .bottom)
+        case 180:
+            return collision(for: .top)
+        default: return nil
+        }
+    }
 }

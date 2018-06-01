@@ -86,7 +86,6 @@ final class CharacterEntity: GKEntity {
         }
         
         node.removeAnimation(forKey: Animation.key)
-        node.addAnimationPlayer(Animation.walk.player, forKey: Animation.key)
         run(moveActions) {
             node.removeAnimation(forKey: Animation.key)
             node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
@@ -102,7 +101,13 @@ final class CharacterEntity: GKEntity {
         let rotateVec = rotateVector(to: nextAction.vector)
         let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
     
+        var animation: Animation = .walk
+        if let hidden: HiddenCollisionEntity = EntityManager.shared.entity(),
+            let _ = hidden.collision(for: Int(rotateVec.y.cg.radiansToDegrees())) {
+            animation = .push
+        }
         
+        node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group([moveAction, rotateAction])) {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
