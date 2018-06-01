@@ -12,8 +12,9 @@ import GameplayKit
 final class CameraEntity: GKEntity {
     
     init(container: SCNNode) {
-        
         super.init()
+        addComponent(GKSCNNodeComponent(node: container))
+        addComponent(CameraFollowComponent())
     }
     
     required init?(coder aDecoder: NSCoder) {

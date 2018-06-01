@@ -26,4 +26,15 @@ extension SCNNode {
         body.collisionBitMask = collider.collisionMask
         
     }
+    
+    func rotateVector(to vector: SCNVector3) -> SCNVector3 {
+        let lengthZ = vector.z - presentation.position.z
+        let lengthX = vector.x - presentation.position.x
+        let direction = float2(x: lengthX, y: lengthZ)
+        let normalized = normalize(direction)
+        let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
+        
+        let nearest = DEFINED_ROTATIONS.nearestElement(to: degrees)
+        return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(position.y), angle2: nearest.degreesToRadians())), 0)
+    }
 }

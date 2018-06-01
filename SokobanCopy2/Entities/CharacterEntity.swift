@@ -54,7 +54,7 @@ final class CharacterEntity: GKEntity {
         let nextAction  = newActions.removeFirst()
         
         let moveAction = SCNAction.move(to: nextAction.vector, duration: Animation.walk.animationDuration)
-        let rotateVec = rotateVector(to: nextAction.vector)
+        let rotateVec = node.rotateVector(to: nextAction.vector)
         let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
     
         var animation: Animation = .walk
@@ -88,18 +88,6 @@ final class CharacterEntity: GKEntity {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
-    }
-    
-    private func rotateVector(to vector: SCNVector3) -> SCNVector3 {
-        let node = component(ofType: GKSCNNodeComponent.self)!.node
-        let lengthZ = vector.z - node.presentation.position.z
-        let lengthX = vector.x - node.presentation.position.x
-        let direction = float2(x: lengthX, y: lengthZ)
-        let normalized = normalize(direction)
-        let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
-        
-        let nearest = DEFINED_ROTATIONS.nearestElement(to: degrees)
-        return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(node.position.y), angle2: nearest.degreesToRadians())), 0)
     }
 }
 
