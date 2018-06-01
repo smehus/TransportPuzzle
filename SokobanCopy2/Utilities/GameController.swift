@@ -56,6 +56,20 @@ final class GameController: NSObject {
     }
     
     @objc private func path(gesture: PathGesture) {
+        
+        switch MOVEMENT_TYPE {
+        case .guided:
+            executeGuidedPath(gesture)
+        case .manual:
+            executeManualPath(gesture)
+        }
+    }
+    
+    private func executeManualPath(_ gesture: PathGesture) {
+        // Hold down right side of screen - player will continually move to the right etc.
+    }
+    
+    private func executeGuidedPath(_ gesture: PathGesture) {
         if gesture.state == .began {
             currentPaths.forEach { (entity) in
                 entity.removeFromManager()
@@ -63,7 +77,7 @@ final class GameController: NSObject {
             
             currentPaths.removeAll()
         }
-    
+        
         guard let view = sceneRenderer as? SCNView else { assertionFailure(); return }
         let location = gesture.location(in: view)
         let hitResults = view.hitTest(location, options: [:])
@@ -76,10 +90,10 @@ final class GameController: NSObject {
             movePlayer(along: currentPaths)
             return
         }
- 
+        
         guard Int(round(result.localCoordinates.x)) % 2 == 0 else { return }
         guard Int(round(result.localCoordinates.z)) % 2 == 0 else { return }
-
+        
         let position = SCNVector3(Int(round(result.localCoordinates.x)), Int(round(result.localCoordinates.y)), Int(round(result.localCoordinates.z)))
         assert(graph.node(atGridPosition: vector_int2(Int32(position.x), Int32(position.z))) != nil)
         
