@@ -207,6 +207,20 @@ extension GameController {
         ColliderType.definedCollisions[.plane] = [.box]
     }
     
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(forName: MOVEMENT_TYPE_NOTIFICATION_NAME, object: nil, queue: nil) { (notification) in
+            guard let type = notification.object as? MovementType else { return }
+            switch type {
+            case .manual:
+                if let overlay: OverlayEntity = self.entityManager.entity() {
+                    self.entityManager.remove(overlay)
+                }
+            case .guided:
+                break
+            }
+        }
+    }
+    
     private func setupNodes() {
         
         if MOVEMENT_TYPE == .manual, let view = sceneRenderer as? SCNView {
@@ -231,7 +245,7 @@ extension GameController {
         entityManager.add(CameraEntity(container: camera))
     }
     
-    func createGraph(with node: SCNNode) {
+    private func createGraph(with node: SCNNode) {
         
         graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: GRID_ALLOWS_DIAGONAL)
         var graphNodes: [GKGridGraphNode] = []
