@@ -45,8 +45,9 @@ final class GameController: NSObject {
         
         setupCollisions()
         setupNodes()
-        setupGestures()
-
+        if MOVEMENT_TYPE == .guided {
+            setupGestures()
+        }
     }
     
     private func setupGestures() {
@@ -207,6 +208,10 @@ extension GameController {
     }
     
     private func setupNodes() {
+        
+        if MOVEMENT_TYPE == .manual, let view = sceneRenderer as? SCNView {
+            entityManager.add(OverlayEntity(size: view.bounds.size, controller: self))
+        }
 
         guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
         entityManager.add(HiddenCollisionEntity(node: hiddenCollision))

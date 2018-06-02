@@ -20,4 +20,4 @@ let DEFINED_ROTATIONS: [CGFloat] = [0, 90, -90, 180, -180]
 
 var GRID_ALLOWS_DIAGONAL = false
 var CAMERA_FOLLOWS_ROTATION = false
-var MOVEMENT_TYPE: MovementType = .guided
+var MOVEMENT_TYPE: MovementType = .manual

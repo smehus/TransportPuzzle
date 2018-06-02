@@ -14,6 +14,8 @@
 		AF2B249E20C05C5E0095AA6F /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B249D20C05C5E0095AA6F /* Float+Extensions.swift */; };
 		AF2B24A020C1B08E0095AA6F /* CameraEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B249F20C1B08E0095AA6F /* CameraEntity.swift */; };
 		AF2B24A220C1B3E00095AA6F /* CameraFollowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B24A120C1B3E00095AA6F /* CameraFollowComponent.swift */; };
+		AF2B24A420C2CEAD0095AA6F /* CharacterTouchControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B24A320C2CEAD0095AA6F /* CharacterTouchControlComponent.swift */; };
+		AF2B24A620C2D0D10095AA6F /* MoveActionQueueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B24A520C2D0D10095AA6F /* MoveActionQueueComponent.swift */; };
 		AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1E5920BD8F0000D09D70 /* Properties.swift */; };
 		AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* CharacterEntity.swift */; };
 		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
@@ -54,6 +56,8 @@
 		AF2B249D20C05C5E0095AA6F /* Float+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		AF2B249F20C1B08E0095AA6F /* CameraEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraEntity.swift; sourceTree = "<group>"; };
 		AF2B24A120C1B3E00095AA6F /* CameraFollowComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFollowComponent.swift; sourceTree = "<group>"; };
+		AF2B24A320C2CEAD0095AA6F /* CharacterTouchControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTouchControlComponent.swift; sourceTree = "<group>"; };
+		AF2B24A520C2D0D10095AA6F /* MoveActionQueueComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveActionQueueComponent.swift; sourceTree = "<group>"; };
 		AF4D1E5920BD8F0000D09D70 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		AF556B9420AFC09800B532E3 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 				AF0803EB20BE25680046236A /* PathCreatorComponent.swift */,
 				AFB02A4220C02C32007891B7 /* RemoveOnContactComponent.swift */,
 				AF2B24A120C1B3E00095AA6F /* CameraFollowComponent.swift */,
+				AF2B24A320C2CEAD0095AA6F /* CharacterTouchControlComponent.swift */,
+				AF2B24A520C2D0D10095AA6F /* MoveActionQueueComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 				AF556BA520B06FF000B532E3 /* PlaneEntity.swift in Sources */,
 				AF556BAD20B09BE300B532E3 /* GKComponent+Extensions.swift in Sources */,
 				AF556BA320B06F5600B532E3 /* BoxEntity.swift in Sources */,
+				AF2B24A420C2CEAD0095AA6F /* CharacterTouchControlComponent.swift in Sources */,
 				AF8D9AD020ABCFEE00D9CF07 /* Sequence+Extensions.swift in Sources */,
 				AFE717F3209DE99400552814 /* GameViewController.swift in Sources */,
 				AF2B24A220C1B3E00095AA6F /* CameraFollowComponent.swift in Sources */,
@@ -311,6 +318,7 @@
 				AF0803EF20BEE7010046236A /* HighlighterNode.swift in Sources */,
 				A5E44614209F3F02002AE653 /* ColliderType.swift in Sources */,
 				AF2B249E20C05C5E0095AA6F /* Float+Extensions.swift in Sources */,
+				AF2B24A620C2D0D10095AA6F /* MoveActionQueueComponent.swift in Sources */,
 				AFB02A4120BF745C007891B7 /* SCNNode+Extensions.swift in Sources */,
 				AF556BA920B07E7A00B532E3 /* Comparable+Extensions.swift in Sources */,
 				AF8D9ACE20ABCFD400D9CF07 /* Helpers.swift in Sources */,

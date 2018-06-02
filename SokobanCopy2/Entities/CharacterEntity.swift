@@ -22,6 +22,11 @@ final class CharacterEntity: GKEntity {
         node.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         
         addComponent(GKSCNNodeComponent(node: node))
+        addComponent(MoveActionQueueComponent())
+        
+        if MOVEMENT_TYPE == .manual {
+            addComponent(CharacterTouchControlComponent())
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,51 +47,10 @@ final class CharacterEntity: GKEntity {
             moveActions.append(MoveAction(vector: convertedPOS))
         }
         
-        run(moveActions) {
+        
+        component(ofType: MoveActionQueueComponent.self)!.run(moveActions) {
             node.removeAnimation(forKey: Animation.key)
             node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
-        }
-    }
-    
-    private func run(_ actions: [MoveAction], completed: @escaping () -> ()) {
-        let node = component(ofType: GKSCNNodeComponent.self)!.node
-        var newActions = actions
-        let nextAction  = newActions.removeFirst()
-        
-        let moveAction = SCNAction.move(to: nextAction.vector, duration: Animation.walk.animationDuration)
-        let rotateVec = node.rotateVector(to: nextAction.vector)
-        let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
-    
-        var animation: Animation = .walk
-        
-        if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
-            let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
-            
-            let vector = nextAction.vector - node.position
-            for (_, collision) in hiddenComp.currentCollisions {
-                
-                switch collision.hiddenCollider {
-                case .hiddenRight where vector.x > 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
-                case .hiddenLeft where vector.x < 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
-                case .hiddenFront where vector.z > 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
-                case .hiddenBack where vector.z < 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
-                default: break
-                }
-            }
-        }
-        
-        node.addAnimationPlayer(animation.player, forKey: Animation.key)
-        node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: Animation.key) {
-            guard !newActions.isEmpty else { completed(); return }
-            self.run(newActions, completed: completed)
         }
     }
 }

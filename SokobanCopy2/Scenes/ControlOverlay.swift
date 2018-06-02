@@ -47,23 +47,16 @@ final class ControlOverlay: SKScene {
     private let rightNode: SKShapeNode
     
     init(size: CGSize, controller: GameController) {
-        topNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: size.width/4, y: size.height/2), size: CGSize(width: size.width/2, height: size.height/2)))
-        bottomNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: size.width/4, y: 0), size: CGSize(width: size.width/2, height: size.height/2)))
+        
         leftNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width/4, height: size.height)))
         rightNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: size.width * 0.75, y: 0), size: CGSize(width: size.width/4, height: size.height)))
         
+        topNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0, y: size.height - size.height/4), size: CGSize(width: size.width, height: size.height/4)))
+        bottomNode = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width, height: size.height/4)))
+        
         super.init(size: size)
         scaleMode = .resizeFill
-        
-        topNode.name = ControlDirection.top.rawValue
-        topNode.fillColor = .clear
-        topNode.strokeColor = .clear
-        addChild(topNode)
-        
-        bottomNode.name = ControlDirection.bottom.rawValue
-        bottomNode.fillColor = .clear
-        bottomNode.strokeColor = .clear
-        addChild(bottomNode)
+
         
         leftNode.name = ControlDirection.left.rawValue
         leftNode.fillColor = .clear
@@ -74,6 +67,16 @@ final class ControlOverlay: SKScene {
         rightNode.fillColor = .clear
         rightNode.strokeColor = .clear
         addChild(rightNode)
+        
+        topNode.name = ControlDirection.top.rawValue
+        topNode.fillColor = .clear
+        topNode.strokeColor = .clear
+        addChild(topNode)
+        
+        bottomNode.name = ControlDirection.bottom.rawValue
+        bottomNode.fillColor = .clear
+        bottomNode.strokeColor = .clear
+        addChild(bottomNode)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,32 +99,45 @@ final class ControlOverlay: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        guard let touch = touches.first else { return }
+        guard let (tappedNode, control) = direction(for: touches) else { return }
+        let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.2))
+        let unhighlight = highlightAction(color: .clear)
+        tappedNode.run(SKAction.sequence([highlight, unhighlight]))
+        
+        EntityManager.shared.controlOverlayDidSelect(direction: control)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        
+    }
+    
+    private func direction(for touches: Set<UITouch>) -> (SKNode, ControlDirection)? {
+        guard let touch = touches.first else { return nil }
         let location = touch.location(in: self)
         let tappedNodes = nodes(at: location)
         
-        isUserInteractionEnabled = false
-        
         if let name = tappedNodes.first?.name,
             let control = ControlDirection(rawValue: name) {
-            
-            var tappedNode: SKShapeNode
+        
             switch control {
             case .top:
-                tappedNode = topNode
+                return (topNode, control)
             case .bottom:
-                tappedNode = bottomNode
+                return (bottomNode, control)
             case .left:
-                tappedNode = leftNode
+                return (leftNode, control)
             case .right:
-                tappedNode = rightNode
+                return (rightNode, control)
             }
-            
-            let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.2))
-            let unhighlight = highlightAction(color: .clear)
-            tappedNode.run(SKAction.sequence([highlight, unhighlight]))
-            
-            EntityManager.shared.controlOverlayDidSelect(direction: control)
         }
+        
+        return nil
     }
 }

@@ -11,6 +11,8 @@ import GameplayKit
 
 protocol ControlOverlayResponder {
     func didSelect(direction: ControlDirection)
+    func selectionChanged(direction: ControlDirection) 
+    func selectionDidEnd(direction: ControlDirection)
 }
 
 protocol CollisionDetector {
@@ -91,6 +93,7 @@ final class EntityManager: NSObject {
     lazy var componentSystems: [ComponentSystem] = {
         // Manages all instances of the DirectionalComponent
 
+        let characterTouchComponent = ComponentSystem(componentClass: CharacterTouchControlComponent.self)
         let highlightComponent = ComponentSystem(componentClass: RemoveOnContactComponent.self)
         let touchControlComponent = ComponentSystem(componentClass: TouchControlComponent.self)
         let hidddenCollisionComponent = ComponentSystem(componentClass: HiddenCollisionComponent.self)
@@ -100,7 +103,8 @@ final class EntityManager: NSObject {
                 hidddenCollisionComponent,
                 pathCreatorComponent,
                 highlightComponent,
-                cameraFollowComponent]
+                cameraFollowComponent,
+                characterTouchComponent]
     }()
     
     weak var controller: GameController!
