@@ -67,15 +67,7 @@ final class GameController: NSObject {
     }
     
     private func executeManualPath(_ gesture: PathGesture) {
-        // Hold down right side of screen - player will continually move to the right
-        // Need to use the control overlay again
-        // Need to be constantly checking the touch vector in rendererDidUpdate 
-        switch gesture.state {
-        case .began: break // Check vector direction - and start moving - Can probably use the same move queue thing I sort of made
-        case .changed: break // Check if vector direciton is the same - if its not - update which direction we're moving
-        case .ended: break // Need to move to nearest tile center thats in the direction of our move vector - and stop moving
-        default: break
-        }
+        // This is no longer a thing
     }
     
     private func executeGuidedPath(_ gesture: PathGesture) {
