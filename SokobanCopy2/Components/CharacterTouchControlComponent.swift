@@ -11,30 +11,35 @@ import GameplayKit
 
 final class CharacterTouchControlComponent: GKComponent {
 
+    var direction: ControlDirection?
 }
 
 extension CharacterTouchControlComponent: ControlOverlayResponder {
     func didSelect(direction: ControlDirection) {
-        guard
-            let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node,
-            let queue = entity?.component(ofType: MoveActionQueueComponent.self)
-        else {
-            assertionFailure()
-            return
-        }
-        
-        
-        
-        switch direction {
-        default: break
-        }
+        self.direction = direction
+        startQueue()
     }
     
     func selectionChanged(direction: ControlDirection) {
-        
+        self.direction = direction
     }
     
     func selectionDidEnd(direction: ControlDirection) {
+        self.direction = direction
+    }
+    
+    private func startQueue() {
+        guard
+            let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node,
+            let queue = entity?.component(ofType: MoveActionQueueComponent.self)
+            else {
+                assertionFailure()
+                return
+        }
         
+        let moveAction = MoveAction(vector: node.position + direction!.moveVector)
+        queue.run([moveAction]) {
+            //
+        }
     }
 }

@@ -28,10 +28,28 @@ protocol TouchResponder {
 
 class ComponentSystem: GKComponentSystem<GKComponent> {
     
+    // Control Direction
+    
     func didSelect(direction: ControlDirection) {
         for component in components {
             if let responder = component as? ControlOverlayResponder {
                 responder.didSelect(direction: direction)
+            }
+        }
+    }
+    
+    func selectionChanged(direction: ControlDirection) {
+        for component in components {
+            if let responder = component as? ControlOverlayResponder {
+                responder.selectionChanged(direction: direction)
+            }
+        }
+    }
+    
+    func selectionDidEnd(direction: ControlDirection) {
+        for component in components {
+            if let responder = component as? ControlOverlayResponder {
+                responder.selectionDidEnd(direction: direction)
             }
         }
     }
@@ -173,14 +191,28 @@ final class EntityManager: NSObject {
         toRemove.removeAll()
     }
     
+    func entity<T: GKEntity>() -> T? {
+        return entities.first(where: { $0 is T }) as? T
+    }
+}
+
+extension EntityManager {
     func controlOverlayDidSelect(direction: ControlDirection) {
         componentSystems.forEach { (system) in
             system.didSelect(direction: direction)
         }
     }
     
-    func entity<T: GKEntity>() -> T? {
-        return entities.first(where: { $0 is T }) as? T
+    func controlOverlayChangedSelection(direction: ControlDirection) {
+        componentSystems.forEach { (system) in
+            system.selectionChanged(direction: direction)
+        }
+    }
+    
+    func controlOverlayDidEndSelection(direction: ControlDirection) {
+        componentSystems.forEach { (system) in
+            system.selectionDidEnd(direction: direction)
+        }
     }
 }
 

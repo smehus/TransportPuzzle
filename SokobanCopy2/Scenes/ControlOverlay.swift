@@ -93,29 +93,27 @@ final class ControlOverlay: SKScene {
             let _ = (elapsed / CGFloat(duration)).clamped(to: 0...CGFloat(duration))
             shape.fillColor = color
         })
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        guard let (tappedNode, control) = direction(for: touches) else { return }
-        let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.2))
-        let unhighlight = highlightAction(color: .clear)
-        tappedNode.run(SKAction.sequence([highlight, unhighlight]))
-        
+        guard let (_, control) = direction(for: touches) else { return }
         EntityManager.shared.controlOverlayDidSelect(direction: control)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         
+        guard let (_, control) = direction(for: touches) else { return }
+        EntityManager.shared.controlOverlayChangedSelection(direction: control)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         
-        
+        guard let (_, control) = direction(for: touches) else { return }
+        EntityManager.shared.controlOverlayDidEndSelection(direction: control)
     }
     
     private func direction(for touches: Set<UITouch>) -> (SKNode, ControlDirection)? {
@@ -139,5 +137,11 @@ final class ControlOverlay: SKScene {
         }
         
         return nil
+    }
+    
+    private func highlighNode(node: SKNode) {
+        let highlight = highlightAction(color: UIColor.white.withAlphaComponent(0.2))
+        let unhighlight = highlightAction(color: .clear)
+        node.run(SKAction.sequence([highlight, unhighlight]))
     }
 }
