@@ -15,11 +15,7 @@ final class MoveActionQueueComponent: GKComponent {
         let node = entity!.component(ofType: GKSCNNodeComponent.self)!.node
         var newActions = actions
         let nextAction  = newActions.removeFirst()
-        
-        let moveAction = SCNAction.move(to: nextAction.vector, duration: Animation.walk.animationDuration)
-        let rotateVec = node.rotateVector(to: nextAction.vector)
-        let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
-        
+    
         var animation: Animation = .walk
         
         if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
@@ -31,20 +27,24 @@ final class MoveActionQueueComponent: GKComponent {
                 switch collision.hiddenCollider {
                 case .hiddenRight where vector.x > 0:
                     animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 case .hiddenLeft where vector.x < 0:
                     animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 case .hiddenFront where vector.z > 0:
                     animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 case .hiddenBack where vector.z < 0:
                     animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.walk.animationDuration))
+                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 default: break
                 }
             }
         }
+        
+        let moveAction = SCNAction.move(to: nextAction.vector, duration: animation.animationDuration)
+        let rotateVec = node.rotateVector(to: nextAction.vector)
+        let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
         
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: SCNAction.moveActionKey) {
