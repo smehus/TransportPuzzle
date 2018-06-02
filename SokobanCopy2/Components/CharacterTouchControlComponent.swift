@@ -21,8 +21,7 @@ final class CharacterTouchControlComponent: GKComponent {
             switch state {
             case .move:
                 queueMove()
-            case .stop:
-                break
+            case .stop: break
             }
         }
     }
@@ -45,11 +44,16 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
     
     private func queueMove() {
         guard
-            case let .move(direction) = state,
             let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node,
             let queue = entity?.component(ofType: MoveActionQueueComponent.self)
             else {
                 return
+        }
+
+        guard case let .move(direction) = state else {
+            node.removeAllAnimations()
+            node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
+            return
         }
         
         let moveAction = MoveAction(vector: node.position + direction.moveVector)
