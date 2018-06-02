@@ -10,54 +10,44 @@ import Foundation
 import GameplayKit
 
 final class CharacterTouchControlComponent: GKComponent {
-
-    enum State {
-        case stop
-        case move(direction: ControlDirection)
+    
+    private var node: SCNNode {
+        return entity!.component(ofType: GKSCNNodeComponent.self)!.node
     }
 
-    private var state: State = .stop {
-        didSet {
-            switch state {
-            case .move:
-                queueMove()
-            case .stop: break
-            }
-        }
+    private var currentDirection: ControlDirection?
+    
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
+        queueMove()
     }
 }
 
 extension CharacterTouchControlComponent: ControlOverlayResponder {
+    
     func didSelect(direction: ControlDirection) {
-        state = .move(direction: direction)
+        currentDirection = direction
     }
     
     func selectionChanged(direction: ControlDirection) {
-        guard case let .move(currentDirection) = state else { state = .stop; return }
-        guard currentDirection != direction else { return }
-        state = .move(direction: direction)
+        currentDirection = direction
     }
     
     func selectionDidEnd(direction: ControlDirection) {
-        state = .stop
+        currentDirection = nil
     }
-    
-    private func queueMove() {
-        guard
-            let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node,
-            let queue = entity?.component(ofType: MoveActionQueueComponent.self)
-            else {
-                return
-        }
 
-        guard case let .move(direction) = state else {
+    private func queueMove() {
+        guard !node.hasActions else { return }
+        guard let queue = entity?.component(ofType: MoveActionQueueComponent.self) else { return }
+
+        guard let direction = currentDirection else {
             node.removeAllAnimations()
             node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
             return
         }
         
-        let moveAction = MoveAction(vector: node.position + direction.moveVector)
-        queue.run([moveAction]) {
+        queue.run([MoveAction(vector: node.position + direction.moveVector)]) {
             self.queueMove()
         }
     }

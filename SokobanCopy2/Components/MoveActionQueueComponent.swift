@@ -47,7 +47,7 @@ final class MoveActionQueueComponent: GKComponent {
         }
         
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
-        node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: Animation.key) {
+        node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: SCNAction.moveActionKey) {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
