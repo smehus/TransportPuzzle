@@ -249,6 +249,7 @@ extension GameController {
         graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: GRID_ALLOWS_DIAGONAL)
         var graphNodes: [GKGridGraphNode] = []
         
+        // Will need to loop through all the nodes here
         stride(from: Int(node.boundingBox.min.x + GRID_WIDTH_HEIGHT/2), to: Int(node.boundingBox.max.x + GRID_WIDTH_HEIGHT/2), by: 2).forEach { (x) in
             stride(from: Int(node.boundingBox.min.z + GRID_WIDTH_HEIGHT/2), to: Int(node.boundingBox.max.z + GRID_WIDTH_HEIGHT/2), by: 2).forEach({ (z) in
                 let graphNode = GKGridGraphNode(gridPosition: vector_int2(Int32(x), Int32(z)))
