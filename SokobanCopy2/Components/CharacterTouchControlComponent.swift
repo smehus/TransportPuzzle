@@ -47,8 +47,76 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             return
         }
         
-        queue.run([MoveAction(vector: node.position + direction.moveVector)]) {
+        
+        
+        var vectorOffset = direction.moveVector
+        if CAMERA_FOLLOWS_ROTATION, let offset = vector(for: node, control: direction) {
+            vectorOffset = offset
+        }
+        
+        queue.run([MoveAction(vector: node.position + vectorOffset)]) {
             self.queueMove()
         }
+    }
+    
+    func vector(for node: SCNNode, control: ControlDirection) -> SCNVector3? {
+        let rot = Int(CGFloat(node.eulerAngles.y).radiansToDegrees())
+        var vector = SCNVector3(0, 0, 0)
+        switch control {
+        case .top:
+            switch rot {
+            case 0:
+                vector.z += CHARACTER_MOVE_AMT
+            case 180:
+                vector.z -= CHARACTER_MOVE_AMT
+            case 90:
+                vector.x += CHARACTER_MOVE_AMT
+            case -90:
+                vector.x -= CHARACTER_MOVE_AMT
+            default: break
+            }
+            
+        case .bottom:
+            switch rot {
+            case 0:
+                vector.z -= CHARACTER_MOVE_AMT
+            case 180:
+                vector.z += CHARACTER_MOVE_AMT
+            case 90:
+                vector.x -= CHARACTER_MOVE_AMT
+            case -90:
+                vector.x += CHARACTER_MOVE_AMT
+            default: break
+            }
+            
+        case .left:
+            switch rot {
+            case 0:
+                vector.x += CHARACTER_MOVE_AMT
+            case 180:
+                vector.x -= CHARACTER_MOVE_AMT
+            case 90:
+                vector.z -= CHARACTER_MOVE_AMT
+            case -90:
+                vector.z += CHARACTER_MOVE_AMT
+            default: break
+            }
+            
+        case .right:
+            switch rot {
+            case 0:
+                vector.x -= CHARACTER_MOVE_AMT
+            case 180:
+                vector.x += CHARACTER_MOVE_AMT
+            case 90:
+                vector.z += CHARACTER_MOVE_AMT
+            case -90:
+                vector.z -= CHARACTER_MOVE_AMT
+            default: break
+            }
+        }
+        
+        
+        return vector
     }
 }
