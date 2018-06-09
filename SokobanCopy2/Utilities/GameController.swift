@@ -228,16 +228,23 @@ extension GameController {
         guard let box = scene.rootNode.childNode(withName: "Cube", recursively: true) else { assertionFailure(); return }
         entityManager.add(BoxEntity(node: box))
         
-        guard let plane = scene.rootNode.childNode(withName: "Plane", recursively: true) else { assertionFailure(); return }
-        entityManager.add(PlaneEntity(node: plane))
-        createGraph(with: plane)
+        guard let floor = scene.rootNode.childNode(withName: "Floor", recursively: true) else { assertionFailure(); return }
+        for floorNode in floor.childNodes {
+            entityManager.add(PlaneEntity(node: floorNode))
+            
+        }
+        
+        createGraph(with: floor.childNodes)
         
         guard let camera = scene.rootNode.childNode(withName: "cameraContainer", recursively: true) else { assertionFailure(); return }
         sceneRenderer!.pointOfView = camera.childNode(withName: "camera", recursively: true)
         entityManager.add(CameraEntity(container: camera))
     }
     
-    private func createGraph(with node: SCNNode) {
+    private func createGraph(with nodes: [SCNNode]) {
+        let node = nodes.first!
+        // Will need to find the node with the lowest position & set it as the startingPoint
+        // Find the node with the larges position and calculate the width / height
         
         graph = GKGridGraph(fromGridStartingAt: vector_int2(Int32(round(node.boundingBox.min.x)), Int32(round(node.boundingBox.min.z))), width: Int32(node.size.x), height: Int32(node.size.z), diagonalsAllowed: GRID_ALLOWS_DIAGONAL)
         var graphNodes: [GKGridGraphNode] = []
