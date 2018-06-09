@@ -44,7 +44,7 @@ final class MoveActionQueueComponent: GKComponent {
         
         let moveAction = SCNAction.move(to: nextAction.vector, duration: animation.animationDuration)
         let rotateVec = node.rotateVector(to: nextAction.vector)
-        let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: 0.1)
+        let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: animation.animationDuration / 2, usesShortestUnitArc: true)
         
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: SCNAction.moveActionKey) {
