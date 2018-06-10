@@ -61,60 +61,42 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
     }
     
     func vector(for node: SCNNode, control: ControlDirection) -> SCNVector3? {
+        
+        // Use rotation instead of euler angles - That way I can decipher between 0 & 180, which both return 0 for some reason
         let rot = Int(CGFloat(node.eulerAngles.y).radiansToDegrees())
         var vector = SCNVector3(0, 0, 0)
-        switch control {
-        case .top:
-            switch rot {
-            case 0:
-                vector.z += CHARACTER_MOVE_AMT
-            case 180:
-                vector.z -= CHARACTER_MOVE_AMT
-            case 90:
-                vector.x += CHARACTER_MOVE_AMT
-            case -90:
-                vector.x -= CHARACTER_MOVE_AMT
-            default: break
+
+        switch node.rotation.y {
+        case 0:
+            switch control {
+            case .bottom:   vector.z -= CHARACTER_MOVE_AMT
+            case .top:      vector.z += CHARACTER_MOVE_AMT
+            case .left:     vector.x += CHARACTER_MOVE_AMT
+            case .right:    vector.x -= CHARACTER_MOVE_AMT
             }
-            
-        case .bottom:
-            switch rot {
-            case 0:
-                vector.z -= CHARACTER_MOVE_AMT
-            case 180:
-                vector.z += CHARACTER_MOVE_AMT
-            case 90:
-                vector.x -= CHARACTER_MOVE_AMT
-            case -90:
-                vector.x += CHARACTER_MOVE_AMT
-            default: break
+        case 1.0:
+            break
+        case -1.0:
+            if Int(round(node.rotation.w.cg.radiansToDegrees())) == 180 {
+                switch control {
+                case .left:     vector.x -= CHARACTER_MOVE_AMT
+                case .right:    vector.x += CHARACTER_MOVE_AMT
+                case .bottom:   vector.z += CHARACTER_MOVE_AMT
+                case .top:      vector.z -= CHARACTER_MOVE_AMT
+                }
+            } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 90 {
+                // Radians are 1.5...
+                switch control {
+                case .left:     vector.z += CHARACTER_MOVE_AMT
+                case .right:    vector.z -= CHARACTER_MOVE_AMT
+                case .bottom:   vector.x += CHARACTER_MOVE_AMT
+                case .top:      vector.x -= CHARACTER_MOVE_AMT
+                }
+            } else {
+                assertionFailure("Movement not handled for -1.0 Y & rotation \(node.rotation.w.cg): degrees \(node.rotation.w.cg.radiansToDegrees())")
             }
-            
-        case .left:
-            switch rot {
-            case 0:
-                vector.x += CHARACTER_MOVE_AMT
-            case 180:
-                vector.x -= CHARACTER_MOVE_AMT
-            case 90:
-                vector.z -= CHARACTER_MOVE_AMT
-            case -90:
-                vector.z += CHARACTER_MOVE_AMT
-            default: break
-            }
-            
-        case .right:
-            switch rot {
-            case 0:
-                vector.x -= CHARACTER_MOVE_AMT
-            case 180:
-                vector.x += CHARACTER_MOVE_AMT
-            case 90:
-                vector.z += CHARACTER_MOVE_AMT
-            case -90:
-                vector.z -= CHARACTER_MOVE_AMT
-            default: break
-            }
+
+        default: break
         }
         
         

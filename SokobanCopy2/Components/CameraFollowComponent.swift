@@ -28,16 +28,16 @@ final class CameraFollowComponent: GKComponent {
         node.position = playerNode.position
         
         if CAMERA_FOLLOWS_ROTATION {
-            var angle = playerNode.presentation.eulerAngles.y
-            if angle == 0 {
-                angle = Float(CGFloat(180).degreesToRadians())
-            } else if angle == Float(CGFloat(180).degreesToRadians()) {
-                angle = 0
-            } else {
-                angle = -angle
-            }
-    
-            node.runAction(SCNAction.rotateTo(x: 0, y: angle.cg, z: 0, duration: 0.3))
+//            var angle = playerNode.presentation.eulerAngles.y
+//            if angle == 0 {
+//                angle = Float(CGFloat(180).degreesToRadians())
+//            } else if angle == Float(CGFloat(180).degreesToRadians()) {
+//                angle = 0
+//            } else {
+//                angle = -angle
+//            }
+//    
+//            node.runAction(SCNAction.rotateTo(x: 0, y: angle.cg, z: 0, duration: 0.3))
         }
     }
 }
