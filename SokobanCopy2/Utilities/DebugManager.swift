@@ -30,11 +30,11 @@ final class DebugManager {
         let skScene = SKScene(size: CGSize(width: 500, height: 100))
         skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
         
-        labelNode = SKLabelNode(fontNamed: "AmericanTypewriter-CondensedLight")
+        labelNode = SKLabelNode(fontNamed: "AmericanTypewriter-Bold ")
         labelNode.fontSize = 20
         labelNode.fontColor = .black
         labelNode.position.y = 50
-        labelNode.position.x = 200
+        labelNode.position.x = 250
         skScene.addChild(labelNode)
         
         let plane = SCNPlane(width: 20, height: 2)
