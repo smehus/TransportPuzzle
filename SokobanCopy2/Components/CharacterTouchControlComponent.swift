@@ -48,12 +48,16 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
 //            node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
             return
         }
+    
+        let rotate = node.rotateToAction(to: node.position + vectorOffset)
+    
+        node.runAction(rotate) {
+            let newPOS = self.node.presentation.simdPosition + self.node.presentation.simdWorldFront * 2
+            let vector = SCNVector3(x: newPOS.x, y: newPOS.y, z: newPOS.z)
+            let moveAction = SCNAction.move(to: vector, duration: Animation.walk.animationDuration)
+            self.node.runAction(moveAction)
+        }
         
-        
-        
-        var vectorOffset = direction.moveVector
-        
-        node.rotateTo(to: node.position + vectorOffset)
         
 //        if CAMERA_FOLLOWS_ROTATION, let offset = vector(for: node, control: direction) {
 //            vectorOffset = offset
