@@ -52,14 +52,17 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
         
         
         var vectorOffset = direction.moveVector
+        
+        node.rotateTo(to: node.position + vectorOffset)
+        
 //        if CAMERA_FOLLOWS_ROTATION, let offset = vector(for: node, control: direction) {
 //            vectorOffset = offset
 //        }
         
-        let nextPosition = node.position + vectorOffset
-        queue.run([MoveAction(vector: nextPosition)]) {
-            self.queueMove()
-        }
+//        let nextPosition = node.position + vectorOffset
+//        queue.run([MoveAction(vector: nextPosition)]) {
+//            self.queueMove()
+//        }
     }
     
     func vector(for node: SCNNode, control: ControlDirection) -> SCNVector3? {

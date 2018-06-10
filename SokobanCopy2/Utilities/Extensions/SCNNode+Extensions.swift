@@ -27,15 +27,17 @@ extension SCNNode {
         
     }
     
-    func rotateVector(to vector: SCNVector3) -> SCNVector3 {
-        let lengthZ = vector.z - presentation.position.z
-        let lengthX = vector.x - presentation.position.x
+    func rotateTo(to vector: SCNVector3) {
+        let lengthZ = presentation.position.z - vector.z
+        let lengthX = presentation.position.x - vector.x
         let direction = float2(x: lengthX, y: lengthZ)
         let normalized = normalize(direction)
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
         
         let nearest = DEFINED_ROTATIONS.nearestElement(to: degrees)
-//        return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(position.y), angle2: nearest.degreesToRadians())), 0)
-        return SCNVector3(0, nearest.degreesToRadians(), 0)
+        let vec = SCNVector3(0, nearest.degreesToRadians(), 0)
+        
+        let action = SCNAction.rotateTo(x: vec.x.cg, y: vec.y.cg, z: vec.z.cg, duration: 0.1, usesShortestUnitArc: true)
+        runAction(action)
     }
 }

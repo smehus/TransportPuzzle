@@ -12,6 +12,7 @@ import GameplayKit
 final class MoveActionQueueComponent: GKComponent {
     
     func run(_ actions: [MoveAction], completed: @escaping () -> ()) {
+        /*
         let node = entity!.component(ofType: GKSCNNodeComponent.self)!.node
         var newActions = actions
         let nextAction  = newActions.removeFirst()
@@ -51,5 +52,6 @@ final class MoveActionQueueComponent: GKComponent {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
+ */
     }
 }
