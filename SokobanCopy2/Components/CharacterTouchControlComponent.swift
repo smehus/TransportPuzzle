@@ -54,7 +54,8 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             vectorOffset = offset
         }
         
-        queue.run([MoveAction(vector: node.position + vectorOffset)]) {
+        let nextPosition = node.position + vectorOffset
+        queue.run([MoveAction(vector: nextPosition)]) {
             self.queueMove()
         }
     }

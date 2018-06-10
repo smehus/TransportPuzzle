@@ -35,6 +35,7 @@ extension SCNNode {
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()
         
         let nearest = DEFINED_ROTATIONS.nearestElement(to: degrees)
-        return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(position.y), angle2: nearest.degreesToRadians())), 0)
+//        return SCNVector3(0, CGFloat(shortestAngleBetween(CGFloat(position.y), angle2: nearest.degreesToRadians())), 0)
+        return SCNVector3(0, nearest.degreesToRadians(), 0)
     }
 }
