@@ -68,6 +68,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
 
         switch node.rotation.y {
         case 0:
+            print("MOVEMENT 0")
             switch control {
             case .bottom:   vector.z -= CHARACTER_MOVE_AMT
             case .top:      vector.z += CHARACTER_MOVE_AMT
@@ -75,17 +76,24 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             case .right:    vector.x -= CHARACTER_MOVE_AMT
             }
         case 1.0:
-            break
-        case -1.0:
-            if Int(round(node.rotation.w.cg.radiansToDegrees())) == 180 {
+            if Int(round(node.rotation.w.cg.radiansToDegrees())) == 90 {
+                print("Control: \(control.rawValue) MOVEMENT 1.0 at rotation 90")
+                switch control {
+                case .left:     vector.z -= CHARACTER_MOVE_AMT
+                case .right:    vector.z += CHARACTER_MOVE_AMT
+                case .bottom:   vector.x -= CHARACTER_MOVE_AMT
+                case .top:      vector.x += CHARACTER_MOVE_AMT
+                }
+            } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 180 {
+                print("Control: \(control.rawValue) MOVEMENT 1.0 at rotation 180")
                 switch control {
                 case .left:     vector.x -= CHARACTER_MOVE_AMT
                 case .right:    vector.x += CHARACTER_MOVE_AMT
                 case .bottom:   vector.z += CHARACTER_MOVE_AMT
                 case .top:      vector.z -= CHARACTER_MOVE_AMT
                 }
-            } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 90 {
-                // Radians are 1.5...
+            } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 270 {
+                print("Control: \(control.rawValue) MOVEMENT 1.0 at rotation 270")
                 switch control {
                 case .left:     vector.z += CHARACTER_MOVE_AMT
                 case .right:    vector.z -= CHARACTER_MOVE_AMT
@@ -93,10 +101,42 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
                 case .top:      vector.x -= CHARACTER_MOVE_AMT
                 }
             } else {
-                assertionFailure("Movement not handled for -1.0 Y & rotation \(node.rotation.w.cg): degrees \(node.rotation.w.cg.radiansToDegrees())")
+                assertionFailure("Movement not handled for 1.0 Y & rotation \(node.rotation.w.cg): degrees \(node.rotation.w.cg.radiansToDegrees()) Control: \(control.rawValue)")
+                return nil
             }
 
-        default: break
+        case -1.0:
+            if Int(round(node.rotation.w.cg.radiansToDegrees())) == 180 {
+                print("Control: \(control.rawValue) MOVEMENT -1.0 at rotation 180")
+                switch control {
+                case .left:     vector.x -= CHARACTER_MOVE_AMT
+                case .right:    vector.x += CHARACTER_MOVE_AMT
+                case .bottom:   vector.z += CHARACTER_MOVE_AMT
+                case .top:      vector.z -= CHARACTER_MOVE_AMT
+                }
+            } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 90 {
+                print("Control: \(control.rawValue) MOVEMENT -1.0 at rotation 90")
+                switch control {
+                case .left:     vector.z += CHARACTER_MOVE_AMT
+                case .right:    vector.z -= CHARACTER_MOVE_AMT
+                case .bottom:   vector.x += CHARACTER_MOVE_AMT
+                case .top:      vector.x -= CHARACTER_MOVE_AMT
+                }
+            } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 270 {
+                print(" Control: \(control.rawValue)MOVEMENT -1.0 at rotation 270")
+                switch control {
+                case .left:     vector.z += CHARACTER_MOVE_AMT
+                case .right:    vector.z -= CHARACTER_MOVE_AMT
+                case .bottom:   vector.x += CHARACTER_MOVE_AMT
+                case .top:      vector.x -= CHARACTER_MOVE_AMT
+                }
+            } else {
+                assertionFailure("Movement not handled for -1.0 Y & rotation \(node.rotation.w.cg): degrees \(node.rotation.w.cg.radiansToDegrees()) Control: \(control.rawValue)")
+            }
+
+        default:
+            assertionFailure("Y value not handled \(node.rotation)")
+            return nil
         }
         
         
