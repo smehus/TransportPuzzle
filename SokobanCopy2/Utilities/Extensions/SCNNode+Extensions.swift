@@ -27,7 +27,7 @@ extension SCNNode {
         
     }
     
-    func rotateToAction(to vector: SCNVector3) -> SCNAction {
+    func rotateToAction(to vector: SCNVector3) -> (SCNVector3, SCNAction) {
         let lengthZ = presentation.position.z - vector.z
         let lengthX = presentation.position.x - vector.x
         let direction = float2(x: lengthX, y: lengthZ)
@@ -36,6 +36,7 @@ extension SCNNode {
         
         let nearest = DEFINED_ROTATIONS.nearestElement(to: degrees)
         let vec = SCNVector3(0, nearest.degreesToRadians(), 0)
-        return SCNAction.rotateTo(x: vec.x.cg, y: vec.y.cg, z: vec.z.cg, duration: 0.1, usesShortestUnitArc: true)
+        
+        return (vec, SCNAction.rotateTo(x: vec.x.cg, y: vec.y.cg, z: vec.z.cg, duration: 0.1, usesShortestUnitArc: true))
     }
 }

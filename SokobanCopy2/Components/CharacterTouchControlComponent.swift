@@ -49,8 +49,10 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             return
         }
         
+        print("CONTROL: \(direction) POSITION; \(node.presentation.simdWorldFront)")
+        
         var vectorOffset = direction.moveVector
-        queue.run([MoveAction(vector: node.position + vectorOffset)]) {
+        queue.run([MoveAction(vector: node.position + vectorOffset, direction: direction)]) {
             self.queueMove()
         }
     }

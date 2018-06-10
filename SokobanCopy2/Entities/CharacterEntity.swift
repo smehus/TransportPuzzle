@@ -44,7 +44,7 @@ final class CharacterEntity: GKEntity {
         for (_, path) in paths.enumerated() {
             let pos = SCNVector3(Int(path.gridPosition.x), 0, Int(path.gridPosition.y))
             let convertedPOS = grid.convertPosition(pos, to: node.parent!)
-            moveActions.append(MoveAction(vector: convertedPOS))
+            moveActions.append(MoveAction(vector: convertedPOS, direction: nil))
         }
         
         
@@ -57,4 +57,5 @@ final class CharacterEntity: GKEntity {
 
 struct MoveAction {
     let vector: SCNVector3
+    let direction: ControlDirection?
 }
