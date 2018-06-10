@@ -16,27 +16,6 @@ final class CameraFollowComponent: GKComponent {
         return entity.component(ofType: GKSCNNodeComponent.self)!.node
     }
     
-    override init() {
-        super.init()
-        setupCosntraints()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    private func setupCosntraints() {
-        guard let cameraEntity = entity as? CameraEntity else { return }
-        guard let node = cameraEntity.component(ofType: GKSCNNodeComponent.self)?.node else { return }
-        
-        guard let player: CharacterEntity = EntityManager.shared.entity() else { return }
-        guard let playerNode = player.component(ofType: GKSCNNodeComponent.self)?.node else { return }
-        
-        
-        
-    }
-    
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         
