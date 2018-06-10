@@ -12,7 +12,7 @@ import GameplayKit
 final class MoveActionQueueComponent: GKComponent {
     
     func run(_ actions: [MoveAction], completed: @escaping () -> ()) {
-        /*
+        
         let node = entity!.component(ofType: GKSCNNodeComponent.self)!.node
         var newActions = actions
         let nextAction  = newActions.removeFirst()
@@ -43,15 +43,19 @@ final class MoveActionQueueComponent: GKComponent {
             }
         }
         
-        let moveAction = SCNAction.move(to: nextAction.vector, duration: animation.animationDuration)
-        let rotateVec = node.rotateVector(to: nextAction.vector)
-        let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: animation.animationDuration / 2, usesShortestUnitArc: true)
-        
 //        node.addAnimationPlayer(animation.player, forKey: Animation.key)
-        node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: SCNAction.moveActionKey) {
-            guard !newActions.isEmpty else { completed(); return }
-            self.run(newActions, completed: completed)
+        
+        
+        let rotate = node.rotateToAction(to: nextAction.vector)
+        
+        node.runAction(rotate) {
+            let newPOS = node.presentation.simdPosition + node.presentation.simdWorldFront * 2
+            let vector = SCNVector3(x: newPOS.x, y: newPOS.y, z: newPOS.z)
+            let moveAction = SCNAction.move(to: vector, duration: Animation.walk.animationDuration)
+            node.runAction(moveAction, completionHandler: {
+                guard !newActions.isEmpty else { completed(); return }
+                self.run(newActions, completed: completed)
+            })
         }
- */
     }
 }
