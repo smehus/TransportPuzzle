@@ -22,6 +22,7 @@ let DEFINED_ROTATIONS: [CGFloat] = [0, 90, -90, 180, -180]
 
 var GRID_ALLOWS_DIAGONAL = false
 var CAMERA_FOLLOWS_ROTATION = true
+var SHOW_DEBUG_HUD = true
 var MOVEMENT_TYPE: MovementType = .manual {
     didSet {
         NotificationCenter.default.post(name: MOVEMENT_TYPE_NOTIFICATION_NAME, object: MOVEMENT_TYPE)

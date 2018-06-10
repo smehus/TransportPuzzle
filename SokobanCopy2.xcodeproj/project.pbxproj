@@ -17,6 +17,7 @@
 		AF2B24A420C2CEAD0095AA6F /* CharacterTouchControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B24A320C2CEAD0095AA6F /* CharacterTouchControlComponent.swift */; };
 		AF2B24A620C2D0D10095AA6F /* MoveActionQueueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B24A520C2D0D10095AA6F /* MoveActionQueueComponent.swift */; };
 		AF2B24A820C2DF830095AA6F /* SCNAction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B24A720C2DF830095AA6F /* SCNAction+Extensions.swift */; };
+		AF4A357920CD6F1600C9E578 /* DebugManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4A357820CD6F1600C9E578 /* DebugManager.swift */; };
 		AF4D1E5A20BD8F0000D09D70 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D1E5920BD8F0000D09D70 /* Properties.swift */; };
 		AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9420AFC09800B532E3 /* CharacterEntity.swift */; };
 		AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556B9620AFC2C600B532E3 /* GameController.swift */; };
@@ -60,6 +61,7 @@
 		AF2B24A320C2CEAD0095AA6F /* CharacterTouchControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTouchControlComponent.swift; sourceTree = "<group>"; };
 		AF2B24A520C2D0D10095AA6F /* MoveActionQueueComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveActionQueueComponent.swift; sourceTree = "<group>"; };
 		AF2B24A720C2DF830095AA6F /* SCNAction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNAction+Extensions.swift"; sourceTree = "<group>"; };
+		AF4A357820CD6F1600C9E578 /* DebugManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugManager.swift; sourceTree = "<group>"; };
 		AF4D1E5920BD8F0000D09D70 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		AF556B9420AFC09800B532E3 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		AF556B9620AFC2C600B532E3 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				AF556B9620AFC2C600B532E3 /* GameController.swift */,
 				AF4D1E5920BD8F0000D09D70 /* Properties.swift */,
 				AFB02A3E20BF70C0007891B7 /* PathGesture.swift */,
+				AF4A357820CD6F1600C9E578 /* DebugManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				AFB02A4820C02E45007891B7 /* HighlighterEntity.swift in Sources */,
 				AF8D9AC920ABCF5300D9CF07 /* CGFloat+Extensions.swift in Sources */,
 				AFB02A4620C02E10007891B7 /* RemovableEntity.swift in Sources */,
+				AF4A357920CD6F1600C9E578 /* DebugManager.swift in Sources */,
 				AF556B9520AFC09800B532E3 /* CharacterEntity.swift in Sources */,
 				AF2B24A020C1B08E0095AA6F /* CameraEntity.swift in Sources */,
 				AF556B9720AFC2C600B532E3 /* GameController.swift in Sources */,

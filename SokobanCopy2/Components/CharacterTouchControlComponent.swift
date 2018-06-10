@@ -16,6 +16,7 @@ final class CharacterTouchControlComponent: GKComponent {
     }
 
     private var currentDirection: ControlDirection?
+    private var debugManager = DebugManager.shared
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
@@ -68,7 +69,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
 
         switch node.rotation.y {
         case 0:
-            print("MOVEMENT 0")
+            debugManager.updateHud(string: "MOVEMENT 0")
             switch control {
             case .bottom:   vector.z -= CHARACTER_MOVE_AMT
             case .top:      vector.z += CHARACTER_MOVE_AMT
@@ -77,7 +78,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             }
         case 1.0:
             if Int(round(node.rotation.w.cg.radiansToDegrees())) == 90 {
-                print("Control: \(control.rawValue) MOVEMENT 1.0 at rotation 90")
+                debugManager.updateHud(string: "Control: \(control.rawValue) MOVEMENT 1.0 at rotation 90")
                 switch control {
                 case .left:     vector.z -= CHARACTER_MOVE_AMT
                 case .right:    vector.z += CHARACTER_MOVE_AMT
@@ -85,7 +86,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
                 case .top:      vector.x += CHARACTER_MOVE_AMT
                 }
             } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 180 {
-                print("Control: \(control.rawValue) MOVEMENT 1.0 at rotation 180")
+                debugManager.updateHud(string: "Control: \(control.rawValue) MOVEMENT 1.0 at rotation 180")
                 switch control {
                 case .left:     vector.x -= CHARACTER_MOVE_AMT
                 case .right:    vector.x += CHARACTER_MOVE_AMT
@@ -93,7 +94,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
                 case .top:      vector.z -= CHARACTER_MOVE_AMT
                 }
             } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 270 {
-                print("Control: \(control.rawValue) MOVEMENT 1.0 at rotation 270")
+                debugManager.updateHud(string: "Control: \(control.rawValue) MOVEMENT 1.0 at rotation 270")
                 switch control {
                 case .left:     vector.z += CHARACTER_MOVE_AMT
                 case .right:    vector.z -= CHARACTER_MOVE_AMT
@@ -107,7 +108,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
 
         case -1.0:
             if Int(round(node.rotation.w.cg.radiansToDegrees())) == 180 {
-                print("Control: \(control.rawValue) MOVEMENT -1.0 at rotation 180")
+                debugManager.updateHud(string: "Control: \(control.rawValue) MOVEMENT -1.0 at rotation 180")
                 switch control {
                 case .left:     vector.x -= CHARACTER_MOVE_AMT
                 case .right:    vector.x += CHARACTER_MOVE_AMT
@@ -115,7 +116,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
                 case .top:      vector.z -= CHARACTER_MOVE_AMT
                 }
             } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 90 {
-                print("Control: \(control.rawValue) MOVEMENT -1.0 at rotation 90")
+                debugManager.updateHud(string: "Control: \(control.rawValue) MOVEMENT -1.0 at rotation 90")
                 switch control {
                 case .left:     vector.z += CHARACTER_MOVE_AMT
                 case .right:    vector.z -= CHARACTER_MOVE_AMT
@@ -123,12 +124,12 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
                 case .top:      vector.x -= CHARACTER_MOVE_AMT
                 }
             } else if Int(round(node.rotation.w.cg.radiansToDegrees())) == 270 {
-                print(" Control: \(control.rawValue)MOVEMENT -1.0 at rotation 270")
+                debugManager.updateHud(string: "Control: \(control.rawValue) MOVEMENT -1.0 at rotation 270")
                 switch control {
-                case .left:     vector.z += CHARACTER_MOVE_AMT
-                case .right:    vector.z -= CHARACTER_MOVE_AMT
-                case .bottom:   vector.x += CHARACTER_MOVE_AMT
-                case .top:      vector.x -= CHARACTER_MOVE_AMT
+                case .left:     vector.z -= CHARACTER_MOVE_AMT
+                case .right:    vector.z += CHARACTER_MOVE_AMT
+                case .bottom:   vector.x -= CHARACTER_MOVE_AMT
+                case .top:      vector.x += CHARACTER_MOVE_AMT
                 }
             } else {
                 assertionFailure("Movement not handled for -1.0 Y & rotation \(node.rotation.w.cg): degrees \(node.rotation.w.cg.radiansToDegrees()) Control: \(control.rawValue)")

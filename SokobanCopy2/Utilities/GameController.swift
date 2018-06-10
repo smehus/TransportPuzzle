@@ -50,6 +50,10 @@ final class GameController: NSObject {
         }
     }
     
+    private func addDebugHUD() {
+        
+    }
+    
     private func setupGestures() {
         guard let view = sceneRenderer as? SCNView else { assertionFailure(); return }
         let touchDownGesture = PathGesture(target: self, action: #selector(path(gesture:)))
@@ -239,6 +243,11 @@ extension GameController {
         guard let camera = scene.rootNode.childNode(withName: "cameraContainer", recursively: true) else { assertionFailure(); return }
         sceneRenderer!.pointOfView = camera.childNode(withName: "camera", recursively: true)
         entityManager.add(CameraEntity(container: camera))
+        
+        if SHOW_DEBUG_HUD {
+            let manager = DebugManager.shared
+            camera.addChildNode(manager.hudNode)
+        }
     }
     
     private func createGraph(with nodes: [SCNNode]) {
