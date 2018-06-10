@@ -46,7 +46,7 @@ final class MoveActionQueueComponent: GKComponent {
         let rotateVec = node.rotateVector(to: nextAction.vector)
         let rotateAction = SCNAction.rotateTo(x: 0, y: rotateVec.y.cg, z: 0, duration: animation.animationDuration / 2, usesShortestUnitArc: true)
         
-        node.addAnimationPlayer(animation.player, forKey: Animation.key)
+//        node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group([moveAction, rotateAction]), forKey: SCNAction.moveActionKey) {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)

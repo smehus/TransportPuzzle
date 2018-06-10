@@ -29,6 +29,7 @@ final class GameController: NSObject {
     init(scnView: SCNView) {
         super.init()
     
+        scnView.isPlaying = true
         sceneRenderer = scnView
         sceneRenderer!.delegate = self
         
@@ -226,7 +227,7 @@ extension GameController {
         guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
         entityManager.add(HiddenCollisionEntity(node: hiddenCollision))
         
-        guard let character = scene.rootNode.childNode(withName: "Armature", recursively: true) else { assertionFailure(); return }
+        guard let character = scene.rootNode.childNode(withName: "Character", recursively: true) else { assertionFailure(); return }
         entityManager.add(CharacterEntity(node: character))
         
         guard let box = scene.rootNode.childNode(withName: "Cube", recursively: true) else { assertionFailure(); return }
@@ -245,8 +246,8 @@ extension GameController {
         entityManager.add(CameraEntity(container: camera))
         
         if SHOW_DEBUG_HUD {
-            let manager = DebugManager.shared
-            camera.addChildNode(manager.hudNode)
+//            let manager = DebugManager.shared
+//            camera.addChildNode(manager.hudNode)
         }
     }
     

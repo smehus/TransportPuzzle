@@ -20,10 +20,10 @@ final class CharacterEntity: GKEntity {
         node.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
         node.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
         node.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
-        
+
         addComponent(GKSCNNodeComponent(node: node))
         addComponent(MoveActionQueueComponent())
-        
+
         if MOVEMENT_TYPE == .manual {
             addComponent(CharacterTouchControlComponent())
         }

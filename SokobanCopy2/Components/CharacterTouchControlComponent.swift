@@ -20,6 +20,7 @@ final class CharacterTouchControlComponent: GKComponent {
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
+        
         queueMove()
     }
 }
@@ -43,17 +44,17 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
         guard let queue = entity?.component(ofType: MoveActionQueueComponent.self) else { return }
 
         guard let direction = currentDirection else {
-            node.removeAllAnimations()
-            node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
+//            node.removeAllAnimations()
+//            node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
             return
         }
         
         
         
         var vectorOffset = direction.moveVector
-        if CAMERA_FOLLOWS_ROTATION, let offset = vector(for: node, control: direction) {
-            vectorOffset = offset
-        }
+//        if CAMERA_FOLLOWS_ROTATION, let offset = vector(for: node, control: direction) {
+//            vectorOffset = offset
+//        }
         
         let nextPosition = node.position + vectorOffset
         queue.run([MoveAction(vector: nextPosition)]) {
