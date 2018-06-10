@@ -28,8 +28,8 @@ extension SCNNode {
     }
     
     func rotateToAction(to vector: SCNVector3) -> (SCNVector3, SCNAction) {
-        let lengthZ = presentation.position.z - vector.z
-        let lengthX = presentation.position.x - vector.x
+        let lengthZ = presentation.simdWorldFront.z - vector.z
+        let lengthX = presentation.simdWorldFront.x - vector.x
         let direction = float2(x: lengthX, y: lengthZ)
         let normalized = normalize(direction)
         let degrees: CGFloat = atan2(CGFloat(normalized.x), CGFloat(normalized.y)).radiansToDegrees()

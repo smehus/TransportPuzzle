@@ -47,16 +47,48 @@ final class MoveActionQueueComponent: GKComponent {
         
         var actions = [SCNAction]()
         var newPos: float3
-        let direction = simd_float3(nextAction.direction!.moveVector)
+//        let direction = simd_float3(nextAction.direction!.moveVector)
         
-        if nextAction.direction! == .top {
-            newPos = node.presentation.simdPosition + node.presentation.simdWorldFront * 2
-        } else {
-            let (rotateVector, rotateAction) = node.rotateToAction(to: nextAction.vector)
+        switch nextAction.direction! {
+        case .top:
+            newPos = node.presentation.simdPosition + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
+            
+            
+        case .right:
+            
+            let moveAmount = node.presentation.simdWorldRight * CHARACTER_MOVE_AMT
+            newPos = node.presentation.simdPosition + moveAmount
+            
+//            let (_, rotateAction) = node.rotateToAction(to: node.presentation.simdWorldRight.vector3)
+            let radians = CGFloat(-90).degreesToRadians()
+            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
             actions.append(rotateAction)
-            newPos = node.presentation.simdPosition + direction
+            
+            
+        case .left:
+            let reveresedRight = node.presentation.simdWorldRight * -1
+            let moveAmount = reveresedRight * CHARACTER_MOVE_AMT
+            newPos = node.presentation.simdPosition + moveAmount
+            
+//            let (_, rotateAction) = node.rotateToAction(to: moveAmount.vector3)
+            let radians = CGFloat(90).degreesToRadians()
+            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
+            actions.append(rotateAction)
+            
+            
+            
+        case .bottom:
+            
+            let reverseBottom = node.presentation.simdWorldFront * -1
+            let moveAmount = reverseBottom * CHARACTER_MOVE_AMT
+            newPos = node.presentation.simdPosition + moveAmount
+            
+//            let (_, rotateAction) = node.rotateToAction(to: moveAmount.vector3)
+            let radians = CGFloat(180).degreesToRadians()
+            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
+            actions.append(rotateAction)
         }
-    
+        
         let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
         let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
         actions.append(moveAction)
@@ -65,20 +97,11 @@ final class MoveActionQueueComponent: GKComponent {
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
-        
-        
-        /*
-        // Need to figure out how to group these
-        node.runAction(rotate) {
-        
-            let newPOS = node.presentation.simdPosition + node.presentation.simdWorldFront * 2
-            let vector = SCNVector3(x: newPOS.x, y: newPOS.y, z: newPOS.z)
-            let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
-            node.runAction(moveAction, completionHandler: {
-                guard !newActions.isEmpty else { completed(); return }
-                self.run(newActions, completed: completed)
-            })
-        }
- */
+    }
+}
+
+extension float3 {
+    var vector3: SCNVector3 {
+        return SCNVector3(self)
     }
 }
