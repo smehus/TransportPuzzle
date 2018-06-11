@@ -66,7 +66,6 @@ final class MoveActionQueueComponent: GKComponent {
             let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
             actions.append(rotateAction)
             
-            
         case .left:
             let reveresedRight = node.presentation.simdWorldRight * -1
             let moveAmount = reveresedRight * CHARACTER_MOVE_AMT
@@ -76,7 +75,6 @@ final class MoveActionQueueComponent: GKComponent {
             let radians = CGFloat(90).degreesToRadians()
             let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
             actions.append(rotateAction)
-            
             
             
         case .bottom:
@@ -96,10 +94,24 @@ final class MoveActionQueueComponent: GKComponent {
 //        let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
 //        actions.append(moveAction)
         
+        
         node.runAction(SCNAction.group(actions)) {
+            self.rotateCamera(node)
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
+    }
+    
+    private func rotateCamera(_ node: SCNNode) {
+        return 
+        guard let camera: CameraEntity = EntityManager.shared.entity() else { return }
+        guard let cameraNode = camera.component(ofType: GKSCNNodeComponent.self)?.node else { return }
+
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 1.0
+        cameraNode.transform = node.transform
+        SCNTransaction.commit()
+
     }
 }
 

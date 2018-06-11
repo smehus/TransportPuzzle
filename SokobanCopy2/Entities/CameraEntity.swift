@@ -34,8 +34,32 @@ final class CameraEntity: GKEntity {
         let orientationConstraint = SCNTransformConstraint(inWorldSpace: true) { (node, matrix) -> SCNMatrix4 in
             return playerNode.transform
         }
+        orientationConstraint.influenceFactor = 0.1
         
-        camera.constraints = [orientationConstraint]
+        let replicator = SCNReplicatorConstraint(target: playerNode)
+        replicator.replicatesOrientation = true
+        replicator.replicatesPosition = true
+        replicator.influenceFactor = 0.05
+        
+        let lookAtConstraint = SCNLookAtConstraint(target: playerNode)
+        lookAtConstraint.influenceFactor = 0.07
+        lookAtConstraint
+        lookAtConstraint.isGimbalLockEnabled = false
+        
+        // distance constraints
+        let follow = SCNDistanceConstraint(target: playerNode)
+        let distance = CGFloat(simd_length(camera.simdPosition))
+        follow.minimumDistance = 0
+        follow.maximumDistance = 0
+        follow.influenceFactor = 0.05
+        
+        let accelerationConstraint = SCNAccelerationConstraint()
+        accelerationConstraint.maximumLinearVelocity = 1500
+        accelerationConstraint.maximumLinearAcceleration = 100
+        accelerationConstraint.damping = 0.5
+        accelerationConstraint.influenceFactor = 1.0
+        
+        camera.constraints = [/*orientationConstraint,*/ accelerationConstraint, /*lookAtConstraint, follow ,*/ replicator]
     }
     
 }
