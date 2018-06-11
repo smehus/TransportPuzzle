@@ -26,24 +26,24 @@ final class MoveActionQueueComponent: GKComponent {
             for (_, collision) in hiddenComp.currentCollisions {
                 
                 switch collision.hiddenCollider {
-                case .hiddenRight where vector.x > 0:
+                case .hiddenRight where vector.x > 0: break
+//                    animation = .push
+//                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
+                case .hiddenLeft where vector.x < 0: break
+//                    animation = .push
+//                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
+                case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
-                case .hiddenLeft where vector.x < 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
-                case .hiddenFront where vector.z > 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
-                case .hiddenBack where vector.z < 0:
-                    animation = .push
-                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
+                    let newPos = simd_float3(collision.node.position) + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
+                    let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
+                    collision.node.runAction(SCNAction.move(to: vector , duration: Animation.push.animationDuration))
+                case .hiddenBack where vector.z < 0: break
+//                    animation = .push
+//                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 default: break
                 }
             }
         }
-        
-//        node.addAnimationPlayer(animation.player, forKey: Animation.key)
         
         var actions = [SCNAction]()
         var newPos: float3
@@ -52,7 +52,9 @@ final class MoveActionQueueComponent: GKComponent {
         switch nextAction.direction! {
         case .top:
             newPos = node.presentation.simdPosition + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
-            
+            let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
+            let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
+            actions.append(moveAction)
             
         case .right:
             
@@ -88,10 +90,11 @@ final class MoveActionQueueComponent: GKComponent {
             let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
             actions.append(rotateAction)
         }
-        
-        let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
-        let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
-        actions.append(moveAction)
+
+        // Only move if going forward? I guess so
+//        let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
+//        let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
+//        actions.append(moveAction)
         
         node.runAction(SCNAction.group(actions)) {
             guard !newActions.isEmpty else { completed(); return }

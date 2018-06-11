@@ -24,17 +24,18 @@ final class HiddenCollisionEntity: GKEntity {
         hiddenRight!.physicsBody!.categoryBitMask = ColliderType.hiddenRight.categoryMask
         hiddenRight!.physicsBody!.contactTestBitMask = ColliderType.hiddenRight.contactMask
         
-        let hiddenFront = node.childNode(withName: "front", recursively: true)
+        let hiddenFront = node.childNode(withName: "back", recursively: true)
         hiddenFront!.physicsBody!.categoryBitMask = ColliderType.hiddenFront.categoryMask
         hiddenFront!.physicsBody!.contactTestBitMask = ColliderType.hiddenFront.contactMask
         
-        let hiddenBack = node.childNode(withName: "back", recursively: true)
+        let hiddenBack = node.childNode(withName: "front", recursively: true)
         hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
         hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
         
 
         addComponent(GKSCNNodeComponent(node: node))
         addComponent(HiddenCollisionComponent())
+        attachConstraints(on: node)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,5 +48,16 @@ final class HiddenCollisionEntity: GKEntity {
         guard let node = component(ofType: GKSCNNodeComponent.self)?.node else { return }
         
         node.position = charNode.position
+    }
+    
+    func attachConstraints(on node: SCNNode) {
+        guard let player: CharacterEntity = EntityManager.shared.entity() else { return }
+        guard let playerNode = player.component(ofType: GKSCNNodeComponent.self)?.node else { return }
+        
+        let orientationConstraint = SCNTransformConstraint(inWorldSpace: true) { (node, matrix) -> SCNMatrix4 in
+            return playerNode.transform
+        }
+        
+        node.constraints = [orientationConstraint]
     }
 }

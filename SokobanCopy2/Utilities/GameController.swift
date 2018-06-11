@@ -223,12 +223,12 @@ extension GameController {
         if MOVEMENT_TYPE == .manual, let view = sceneRenderer as? SCNView {
             entityManager.add(OverlayEntity(size: view.bounds.size, controller: self))
         }
-
-        guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
-        entityManager.add(HiddenCollisionEntity(node: hiddenCollision))
         
         guard let character = scene.rootNode.childNode(withName: "Character", recursively: true) else { assertionFailure(); return }
         entityManager.add(CharacterEntity(node: character))
+        
+        guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
+        entityManager.add(HiddenCollisionEntity(node: hiddenCollision))
         
         guard let box = scene.rootNode.childNode(withName: "Cube", recursively: true) else { assertionFailure(); return }
         entityManager.add(BoxEntity(node: box))
