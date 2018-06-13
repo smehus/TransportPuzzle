@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+extension Int {
+    var float: Float {
+        return Float(self)
+    }
+}

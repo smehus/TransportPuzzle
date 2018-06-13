@@ -17,7 +17,7 @@ final class MoveActionQueueComponent: GKComponent {
         var newActions = actions
         let nextAction  = newActions.removeFirst()
     
-        var animation: Animation = .walk
+        var animation: Animation = .idle
         
         if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
             let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
@@ -35,8 +35,8 @@ final class MoveActionQueueComponent: GKComponent {
                 case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
                     let newPos = simd_float3(collision.node.position) + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
-                    let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
-                    collision.node.runAction(SCNAction.move(to: vector , duration: Animation.push.animationDuration))
+                    let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
+                    collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
                 case .hiddenBack where vector.z < 0: break
 //                    animation = .push
 //                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
@@ -51,8 +51,10 @@ final class MoveActionQueueComponent: GKComponent {
         
         switch nextAction.direction! {
         case .top:
+            animation = .walk
             newPos = node.presentation.simdPosition + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
-            let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
+            let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
+            print("MOVING TO \(vector)")
             let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
             actions.append(moveAction)
             
@@ -95,9 +97,14 @@ final class MoveActionQueueComponent: GKComponent {
 //        actions.append(moveAction)
         
         
+        node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group(actions)) {
             self.rotateCamera(node)
-            guard !newActions.isEmpty else { completed(); return }
+            guard !newActions.isEmpty else {
+                completed();
+                return
+            }
+            
             self.run(newActions, completed: completed)
         }
     }

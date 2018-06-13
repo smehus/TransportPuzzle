@@ -16,24 +16,20 @@ enum Animation {
     case idle
     
     static let key = "animation"
+
     
-    private static let pushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/pushing.dae")!
-    private static let closePushAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/close_push.dae")!
-    private static let closePushLoopAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/close_push_loop.dae")!
-    
-    private static let walkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/walking.dae")!
-    private static let walkStopAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/walk_stop.dae")!
-    private static let toughWalkAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/tough_walk.dae")!
-    
-    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/idle.dae")!
-    private static let idleStraightAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/idle_straight.dae")!
+    // Outfit Character
+    private static let walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/outfit_character_walking.dae")!
+    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/outfit_character_idle.dae")!
     
     var player: SCNAnimationPlayer {
         switch self {
-        case .step: return Animation.walkStopAnimation
-        case .walk: return Animation.toughWalkAnimation
-        case .push: return Animation.closePushLoopAnimation
-        case .idle: return Animation.idleStraightAnimation
+        case .idle: return Animation.idleAnimation
+        case .walk: return Animation.walkingAnimation
+            
+            
+        case .push: return Animation.idleAnimation
+        case .step: return Animation.idleAnimation
         }
     }
     
@@ -44,7 +40,7 @@ enum Animation {
         case .walk:
             return Animation.walk.player.animation.duration
         case .push:
-            return Animation.push.player.animation.duration
+            return Animation.walk.player.animation.duration
         case .idle:
             return Animation.idle.player.animation.duration
         }
