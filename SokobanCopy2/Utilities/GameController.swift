@@ -224,7 +224,7 @@ extension GameController {
             entityManager.add(OverlayEntity(size: view.bounds.size, controller: self))
         }
         
-        guard let character = scene.rootNode.childNode(withName: "Cube_002", recursively: true) else { assertionFailure(); return }
+        guard let character = scene.rootNode.childNode(withName: "Armature", recursively: true) else { assertionFailure(); return }
         entityManager.add(CharacterEntity(node: character))
         
         guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
