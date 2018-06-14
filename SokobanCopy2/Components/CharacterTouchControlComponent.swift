@@ -49,9 +49,11 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
         
         let vectorOffset = direction.moveVector
         queue.run([MoveAction(vector: node.position + vectorOffset, direction: direction)]) {
-            if self.currentDirection == nil {
-                self.node.removeAllAnimations()
-                self.node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
+            if self.currentDirection == nil, self.node.animationPlayer(forKey: Animation.walkingKey) != nil {
+                self.node.removeAnimation(forKey: Animation.walkingKey)
+                if self.node.animationPlayer(forKey: Animation.idleKey) == nil {
+                     self.node.addAnimationPlayer(Animation.idle.player, forKey: Animation.idleKey)
+                }
             }
             
             self.queueMove()

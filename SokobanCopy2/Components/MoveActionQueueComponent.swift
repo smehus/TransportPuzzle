@@ -12,6 +12,7 @@ import GameplayKit
 final class MoveActionQueueComponent: GKComponent {
     
     func run(_ actions: [MoveAction], completed: @escaping () -> ()) {
+        print("ACTION STARTING \(Date())")
         
         let node = entity!.component(ofType: GKSCNNodeComponent.self)!.node
         var newActions = actions
@@ -96,8 +97,16 @@ final class MoveActionQueueComponent: GKComponent {
 //        actions.append(moveAction)
         
         
-        node.addAnimationPlayer(animation.player, forKey: Animation.key)
+        if let _ = node.animationPlayer(forKey: Animation.idleKey) {
+            node.removeAnimation(forKey: Animation.idleKey)
+        }
+        
+        if node.animationPlayer(forKey: Animation.walkingKey) == nil {
+            node.addAnimationPlayer(animation.player, forKey: Animation.walkingKey)
+        }
+        
         node.runAction(SCNAction.group(actions)) {
+            print("ACTION ENDED \(Date())")
             self.rotateCamera(node)
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)

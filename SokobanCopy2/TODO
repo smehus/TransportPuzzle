@@ -1,3 +1,5 @@
 Make a collision manager component - to keep track of collisions. Right now I have two that do the same thing
 Highlight the current tile standing on
 make debug label to show movement vector / rotation degrees
+
+Making animation keys attached to the enum cases

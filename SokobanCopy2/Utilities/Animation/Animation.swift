@@ -15,7 +15,8 @@ enum Animation {
     case push
     case idle
     
-    static let key = "animation"
+    static let idleKey = "idle_animation"
+    static let walkingKey = "walking_animation"
 
     
     // Outfit Character

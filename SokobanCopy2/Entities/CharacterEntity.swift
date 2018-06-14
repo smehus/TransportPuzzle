@@ -36,7 +36,7 @@ final class CharacterEntity: GKEntity {
         let node = component(ofType: GKSCNNodeComponent.self)!.node
         
         node.removeAllActions()
-        node.removeAnimation(forKey: Animation.key)
+        node.removeAnimation(forKey: Animation.walkingKey)
         
         var moveActions: [MoveAction] = []
         
@@ -48,8 +48,8 @@ final class CharacterEntity: GKEntity {
         
         
         component(ofType: MoveActionQueueComponent.self)!.run(moveActions) {
-            node.removeAnimation(forKey: Animation.key)
-            node.addAnimationPlayer(Animation.idle.player, forKey: Animation.key)
+            node.removeAnimation(forKey: Animation.walkingKey)
+            node.addAnimationPlayer(Animation.idle.player, forKey: Animation.idleKey)
         }
     }
 }
