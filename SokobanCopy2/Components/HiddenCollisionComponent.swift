@@ -25,7 +25,9 @@ final class HiddenCollisionComponent: GKComponent {
         guard let characterComponent = character.component(ofType: GKSCNNodeComponent.self) else { return }
         guard let hiddenCollision = entity as? HiddenCollisionEntity else { return }
         guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
-        hiddenComponent.node.position = characterComponent.node.position
+        let newPos = SCNVector3(characterComponent.node.position.x, 0.0, characterComponent.node.position.z)
+        hiddenComponent.node.position = newPos
+        hiddenComponent.node.rotation = characterComponent.node.rotation
     }
 }
 
@@ -35,7 +37,7 @@ extension HiddenCollisionComponent: CollisionDetector {
         let hiddenColliders: ColliderType = [.hiddenLeft, .hiddenRight, .hiddenFront, .hiddenBack]
         let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
         let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-  
+        
         if hiddenColliders.contains(colliderA) {
             insert(collision: HiddenCollision(contact: contact, node: contact.nodeB, hiddenCollider: colliderA), for: colliderA.union(colliderB))
         } else if hiddenColliders.contains(colliderB) {

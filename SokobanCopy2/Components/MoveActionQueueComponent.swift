@@ -16,7 +16,7 @@ final class MoveActionQueueComponent: GKComponent {
         let node = entity!.component(ofType: GKSCNNodeComponent.self)!.node
         var newActions = actions
         let nextAction  = newActions.removeFirst()
-    
+        
         var animation: Animation = .idle
         
         if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
@@ -24,7 +24,6 @@ final class MoveActionQueueComponent: GKComponent {
             
             let vector = nextAction.vector - node.position
             for (_, collision) in hiddenComp.currentCollisions {
-                
                 switch collision.hiddenCollider {
                 case .hiddenRight where vector.x > 0: break
 //                    animation = .push
@@ -54,7 +53,7 @@ final class MoveActionQueueComponent: GKComponent {
             animation = .walk
             newPos = node.presentation.simdPosition + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
             let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
-            print("MOVING TO \(vector)")
+//            print("MOVING TO \(vector)")
             let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
             actions.append(moveAction)
             
@@ -100,11 +99,7 @@ final class MoveActionQueueComponent: GKComponent {
         node.addAnimationPlayer(animation.player, forKey: Animation.key)
         node.runAction(SCNAction.group(actions)) {
             self.rotateCamera(node)
-            guard !newActions.isEmpty else {
-                completed();
-                return
-            }
-            
+            guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
         }
     }
@@ -112,12 +107,12 @@ final class MoveActionQueueComponent: GKComponent {
     private func rotateCamera(_ node: SCNNode) {
         return 
         guard let camera: CameraEntity = EntityManager.shared.entity() else { return }
-        guard let cameraNode = camera.component(ofType: GKSCNNodeComponent.self)?.node else { return }
-
-        SCNTransaction.begin()
-        SCNTransaction.animationDuration = 1.0
-        cameraNode.transform = node.transform
-        SCNTransaction.commit()
+//        guard let cameraNode = camera.component(ofType: GKSCNNodeComponent.self)?.node else { return }
+//
+//        SCNTransaction.begin()
+//        SCNTransaction.animationDuration = 1.0
+//        cameraNode.transform = node.transform
+//        SCNTransaction.commit()
 
     }
 }

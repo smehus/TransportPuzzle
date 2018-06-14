@@ -43,12 +43,11 @@ final class CameraEntity: GKEntity {
         
         let lookAtConstraint = SCNLookAtConstraint(target: playerNode)
         lookAtConstraint.influenceFactor = 0.07
-        lookAtConstraint
         lookAtConstraint.isGimbalLockEnabled = false
         
         // distance constraints
         let follow = SCNDistanceConstraint(target: playerNode)
-        let distance = CGFloat(simd_length(camera.simdPosition))
+        let _ = CGFloat(simd_length(camera.simdPosition))
         follow.minimumDistance = 0
         follow.maximumDistance = 0
         follow.influenceFactor = 0.05

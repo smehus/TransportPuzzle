@@ -52,12 +52,20 @@ final class HiddenCollisionEntity: GKEntity {
     
     func attachConstraints(on node: SCNNode) {
         guard let player: CharacterEntity = EntityManager.shared.entity() else { return }
-        guard let playerNode = player.component(ofType: GKSCNNodeComponent.self)?.node else { return }
+        guard let _ = player.component(ofType: GKSCNNodeComponent.self)?.node else { return }
         
-        let orientationConstraint = SCNTransformConstraint(inWorldSpace: true) { (node, matrix) -> SCNMatrix4 in
-            return playerNode.transform
-        }
+//        let orientationConstraint = SCNTransformConstraint(inWorldSpace: true) { (node, matrix) -> SCNMatrix4 in
+//            return playerNode.transform
+//        }
         
-        node.constraints = [orientationConstraint]
+//        let replicator = SCNReplicatorConstraint(target: playerNode)
+//        replicator.replicatesOrientation = true
+//        replicator.replicatesPosition = true
+//        
+//        let orient = SCNTransformConstraint.orientationConstraint(inWorldSpace: true) { (node, quat) -> SCNQuaternion in
+//            return playerNode.rotation
+//        }
+//        
+//        node.constraints = [orient]
     }
 }
