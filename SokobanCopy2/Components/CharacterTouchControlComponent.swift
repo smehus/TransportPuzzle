@@ -15,7 +15,13 @@ final class CharacterTouchControlComponent: GKComponent {
         return entity!.component(ofType: GKSCNNodeComponent.self)!.node
     }
 
-    private var currentDirection: ControlDirection?
+    private var previousDirection: ControlDirection?
+    private var currentDirection: ControlDirection? {
+        didSet {
+            previousDirection = oldValue
+        }
+    }
+    
     private var debugManager = DebugManager.shared
     
     override func update(deltaTime seconds: TimeInterval) {
@@ -47,13 +53,18 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             return
         }
         
+        if let previous = previousDirection, direction == previous, !direction.updateContinously {
+            node.removeKnownAnimations()
+            return
+        }
+        
         let vectorOffset = direction.moveVector
-        queue.run([MoveAction(vector: node.position + vectorOffset, direction: direction)]) {
-            if self.currentDirection == nil, self.node.animationPlayer(forKey: Animation.AnimationKey.walk.rawValue) != nil {
-                self.node.removeAnimation(forKey: Animation.AnimationKey.walk.rawValue)
-                if self.node.animationPlayer(forKey: Animation.AnimationKey.idle.rawValue) == nil {
-                     self.node.addAnimationPlayer(Animation.idle.player, forKey: Animation.AnimationKey.idle.rawValue)
-                }
+        queue.run([MoveAction(vector: node.position + vectorOffset, direction: direction)]) { [weak self] in
+            guard let `self` = self else { assertionFailure(); return }
+            if self.currentDirection == nil {
+                self.node.removeKnownAnimations()
+                let animation = Animation.idle
+                self.node.addAnimationPlayer(animation.player, forKey: animation.animationKey)
             }
             
             self.queueMove()

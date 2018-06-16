@@ -37,6 +37,13 @@ enum ControlDirection: String {
         
         return vector
     }
+    
+    var updateContinously: Bool {
+        switch self {
+        case .top: return true
+        default: return false
+        }
+    }
 }
 
 final class ControlOverlay: SKScene {

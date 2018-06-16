@@ -98,7 +98,7 @@ final class MoveActionQueueComponent: GKComponent {
         
 
         node.removeKnownAnimations()
-        node.addAnimationPlayer(animation.player, forKey: Animation.AnimationKey.walk.rawValue)
+        node.addAnimationPlayer(animation.player, forKey: animation.animationKey)
         
         node.runAction(SCNAction.group(actions)) {
             print("ACTION ENDED \(Date())")
