@@ -18,7 +18,7 @@ final class MoveActionQueueComponent: GKComponent {
         var newActions = actions
         let nextAction  = newActions.removeFirst()
         
-        var animation: Animation = .idle
+        var animation: Animation = .walk
         
         if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
             let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
@@ -51,7 +51,6 @@ final class MoveActionQueueComponent: GKComponent {
         
         switch nextAction.direction! {
         case .top:
-            animation = .walk
             newPos = node.presentation.simdPosition + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
             let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
 //            print("MOVING TO \(vector)")
@@ -97,13 +96,9 @@ final class MoveActionQueueComponent: GKComponent {
 //        actions.append(moveAction)
         
         
-        if let _ = node.animationPlayer(forKey: Animation.idleKey) {
-            node.removeAnimation(forKey: Animation.idleKey)
-        }
-        
-        if node.animationPlayer(forKey: Animation.walkingKey) == nil {
-            node.addAnimationPlayer(animation.player, forKey: Animation.walkingKey)
-        }
+
+        node.removeKnownAnimations()
+        node.addAnimationPlayer(animation.player, forKey: Animation.AnimationKey.walk.rawValue)
         
         node.runAction(SCNAction.group(actions)) {
             print("ACTION ENDED \(Date())")

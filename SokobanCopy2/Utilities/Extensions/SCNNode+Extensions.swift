@@ -39,4 +39,12 @@ extension SCNNode {
         
         return (vec, SCNAction.rotateTo(x: vec.x.cg, y: vec.y.cg, z: vec.z.cg, duration: 0.1, usesShortestUnitArc: true))
     }
+    
+    func removeKnownAnimations() {
+        for key in animationKeys {
+            if let _ = Animation.AnimationKey(rawValue: key) {
+                removeAnimation(forKey: key)
+            }
+        }
+    }
 }
