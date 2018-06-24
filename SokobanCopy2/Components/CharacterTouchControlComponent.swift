@@ -42,6 +42,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
     }
     
     func selectionDidEnd(direction: ControlDirection) {
+        print("*** SELECTION DID END")
         currentDirection = nil
     }
 
@@ -65,6 +66,8 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
                 self.node.removeKnownAnimations()
                 let animation = Animation.idle
                 self.node.addAnimationPlayer(animation.player, forKey: animation.animationKey)
+            } else {
+                print("*** fAILED REMOVING WALK ANIMATION \(self.currentDirection)")
             }
             
             self.queueMove()

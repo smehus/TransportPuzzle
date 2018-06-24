@@ -63,7 +63,7 @@ final class MoveActionQueueComponent: GKComponent {
             
 //            let (_, rotateAction) = node.rotateToAction(to: node.presentation.simdWorldRight.vector3)
             let radians = CGFloat(-90).degreesToRadians()
-            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
+            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.5)
             actions.append(rotateAction)
             
         case .left:
@@ -73,7 +73,7 @@ final class MoveActionQueueComponent: GKComponent {
             
 //            let (_, rotateAction) = node.rotateToAction(to: moveAmount.vector3)
             let radians = CGFloat(90).degreesToRadians()
-            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
+            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.5)
             actions.append(rotateAction)
             
             
@@ -85,7 +85,7 @@ final class MoveActionQueueComponent: GKComponent {
             
 //            let (_, rotateAction) = node.rotateToAction(to: moveAmount.vector3)
             let radians = CGFloat(180).degreesToRadians()
-            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.1)
+            let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.5)
             actions.append(rotateAction)
         }
 
