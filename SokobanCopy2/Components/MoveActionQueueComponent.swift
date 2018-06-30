@@ -18,6 +18,9 @@ final class MoveActionQueueComponent: GKComponent {
         let nextAction  = newActions.removeFirst()
         
         var animation: Animation = .walk
+        let f = node.presentation.simdWorldFront
+        let worldFront = abs(f.x) > abs(f.z) ? float3(round(f.x), 0, 0) : float3(0, 0, round(f.z))
+        
         
         if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
             let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
@@ -33,7 +36,7 @@ final class MoveActionQueueComponent: GKComponent {
 //                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
-                    let newPos = simd_float3(collision.node.position) + node.presentation.simdWorldFront * CHARACTER_MOVE_AMT
+                    let newPos = simd_float3(collision.node.position) + worldFront * CHARACTER_MOVE_AMT
                     let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
                     collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
                 case .hiddenBack where vector.z < 0: break
@@ -50,9 +53,6 @@ final class MoveActionQueueComponent: GKComponent {
         
         switch nextAction.direction! {
         case .top:
-            
-            let f = node.presentation.simdWorldFront
-            let worldFront = abs(f.x) > abs(f.z) ? float3(round(f.x), 0, 0) : float3(0, 0, round(f.z))
             
             newPos = node.presentation.simdPosition + worldFront * CHARACTER_MOVE_AMT
             let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
