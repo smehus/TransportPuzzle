@@ -23,8 +23,8 @@ enum Animation {
     }
     
     // Outfit Character
-    private static let walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/outfit_character_walking.dae")!
-    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/outfit_character_idle.dae")!
+    private static let walkingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/cube_character_walking.dae")!
+    private static let idleAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/cube_character_idle.dae")!
     private static let pushingAnimation = CAAnimation.animationWithScene(named: "art.scnassets/Character/outfit_character_pushing.dae")!
     
     var player: SCNAnimationPlayer {
