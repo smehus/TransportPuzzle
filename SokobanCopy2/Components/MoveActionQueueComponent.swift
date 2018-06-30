@@ -52,7 +52,7 @@ final class MoveActionQueueComponent: GKComponent {
         case .top:
             
             let f = node.presentation.simdWorldFront
-            let worldFront = abs(f.x) > abs(f.z) ? float3(f.x, 0, 0) : float3(0, 0, f.z)
+            let worldFront = abs(f.x) > abs(f.z) ? float3(round(f.x), 0, 0) : float3(0, 0, round(f.z))
             
             newPos = node.presentation.simdPosition + worldFront * CHARACTER_MOVE_AMT
             let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
