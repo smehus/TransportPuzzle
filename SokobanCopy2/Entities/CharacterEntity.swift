@@ -16,10 +16,10 @@ final class CharacterEntity: GKEntity {
         
 //        let geom = SCNBox(width: 0.5, height: 2, length: 0.5, chamferRadius: 0)
 //        let shape = SCNPhysicsShape(geometry: geom, options: nil)
-//        node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
-//        node.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
-//        node.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
-//        node.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
+        node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        node.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
+        node.physicsBody!.contactTestBitMask = ColliderType.player.contactMask
+        node.physicsBody!.collisionBitMask = ColliderType.player.collisionMask
         addComponent(GKSCNNodeComponent(node: node))
         addComponent(MoveActionQueueComponent())
 

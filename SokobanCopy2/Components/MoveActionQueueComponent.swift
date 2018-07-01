@@ -36,9 +36,9 @@ final class MoveActionQueueComponent: GKComponent {
 //                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
-                    let newPos = simd_float3(collision.node.position) + worldFront * CHARACTER_MOVE_AMT
-                    let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
-                    collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
+//                    let newPos = simd_float3(collision.node.position) + worldFront * CHARACTER_MOVE_AMT
+//                    let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
+//                    collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
                 case .hiddenBack where vector.z < 0: break
 //                    animation = .push
 //                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
