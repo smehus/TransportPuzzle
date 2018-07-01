@@ -98,13 +98,6 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
         return mask?.rawValue ?? 0
     }
     
-    var isAffectedByGravity: Bool {
-        switch self {
-        case .box: return false
-        default: return false
-        }
-    }
-    
     // MARK: ContactNotifiableType Convenience
     
     /**

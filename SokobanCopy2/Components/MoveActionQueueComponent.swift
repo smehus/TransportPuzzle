@@ -26,7 +26,6 @@ final class MoveActionQueueComponent: GKComponent {
             let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
             
             let vector = nextAction.vector - node.position
-            print("NUMBER OF COLLISIONS \(hiddenComp.currentCollisions.count)")
             for (_, collision) in hiddenComp.currentCollisions {
                 switch collision.hiddenCollider {
                 case .hiddenRight where vector.x > 0: break
@@ -38,8 +37,9 @@ final class MoveActionQueueComponent: GKComponent {
                 case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
                     let newPos = simd_float3(collision.node.position) + worldFront * CHARACTER_MOVE_AMT
-                    let vector = SCNVector3(x: Int(round(newPos.x)).float, y: 0.0, z: Int(round(newPos.z)).float)
-                    collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
+                    let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
+//                    collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
+                    collision.node.position = vector
                 case .hiddenBack where vector.z < 0: break
 //                    animation = .push
 //                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
