@@ -230,7 +230,7 @@ extension GameController {
         guard let hiddenCollision = scene.rootNode.childNode(withName: "CharacterCollision", recursively: true) else { assertionFailure(); return }
         entityManager.add(HiddenCollisionEntity(node: hiddenCollision))
         
-        guard let box = scene.rootNode.childNode(withName: "Rock", recursively: true) else { assertionFailure(); return }
+        guard let box = scene.rootNode.childNode(withName: "Cube_Cube.001_Material", recursively: true) else { assertionFailure(); return }
         entityManager.add(BoxEntity(node: box))
         
         guard let floor = scene.rootNode.childNode(withName: "Floor", recursively: true) else { assertionFailure(); return }

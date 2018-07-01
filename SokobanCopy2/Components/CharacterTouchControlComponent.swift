@@ -42,7 +42,6 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
     }
     
     func selectionDidEnd(direction: ControlDirection) {
-        print("*** SELECTION DID END")
         currentDirection = nil
     }
 
