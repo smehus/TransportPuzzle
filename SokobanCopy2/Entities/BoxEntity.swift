@@ -32,12 +32,32 @@ final class BoxEntity: GKEntity {
 
 final class NearestCoordinateComponent: GKComponent {
     
+    private var lastUpdate: TimeInterval = 0
+    
     var node: SCNNode {
         return entity!.component(ofType: GKSCNNodeComponent.self)!.node
     }
     
+ 
+    override func update(deltaTime seconds: TimeInterval) {
+        let delta = Double(seconds - lastUpdate)
+        lastUpdate = seconds
+        
+        if node.physicsBody!.velocity.x < 1 || node.physicsBody!.velocity.z < 1 {
+            if node.presentation.simdPosition.x.truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0 || node.presentation.simdPosition.z.truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0 {
+                print("updating position")
+                let xDelta = Int(round(node.presentation.simdPosition.x))
+                let zDelta = Int(round(node.presentation.simdPosition.z))
+                
+                node.position = SCNVector3(xDelta, 0, zDelta)
+            }
+        }
+    }
     
-    
+}
+
+extension SCNVector3 {
+    static let min = SCNVector3(1, 0, 1)
 }
 
 extension NearestCoordinateComponent: ControlOverlayResponder {

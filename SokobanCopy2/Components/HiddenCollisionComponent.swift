@@ -40,10 +40,8 @@ extension HiddenCollisionComponent: CollisionDetector {
         
         if hiddenColliders.contains(colliderA) {
             insert(collision: HiddenCollision(contact: contact, node: contact.nodeB, hiddenCollider: colliderA), for: colliderA.union(colliderB))
-            print("ADDED COLLISION \(colliderA) \(colliderB)")
         } else if hiddenColliders.contains(colliderB) {
             insert(collision: HiddenCollision(contact: contact, node: contact.nodeA, hiddenCollider: colliderB), for: colliderA.union(colliderB))
-            print("ADDED COLLISION \(colliderA) \(colliderB)")
         }
     }
     
@@ -54,9 +52,6 @@ extension HiddenCollisionComponent: CollisionDetector {
     func didEnd(_ contact: SCNPhysicsContact) {
         let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
         let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-        if currentCollisions[colliderA.union(colliderB)] != nil {
-            print("removing collision \(colliderA) and \(colliderB)")
-        }
         
         currentCollisions[colliderA.union(colliderB)] = nil
     }
