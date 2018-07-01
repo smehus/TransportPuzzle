@@ -117,12 +117,14 @@ final class EntityManager: NSObject {
         let hidddenCollisionComponent = ComponentSystem(componentClass: HiddenCollisionComponent.self)
         let pathCreatorComponent = ComponentSystem(componentClass: PathCreatorComponent.self)
         let cameraFollowComponent = ComponentSystem(componentClass: CameraFollowComponent.self)
+        let nearestCoordinate = ComponentSystem(componentClass: NearestCoordinateComponent.self)
         return [touchControlComponent,
                 hidddenCollisionComponent,
                 pathCreatorComponent,
                 highlightComponent,
                 cameraFollowComponent,
-                characterTouchComponent]
+                characterTouchComponent,
+                nearestCoordinate]
     }()
     
     weak var controller: GameController!
