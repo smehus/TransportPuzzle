@@ -19,6 +19,7 @@ protocol CollisionDetector {
     func shouldRespond(to contact: SCNPhysicsContact) -> Bool
     func didBegin(_ contact: SCNPhysicsContact)
     func didEnd(_ contact: SCNPhysicsContact)
+    func didUpdate(_ contact: SCNPhysicsContact)
 }
 
 protocol TouchResponder {

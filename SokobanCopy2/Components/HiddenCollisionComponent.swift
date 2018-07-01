@@ -27,7 +27,7 @@ final class HiddenCollisionComponent: GKComponent {
         guard let characterComponent = character.component(ofType: GKSCNNodeComponent.self) else { return }
         guard let hiddenCollision = entity as? HiddenCollisionEntity else { return }
         guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
-        let newPos = SCNVector3(characterComponent.node.position.x, 0.5, characterComponent.node.position.z)
+        let newPos = SCNVector3(characterComponent.node.position.x, 0.0, characterComponent.node.position.z)
         hiddenComponent.node.position = newPos
         hiddenComponent.node.rotation = characterComponent.node.rotation
     }
@@ -36,29 +36,42 @@ final class HiddenCollisionComponent: GKComponent {
 extension HiddenCollisionComponent: CollisionDetector {
     
     func shouldRespond(to contact: SCNPhysicsContact) -> Bool {
-        let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
-        let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-        return hiddenColliders.contains(colliderA) || hiddenColliders.contains(colliderB)
+        return true
     }
     
     func didBegin(_ contact: SCNPhysicsContact) {
         let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
         let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
+        update(contact: contact, colliderA: colliderA, colliderB: colliderB)
+    }
+    
+    func didUpdate(_ contact: SCNPhysicsContact) {
+//        let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
+//        let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
+//        update(contact: contact, colliderA: colliderA, colliderB: colliderB)
+    }
+
+    func didEnd(_ contact: SCNPhysicsContact) {
+        let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
+        let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
         
+        if currentCollisions[colliderA.union(colliderB)] != nil {
+            currentCollisions[colliderA.union(colliderB)] = nil
+            print("removed collisions A \(colliderA) B \(colliderB)")
+        }
+    }
+    
+    private func update(contact: SCNPhysicsContact, colliderA: ColliderType, colliderB: ColliderType) {
         if hiddenColliders.contains(colliderA) {
             insert(collision: HiddenCollision(contact: contact, node: contact.nodeB, hiddenCollider: colliderA), for: colliderA.union(colliderB))
+            print("ADDED COLLISIONS")
         } else if hiddenColliders.contains(colliderB) {
             insert(collision: HiddenCollision(contact: contact, node: contact.nodeA, hiddenCollider: colliderB), for: colliderA.union(colliderB))
+            print("ADDED COLLISIONS")
         }
     }
     
     private func insert(collision: HiddenCollision, for key: ColliderType) {
         currentCollisions.updateValue(collision, forKey: key)
-    }
-    
-    func didEnd(_ contact: SCNPhysicsContact) {
-        let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
-        let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-        currentCollisions[colliderA.union(colliderB)] = nil
     }
 }

@@ -184,11 +184,11 @@ extension GameController {
         
         ColliderType.shouldNotify[.player] = true
         ColliderType.shouldNotify[.box] = true
-        ColliderType.shouldNotify[.hiddenBack] = hiddenContactActive
+        ColliderType.shouldNotify[.hiddenBack] = false
         ColliderType.shouldNotify[.hiddenFront] = hiddenContactActive
-        ColliderType.shouldNotify[.hiddenLeft] = hiddenContactActive
-        ColliderType.shouldNotify[.hiddenRight] = hiddenContactActive
-        ColliderType.shouldNotify[.highlighter] = hiddenContactActive
+        ColliderType.shouldNotify[.hiddenLeft] = false
+        ColliderType.shouldNotify[.hiddenRight] = false
+        ColliderType.shouldNotify[.highlighter] = false
         
         ColliderType.requestedContactNotifications[.box] = [.hiddenBack, .hiddenFront, .hiddenLeft, .hiddenRight]
 
@@ -325,6 +325,7 @@ extension GameController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) { }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        
         entityManager.didEnd(contact)
     }
 }

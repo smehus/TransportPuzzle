@@ -43,9 +43,9 @@ extension RemoveOnContactComponent: CollisionDetector {
         }
     }
     
-    func didEnd(_ contact: SCNPhysicsContact) {
-        
-    }
+    func didUpdate(_ contact: SCNPhysicsContact) { }
+    
+    func didEnd(_ contact: SCNPhysicsContact) { }
     
     private func colliders(from contact: SCNPhysicsContact) -> (ColliderType, ColliderType) {
         let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)

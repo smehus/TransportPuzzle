@@ -17,20 +17,23 @@ final class HiddenCollisionEntity: GKEntity {
         super.init()
         
         let hiddenLeft = node.childNode(withName: "left", recursively: true)
-        hiddenLeft!.physicsBody!.categoryBitMask = ColliderType.hiddenLeft.categoryMask
-        hiddenLeft!.physicsBody!.contactTestBitMask = ColliderType.hiddenLeft.contactMask
+        hiddenLeft!.physicsBody = nil
+        hiddenLeft!.physicsBody?.categoryBitMask = ColliderType.hiddenLeft.categoryMask
+        hiddenLeft!.physicsBody?.contactTestBitMask = ColliderType.hiddenLeft.contactMask
         
         let hiddenRight = node.childNode(withName: "right", recursively: true)
-        hiddenRight!.physicsBody!.categoryBitMask = ColliderType.hiddenRight.categoryMask
-        hiddenRight!.physicsBody!.contactTestBitMask = ColliderType.hiddenRight.contactMask
+        hiddenRight!.physicsBody = nil
+        hiddenRight!.physicsBody?.categoryBitMask = ColliderType.hiddenRight.categoryMask
+        hiddenRight!.physicsBody?.contactTestBitMask = ColliderType.hiddenRight.contactMask
         
-        let hiddenFront = node.childNode(withName: "back", recursively: true)
+        let hiddenFront = node.childNode(withName: "front", recursively: true)
         hiddenFront!.physicsBody!.categoryBitMask = ColliderType.hiddenFront.categoryMask
         hiddenFront!.physicsBody!.contactTestBitMask = ColliderType.hiddenFront.contactMask
         
-        let hiddenBack = node.childNode(withName: "front", recursively: true)
-        hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
-        hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
+        let hiddenBack = node.childNode(withName: "back", recursively: true)
+        hiddenBack!.physicsBody = nil
+        hiddenBack!.physicsBody?.categoryBitMask = ColliderType.hiddenBack.categoryMask
+        hiddenBack!.physicsBody?.contactTestBitMask = ColliderType.hiddenBack.contactMask
         
 
         addComponent(GKSCNNodeComponent(node: node))
