@@ -42,7 +42,7 @@ final class GameController: NSObject {
         
         sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
-//        sceneRenderer!.debugOptions = [.showPhysicsShapes]
+        sceneRenderer!.debugOptions = [.showPhysicsShapes]
         
         setupCollisions()
         setupNodes()
@@ -200,7 +200,7 @@ extension GameController {
         ColliderType.requestedContactNotifications[.highlighter] =  [.player]
         
         ColliderType.definedCollisions[.player] = [.box]
-        ColliderType.definedCollisions[.box] = [.player, .plane]
+        ColliderType.definedCollisions[.box] = [.plane]
         ColliderType.definedCollisions[.plane] = [.box]
     }
     
