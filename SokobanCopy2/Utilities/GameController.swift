@@ -42,7 +42,7 @@ final class GameController: NSObject {
         
         sceneRenderer!.showsStatistics = true
         scnView.backgroundColor = UIColor.black
-//        sceneRenderer!.debugOptions = [.showPhysicsShapes]
+        sceneRenderer!.debugOptions = [.showPhysicsShapes]
         
         setupCollisions()
         setupNodes()
@@ -180,28 +180,29 @@ extension GameController {
     
     private func setupCollisions() {
         
-        ColliderType.shouldNotify[.player] = true
-        ColliderType.shouldNotify[.box] = true
-        ColliderType.shouldNotify[.hiddenBack] = true
-        ColliderType.shouldNotify[.hiddenFront] = true
-        ColliderType.shouldNotify[.hiddenLeft] = true
-        ColliderType.shouldNotify[.hiddenRight] = true
-        ColliderType.shouldNotify[.highlighter] = true
+        ColliderType.shouldNotify[.player] = false
+        ColliderType.shouldNotify[.box] = false
+        ColliderType.shouldNotify[.hiddenBack] = false
+        ColliderType.shouldNotify[.hiddenFront] = false
+        ColliderType.shouldNotify[.hiddenLeft] = false
+        ColliderType.shouldNotify[.hiddenRight] = false
+        ColliderType.shouldNotify[.highlighter] = false
         
-        ColliderType.requestedContactNotifications[.box] = [.player]
-        
+        ColliderType.requestedContactNotifications[.box] = [.hiddenBack, .hiddenFront, .hiddenLeft, .hiddenRight]
+
         ColliderType.requestedContactNotifications[.player] = [.box, .highlighter]
-    
+
         ColliderType.requestedContactNotifications[.hiddenFront] =  [.box]
         ColliderType.requestedContactNotifications[.hiddenBack] =   [.box]
         ColliderType.requestedContactNotifications[.hiddenLeft] =   [.box]
         ColliderType.requestedContactNotifications[.hiddenRight] =  [.box]
-        
+
         ColliderType.requestedContactNotifications[.highlighter] =  [.player]
         
-        ColliderType.definedCollisions[.player] = [.box]
-        ColliderType.definedCollisions[.box] = [.player, .plane]
+        ColliderType.definedCollisions[.player] = []
+        ColliderType.definedCollisions[.box] = [.plane]
         ColliderType.definedCollisions[.plane] = [.box]
+
     }
     
     private func setupNotifications() {

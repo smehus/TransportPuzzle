@@ -13,7 +13,8 @@ final class PlaneEntity: GKEntity {
     
     init(node: SCNNode) {
         super.init()
-        
+    
+        node.physicsBody = SCNPhysicsBody.static()
         node.physicsBody?.categoryBitMask = ColliderType.plane.categoryMask
         node.physicsBody?.collisionBitMask = ColliderType.plane.collisionMask
         node.physicsBody?.contactTestBitMask = ColliderType.plane.contactMask
