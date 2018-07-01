@@ -180,7 +180,7 @@ extension GameController {
     
     private func setupCollisions() {
         
-        /*
+        
         ColliderType.shouldNotify[.player] = false
         ColliderType.shouldNotify[.box] = false
         ColliderType.shouldNotify[.hiddenBack] = false
@@ -199,11 +199,10 @@ extension GameController {
         ColliderType.requestedContactNotifications[.hiddenRight] =  [.box]
         
         ColliderType.requestedContactNotifications[.highlighter] =  [.player]
-        */
+ 
         ColliderType.definedCollisions[.player] = [.box]
         ColliderType.definedCollisions[.box] = [.plane, .player]
         ColliderType.definedCollisions[.plane] = [.box]
-//        ColliderType.definedCollisions[.hiddenFront] = [.box]
     }
     
     private func setupNotifications() {
