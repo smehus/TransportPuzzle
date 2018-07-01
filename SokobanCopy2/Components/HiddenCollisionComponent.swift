@@ -27,7 +27,7 @@ final class HiddenCollisionComponent: GKComponent {
         guard let characterComponent = character.component(ofType: GKSCNNodeComponent.self) else { return }
         guard let hiddenCollision = entity as? HiddenCollisionEntity else { return }
         guard let hiddenComponent = hiddenCollision.component(ofType: GKSCNNodeComponent.self) else { return }
-        let newPos = SCNVector3(characterComponent.node.position.x, 0.0, characterComponent.node.position.z)
+        let newPos = SCNVector3(characterComponent.node.position.x, 0.5, characterComponent.node.position.z)
         hiddenComponent.node.position = newPos
         hiddenComponent.node.rotation = characterComponent.node.rotation
     }

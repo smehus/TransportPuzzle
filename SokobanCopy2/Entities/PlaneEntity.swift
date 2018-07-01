@@ -14,7 +14,8 @@ final class PlaneEntity: GKEntity {
     init(node: SCNNode) {
         super.init()
     
-        node.physicsBody = SCNPhysicsBody.static()
+        let shape = SCNPhysicsShape(node: node, options: [:])
+        node.physicsBody = SCNPhysicsBody(type: .static, shape: shape)
         node.physicsBody?.categoryBitMask = ColliderType.plane.categoryMask
         node.physicsBody?.collisionBitMask = ColliderType.plane.collisionMask
         node.physicsBody?.contactTestBitMask = ColliderType.plane.contactMask
