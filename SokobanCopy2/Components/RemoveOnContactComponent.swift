@@ -24,10 +24,6 @@ final class RemoveOnContactComponent: GKComponent {
 
 extension RemoveOnContactComponent: CollisionDetector {
     
-    func shouldRespond(to contact: SCNPhysicsContact) -> Bool {
-        return true
-    }
-    
     func didBegin(_ contact: SCNPhysicsContact) {
         guard let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node else {
             assertionFailure("Remove On Contact Entity has no node")

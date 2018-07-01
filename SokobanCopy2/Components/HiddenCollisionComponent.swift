@@ -18,8 +18,6 @@ struct HiddenCollision {
 final class HiddenCollisionComponent: GKComponent {
     var currentCollisions: [ColliderType: HiddenCollision] = [:]
     
-    private var hiddenColliders: ColliderType = [.hiddenLeft, .hiddenRight, .hiddenFront, .hiddenBack]
-    
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
         
@@ -35,13 +33,8 @@ final class HiddenCollisionComponent: GKComponent {
 
 extension HiddenCollisionComponent: CollisionDetector {
     
-    func shouldRespond(to contact: SCNPhysicsContact) -> Bool {
-        let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
-        let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-        return hiddenColliders.contains(colliderA) || hiddenColliders.contains(colliderB)
-    }
-    
     func didBegin(_ contact: SCNPhysicsContact) {
+        let hiddenColliders: ColliderType = [.hiddenLeft, .hiddenRight, .hiddenFront, .hiddenBack]
         let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
         let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
         

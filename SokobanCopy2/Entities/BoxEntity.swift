@@ -14,14 +14,12 @@ final class BoxEntity: GKEntity {
     init(node: SCNNode) {
         super.init()
         
-//        let boxGeom = SCNBox(width: 2, height: 4, length: 2, chamferRadius: 0)
-//        let boxShape = SCNPhysicsShape(geometry: boxGeom, options: nil)
-        node.physicsBody = SCNPhysicsBody.dynamic()
+        let boxGeom = SCNBox(width: 2, height: 4, length: 2, chamferRadius: 0)
+        let boxShape = SCNPhysicsShape(geometry: boxGeom, options: nil)
+        node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: boxShape)
         node.physicsBody!.categoryBitMask = ColliderType.box.categoryMask
         node.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
         node.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
-        
-
         node.entity = self
         
         addComponent(GKSCNNodeComponent(node: node))

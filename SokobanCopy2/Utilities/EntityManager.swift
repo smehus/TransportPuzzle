@@ -16,7 +16,6 @@ protocol ControlOverlayResponder {
 }
 
 protocol CollisionDetector {
-    func shouldRespond(to contact: SCNPhysicsContact) -> Bool
     func didBegin(_ contact: SCNPhysicsContact)
     func didEnd(_ contact: SCNPhysicsContact)
 }
@@ -59,7 +58,7 @@ class ComponentSystem: GKComponentSystem<GKComponent> {
     
     func didBegin(_ contact: SCNPhysicsContact) {
         for component in components {
-            if let detector = component as? CollisionDetector, detector.shouldRespond(to: contact) {
+            if let detector = component as? CollisionDetector {
                 detector.didBegin(contact)
             }
         }
