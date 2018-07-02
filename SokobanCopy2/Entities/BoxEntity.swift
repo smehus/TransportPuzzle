@@ -38,18 +38,24 @@ final class NearestCoordinateComponent: GKComponent {
         return entity!.component(ofType: GKSCNNodeComponent.self)!.node
     }
     
+    var player: SCNNode {
+        let playerEntity: CharacterEntity! = EntityManager.shared.entity()
+        return playerEntity.component(ofType: GKSCNNodeComponent.self)!.node
+    }
  
     override func update(deltaTime seconds: TimeInterval) {
         let delta = Double(seconds - lastUpdate)
         lastUpdate = seconds
         
-        if node.physicsBody!.velocity.x < 1 || node.physicsBody!.velocity.z < 1 {
-            if node.presentation.simdPosition.x.truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0 || node.presentation.simdPosition.z.truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0 {
+        if Int(node.physicsBody!.velocity.x) < 1 || Int(node.physicsBody!.velocity.z) < 1 {
+            if Float(Int(node.presentation.simdPosition.x)).truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0.0 || Float(Int(node.presentation.simdPosition.z)).truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0.0,
+                node.animationPlayer(forKey: Animation.walk.animationKey) == nil,
+                node.animationPlayer(forKey: Animation.push.animationKey) == nil {
+                
                 print("updating position")
                 let xDelta = Int(round(node.presentation.simdPosition.x))
                 let zDelta = Int(round(node.presentation.simdPosition.z))
-                
-                node.position = SCNVector3(xDelta, 0, zDelta)
+//                node.position = SCNVector3(xDelta, 0, zDelta)
             }
         }
     }
