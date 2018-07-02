@@ -49,13 +49,11 @@ final class NearestCoordinateComponent: GKComponent {
         
         if Int(node.physicsBody!.velocity.x) < 1 || Int(node.physicsBody!.velocity.z) < 1 {
             if Float(Int(node.presentation.simdPosition.x)).truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0.0 || Float(Int(node.presentation.simdPosition.z)).truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0.0,
-                node.animationPlayer(forKey: Animation.walk.animationKey) == nil,
-                node.animationPlayer(forKey: Animation.push.animationKey) == nil {
-                
+                node.action(forKey: "move_action") == nil {
                 print("updating position")
-                let xDelta = Int(round(node.presentation.simdPosition.x))
-                let zDelta = Int(round(node.presentation.simdPosition.z))
-//                node.position = SCNVector3(xDelta, 0, zDelta)
+                let xDelta = Float(Int(round(node.presentation.simdPosition.x)))
+                let zDelta = Float(Int(round(node.presentation.simdPosition.z)))
+//                node.simdPosition = float3(xDelta, 0, zDelta)
             }
         }
     }

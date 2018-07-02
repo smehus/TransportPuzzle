@@ -103,7 +103,7 @@ final class MoveActionQueueComponent: GKComponent {
         node.removeKnownAnimations()
         node.addAnimationPlayer(animation.player, forKey: animation.animationKey)
         
-        node.runAction(SCNAction.group(actions)) {
+        node.runAction(SCNAction.group(actions), forKey: "move_action") {
             self.rotateCamera(node)
             guard !newActions.isEmpty else { completed(); return }
             self.run(newActions, completed: completed)
