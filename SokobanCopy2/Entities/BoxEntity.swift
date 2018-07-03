@@ -33,6 +33,7 @@ final class BoxEntity: GKEntity {
 final class NearestCoordinateComponent: GKComponent {
     
     private var lastUpdate: TimeInterval = 0
+    private var movePointsPerSecond = 480.0
     
     var node: SCNNode {
         return entity!.component(ofType: GKSCNNodeComponent.self)!.node
@@ -42,22 +43,24 @@ final class NearestCoordinateComponent: GKComponent {
         let playerEntity: CharacterEntity! = EntityManager.shared.entity()
         return playerEntity.component(ofType: GKSCNNodeComponent.self)!.node
     }
+    
  
     override func update(deltaTime seconds: TimeInterval) {
         let delta = Double(seconds - lastUpdate)
         lastUpdate = seconds
         
-        if Int(node.physicsBody!.velocity.x) < 1 || Int(node.physicsBody!.velocity.z) < 1 {
-            if Float(Int(node.presentation.simdPosition.x)).truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0.0 || Float(Int(node.presentation.simdPosition.z)).truncatingRemainder(dividingBy: CHARACTER_MOVE_AMT) != 0.0,
-                node.action(forKey: "move_action") == nil {
-                print("updating position")
-                let xDelta = Float(Int(round(node.presentation.simdPosition.x)))
-                let zDelta = Float(Int(round(node.presentation.simdPosition.z)))
-//                node.simdPosition = float3(xDelta, 0, zDelta)
+        if node.physicsBody!.xzInert {
+            if Int(round(node.presentation.simdPosition.x)) % 2 != 0 || Int(round(node.presentation.simdPosition.z)) % 2 != 0 {
+                print("Needs Update")
             }
         }
     }
-    
+}
+
+extension SCNPhysicsBody {
+    var xzInert: Bool {
+        return velocity.x < 1 && velocity.z < 1
+    }
 }
 
 extension SCNVector3 {
