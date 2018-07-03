@@ -19,3 +19,11 @@ public func shortestAngleBetween(_ angle1: CGFloat, angle2: CGFloat) -> CGFloat 
     }
     return angle
 }
+
+func po(_ string: String) {
+    let threadCountString = "* 🤔: \(string) *"
+    let surround = "".padding(toLength: threadCountString.count, withPad: "*", startingAt: 0)
+    print(surround)
+    print(threadCountString)
+    print(surround)
+}
