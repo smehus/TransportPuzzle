@@ -33,7 +33,7 @@ final class BoxEntity: GKEntity {
 final class NearestCoordinateComponent: GKComponent {
     
     private var lastUpdate: TimeInterval = 0
-    private var movePointsPerSecond = 480.0
+    private var movePointsPerSecond: Float = 480.0
     
     var node: SCNNode {
         return entity!.component(ofType: GKSCNNodeComponent.self)!.node
@@ -50,10 +50,25 @@ final class NearestCoordinateComponent: GKComponent {
         lastUpdate = seconds
         
         if node.physicsBody!.xzInert {
-            if Int(round(node.presentation.simdPosition.x)) % 2 != 0 || Int(round(node.presentation.simdPosition.z)) % 2 != 0 {
-                print("Needs Update")
+            if Double(node.presentation.simdPosition.x).truncatingRemainder(dividingBy: 2) > 0.2 || Double(node.presentation.simdPosition.z).truncatingRemainder(dividingBy: 2) > 0.2 {
+                
+                let newX = roundTwos(node.presentation.simdPosition.x)
+                let newZ = roundTwos(node.presentation.simdPosition.z)
+                let targetVector = float3(newX, 0, newZ)
+                let offset = targetVector - node.presentation.simdPosition
+                
+                let length = sqrtf(offset.x * offset.x + offset.z * offset.z)
+                let direction = float3(offset.x / length, 0, offset.z / length)
+                let velocity = SCNVector3(direction.x, 0, direction.z)
+                node.physicsBody!.velocity = velocity
+            } else {
+//                node.physicsBody!.velocity = .zero
             }
         }
+    }
+    
+    func roundTwos( _ value: Float) -> Float {
+        return 2 * (value / 2).rounded()
     }
 }
 
@@ -65,6 +80,7 @@ extension SCNPhysicsBody {
 
 extension SCNVector3 {
     static let min = SCNVector3(1, 0, 1)
+    static let zero = SCNVector3(0, 0 , 0)
 }
 
 extension NearestCoordinateComponent: ControlOverlayResponder {
