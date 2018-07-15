@@ -19,9 +19,11 @@ final class BoxEntity: GKEntity {
         node.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
         node.physicsBody!.isAffectedByGravity = true
         node.physicsBody!.friction = 5.0
+        node.physicsBody!.angularVelocity = SCNVector4(0, 0, 0, 0)
         node.physicsBody!.angularDamping = 10.0
         node.physicsBody!.damping = 0.5
         node.entity = self
+        
         
         addComponent(GKSCNNodeComponent(node: node))
         addComponent(NearestCoordinateComponent())
@@ -68,6 +70,7 @@ final class NearestCoordinateComponent: GKComponent {
                 node.physicsBody!.velocity = velocity
  */
    
+                node.physicsBody!.angularVelocity = SCNVector4(0, 0, 0, 0)
                 let newX = roundTwos(node.presentation.simdPosition.x)
                 let newZ = roundTwos(node.presentation.simdPosition.z)
                 let targetVector = SCNVector3(newX, 0, newZ)
@@ -75,6 +78,8 @@ final class NearestCoordinateComponent: GKComponent {
                 node.runAction(action)
             }
         }
+        
+        
     }
     
     func roundTwos( _ value: Float) -> Float {
