@@ -74,7 +74,7 @@ final class NearestCoordinateComponent: GKComponent {
                 let newX = roundTwos(node.presentation.simdPosition.x)
                 let newZ = roundTwos(node.presentation.simdPosition.z)
                 let targetVector = SCNVector3(newX, 0, newZ)
-                let action = SCNAction.move(to: targetVector, duration: 0.1)
+                let action = SCNAction.move(to: targetVector, duration: 0.05)
                 node.runAction(action)
             }
         }
