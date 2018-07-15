@@ -64,9 +64,7 @@ final class NearestCoordinateComponent: GKComponent {
                 let direction = float3(offset.x / length, 0, offset.z / length)
                 let velocity = SCNVector3(direction.x * movePoints, 0, direction.z * movePoints)
                 node.physicsBody!.velocity = velocity
-            } else {
-//                node.physicsBody!.velocity = .zero
-            }
+            } 
         }
     }
     
