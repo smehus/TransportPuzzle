@@ -19,7 +19,7 @@ final class BoxEntity: GKEntity {
         node.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
         node.physicsBody!.isAffectedByGravity = true
         node.physicsBody!.friction = 5.0
-        node.physicsBody!.angularDamping = 1.0
+        node.physicsBody!.angularDamping = 10.0
         node.physicsBody!.damping = 0.5
         node.entity = self
         
@@ -36,7 +36,7 @@ final class BoxEntity: GKEntity {
 final class NearestCoordinateComponent: GKComponent {
     
     private var lastUpdate: TimeInterval = 0
-    private var movePointsPerSecond: Float = 480.0
+    private var movePoints: Float = 4
     
     var node: SCNNode {
         return entity!.component(ofType: GKSCNNodeComponent.self)!.node
@@ -49,7 +49,7 @@ final class NearestCoordinateComponent: GKComponent {
     
  
     override func update(deltaTime seconds: TimeInterval) {
-        let delta = Double(seconds - lastUpdate)
+//        let delta = Double(seconds - lastUpdate)
         lastUpdate = seconds
         
         if node.physicsBody!.xzInert {
@@ -62,7 +62,7 @@ final class NearestCoordinateComponent: GKComponent {
                 
                 let length = sqrtf(offset.x * offset.x + offset.z * offset.z)
                 let direction = float3(offset.x / length, 0, offset.z / length)
-                let velocity = SCNVector3(direction.x, 0, direction.z)
+                let velocity = SCNVector3(direction.x * movePoints, 0, direction.z * movePoints)
                 node.physicsBody!.velocity = velocity
             } else {
 //                node.physicsBody!.velocity = .zero
