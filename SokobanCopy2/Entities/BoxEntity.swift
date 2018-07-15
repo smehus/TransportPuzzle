@@ -55,6 +55,8 @@ final class NearestCoordinateComponent: GKComponent {
         if node.physicsBody!.xzInert {
             if Double(node.presentation.simdPosition.x).truncatingRemainder(dividingBy: 2) > 0.2 || Double(node.presentation.simdPosition.z).truncatingRemainder(dividingBy: 2) > 0.2 {
                 
+                // use an scnaction?
+                /*
                 let newX = roundTwos(node.presentation.simdPosition.x)
                 let newZ = roundTwos(node.presentation.simdPosition.z)
                 let targetVector = float3(newX, 0, newZ)
@@ -64,7 +66,14 @@ final class NearestCoordinateComponent: GKComponent {
                 let direction = float3(offset.x / length, 0, offset.z / length)
                 let velocity = SCNVector3(direction.x * movePoints, 0, direction.z * movePoints)
                 node.physicsBody!.velocity = velocity
-            } 
+ */
+   
+                let newX = roundTwos(node.presentation.simdPosition.x)
+                let newZ = roundTwos(node.presentation.simdPosition.z)
+                let targetVector = SCNVector3(newX, 0, newZ)
+                let action = SCNAction.move(to: targetVector, duration: 0.1)
+                node.runAction(action)
+            }
         }
     }
     
