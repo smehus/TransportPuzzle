@@ -18,6 +18,9 @@ final class BoxEntity: GKEntity {
         node.physicsBody!.collisionBitMask = ColliderType.box.collisionMask
         node.physicsBody!.contactTestBitMask = ColliderType.box.contactMask
         node.physicsBody!.isAffectedByGravity = true
+        node.physicsBody!.friction = 5.0
+        node.physicsBody!.angularDamping = 1.0
+        node.physicsBody!.damping = 0.5
         node.entity = self
         
         addComponent(GKSCNNodeComponent(node: node))

@@ -15,7 +15,7 @@ final class CharacterEntity: GKEntity {
         super.init()
         
         
-        let geom = SCNBox(width: 1.9, height: 1.9, length: 1.9, chamferRadius: 0)
+        let geom = SCNBox(width: 1.3, height: 1.3, length: 1.3, chamferRadius: 0)
         let shape = SCNPhysicsShape(geometry: geom, options: nil)
         node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         node.physicsBody!.categoryBitMask = ColliderType.player.categoryMask
