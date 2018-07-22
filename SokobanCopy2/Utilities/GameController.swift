@@ -181,13 +181,14 @@ extension GameController {
     private func setupCollisions() {
         
         
-        ColliderType.shouldNotify[.player] = false
+        ColliderType.shouldNotify[.player] = true
         ColliderType.shouldNotify[.box] = false
         ColliderType.shouldNotify[.hiddenBack] = false
         ColliderType.shouldNotify[.hiddenFront] = false
         ColliderType.shouldNotify[.hiddenLeft] = false
         ColliderType.shouldNotify[.hiddenRight] = false
         ColliderType.shouldNotify[.highlighter] = true
+        ColliderType.shouldNotify[.groundButton] = true
         
         ColliderType.requestedContactNotifications[.box] = [.player]
         
@@ -199,6 +200,8 @@ extension GameController {
         ColliderType.requestedContactNotifications[.hiddenRight] =  [.box]
         
         ColliderType.requestedContactNotifications[.highlighter] =  [.player]
+        
+        ColliderType.requestedContactNotifications[.groundButton] = [.player, .box]
  
         ColliderType.definedCollisions[.player] = [.box]
         ColliderType.definedCollisions[.box] = [.plane, .player]
@@ -234,17 +237,22 @@ extension GameController {
         guard let box = scene.rootNode.childNode(withName: "Cube_Cube.001_Material", recursively: true) else { assertionFailure(); return }
         entityManager.add(BoxEntity(node: box))
         
+        guard let groundButton = scene.rootNode.childNode(withName: "ground_button", recursively: true) else  { assertionFailure(); return }
+        entityManager.add(GroundButtonEntity(node: groundButton))
+        
         guard let floor = scene.rootNode.childNode(withName: "Floor", recursively: true) else { assertionFailure(); return }
         for floorNode in floor.childNodes {
             entityManager.add(PlaneEntity(node: floorNode))
             
         }
         
-        createGraph(with: floor.childNodes)
+//        createGraph(with: floor.childNodes)
         
         guard let camera = scene.rootNode.childNode(withName: "cameraContainer", recursively: true) else { assertionFailure(); return }
         sceneRenderer!.pointOfView = camera.childNode(withName: "camera", recursively: true)
         entityManager.add(CameraEntity(container: camera))
+        
+        
         
         if SHOW_DEBUG_HUD {
 //            let manager = DebugManager.shared

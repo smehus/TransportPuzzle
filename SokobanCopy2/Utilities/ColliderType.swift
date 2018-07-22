@@ -33,6 +33,7 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     static var hiddenFront: ColliderType { return self.init(rawValue: 1 << 5) }
     static var hiddenBack:  ColliderType { return self.init(rawValue: 1 << 6) }
     static var highlighter: ColliderType { return self.init(rawValue: 1 << 7) }
+    static var groundButton: ColliderType { return self.init(rawValue: 1 << 8) }
     
     // MARK: Hashable
     
