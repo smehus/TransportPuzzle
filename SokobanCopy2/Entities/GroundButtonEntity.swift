@@ -32,7 +32,19 @@ final class GroundButtonEntity: GKEntity {
 }
 
 final class GroundButtonCollisionComponent: GKComponent {
-    var currentCollision: SCNNode?
+
+    var currentCollision: SCNNode? {
+        didSet {
+            guard let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node else { return }
+            
+            switch currentCollision {
+            case .none:
+                node.runAction(SCNAction.move(to: SCNVector3(node.simdPosition.x, 0.3, node.simdPosition.z), duration: 0.3))
+            case .some:
+                node.runAction(SCNAction.move(to: SCNVector3(node.simdPosition.x, -2.0, node.simdPosition.z), duration: 0.3))
+            }
+        }
+    }
     
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
@@ -63,18 +75,5 @@ extension GroundButtonCollisionComponent: CollisionDetector {
         }
     }
     
-    func didEnd(_ contact: SCNPhysicsContact) {
-        // Getting called cause certain parts of armature get not touching anymore??
-        
-        /*
-        let groundCollider = contact.nodeA.physicsBody!.categoryBitMask == ColliderType.groundButton.categoryMask ? ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask) : ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-        let collision = contact.nodeA.physicsBody!.categoryBitMask == ColliderType.groundButton.categoryMask ? ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask) : ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
-        
-        guard groundCollider == .groundButton else { return }
-        
-        if groundCollider.notifyOnContactWith(collision) {
-            currentCollision = contact.nodeA.physicsBody!.categoryBitMask == ColliderType.groundButton.categoryMask ? contact.nodeB : contact.nodeA
-        }
-     */
-    }
+    func didEnd(_ contact: SCNPhysicsContact) { }
 }

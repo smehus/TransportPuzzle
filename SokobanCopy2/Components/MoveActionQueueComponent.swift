@@ -55,8 +55,8 @@ final class MoveActionQueueComponent: GKComponent {
         case .top:
             
             newPos = node.presentation.simdPosition + worldFront * CHARACTER_MOVE_AMT
-            let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
-//            print("MOVING TO \(vector)")
+            let vector = SCNVector3(x: Int(round(newPos.x)).float, y: node.size.y / 2, z: Int(round(newPos.z)).float)
+            print("MOVING TO \(vector)")
             let moveAction = SCNAction.move(to: vector, duration: 0.3)
             actions.append(moveAction)
             
