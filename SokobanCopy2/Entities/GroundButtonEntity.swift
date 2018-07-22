@@ -39,8 +39,8 @@ final class GroundButtonCollisionComponent: GKComponent {
         guard let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node else { return }
         
         if let collision = currentCollision {
-            let offset = node.presentation.simdPosition - collision.presentation.simdPosition
-            if abs(offset.x) > 1.9 || abs(offset.z) > 1.9 {
+            let offset = node.parent!.presentation.simdPosition - collision.presentation.simdPosition
+            if abs(offset.x) >= 2 || abs(offset.z) >= 2 {
                 currentCollision = nil
                 print("NO LONGER INTERSECTING ****")
             }
