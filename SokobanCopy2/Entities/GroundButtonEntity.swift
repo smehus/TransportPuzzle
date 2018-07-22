@@ -51,7 +51,7 @@ final class GroundButtonCollisionComponent: GKComponent {
         guard let node = entity?.component(ofType: GKSCNNodeComponent.self)?.node else { return }
         
         if let collision = currentCollision {
-            let offset = node.parent!.presentation.simdPosition - collision.presentation.simdPosition
+            let offset = node.parent!.presentation.worldPosition - collision.presentation.worldPosition
             if abs(offset.x) >= 2 || abs(offset.z) >= 2 {
                 currentCollision = nil
                 print("NO LONGER INTERSECTING ****")
@@ -69,7 +69,12 @@ extension GroundButtonCollisionComponent: CollisionDetector {
         guard groundCollider == .groundButton else { return }
         guard currentCollision == nil else { return }
         
-        if groundCollider.notifyOnContactWith(collision) {
+        let groundNode = contact.nodeA.physicsBody!.categoryBitMask == ColliderType.groundButton.categoryMask ? contact.nodeA : contact.nodeB
+        let collisionNode = contact.nodeA.physicsBody!.categoryBitMask == ColliderType.groundButton.categoryMask ? contact.nodeB : contact.nodeA
+        
+        let offset = groundNode.parent!.presentation.worldPosition - collisionNode.presentation.worldPosition
+//        print("COLLISION POSITION \(groundNode.parent!.presentation.worldPosition) && \(collisionNode.presentation.worldPosition)")
+        if groundCollider.notifyOnContactWith(collision), (abs(offset.x) < 1.0 && abs(offset.z) < 1.0)  {
             print("ADDING COLLISION ***")
             currentCollision = contact.nodeA.physicsBody!.categoryBitMask == ColliderType.groundButton.categoryMask ? contact.nodeB : contact.nodeA
         }

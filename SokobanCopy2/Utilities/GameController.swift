@@ -182,7 +182,7 @@ extension GameController {
         
         
         ColliderType.shouldNotify[.player] = true
-        ColliderType.shouldNotify[.box] = false
+        ColliderType.shouldNotify[.box] = true
         ColliderType.shouldNotify[.hiddenBack] = false
         ColliderType.shouldNotify[.hiddenFront] = false
         ColliderType.shouldNotify[.hiddenLeft] = false
