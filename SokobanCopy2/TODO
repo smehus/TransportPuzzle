@@ -8,3 +8,6 @@ lights from below rocks? like destingy
 
 
 Fix animations -> Getting these "*** fAILED REMOVING WALK ANIMATION Optional(SokobanCopy2.ControlDirection.top)""
+
+
+checkout the fox game from apple and how they handle animation players -> Add a bunch and then just call play() / stop()
