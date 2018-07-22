@@ -39,9 +39,9 @@ final class GroundButtonCollisionComponent: GKComponent {
             
             switch currentCollision {
             case .none:
-                node.runAction(SCNAction.move(to: SCNVector3(node.simdPosition.x, 0.3, node.simdPosition.z), duration: 0.3))
+                node.runAction(SCNAction.move(to: SCNVector3(node.simdPosition.x, 0.0, node.simdPosition.z), duration: 0.1))
             case .some:
-                node.runAction(SCNAction.move(to: SCNVector3(node.simdPosition.x, -2.0, node.simdPosition.z), duration: 0.3))
+                node.runAction(SCNAction.move(to: SCNVector3(node.simdPosition.x, -0.1, node.simdPosition.z), duration: 0.1))
             }
         }
     }
