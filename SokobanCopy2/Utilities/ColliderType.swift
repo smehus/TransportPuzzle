@@ -25,15 +25,16 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     
     // MARK: Options
     
-    static var player:      ColliderType { return self.init(rawValue: 1 << 0) }
-    static var box:         ColliderType { return self.init(rawValue: 1 << 1) }
-    static var plane:       ColliderType { return self.init(rawValue: 1 << 2) }
-    static var hiddenLeft:  ColliderType { return self.init(rawValue: 1 << 3) }
-    static var hiddenRight: ColliderType { return self.init(rawValue: 1 << 4) }
-    static var hiddenFront: ColliderType { return self.init(rawValue: 1 << 5) }
-    static var hiddenBack:  ColliderType { return self.init(rawValue: 1 << 6) }
-    static var highlighter: ColliderType { return self.init(rawValue: 1 << 7) }
-    static var groundButton: ColliderType { return self.init(rawValue: 1 << 8) }
+    static var player:          ColliderType { return self.init(rawValue: 1 << 0) }
+    static var box:             ColliderType { return self.init(rawValue: 1 << 1) }
+    static var plane:           ColliderType { return self.init(rawValue: 1 << 2) }
+    static var hiddenLeft:      ColliderType { return self.init(rawValue: 1 << 3) }
+    static var hiddenRight:     ColliderType { return self.init(rawValue: 1 << 4) }
+    static var hiddenFront:     ColliderType { return self.init(rawValue: 1 << 5) }
+    static var hiddenBack:      ColliderType { return self.init(rawValue: 1 << 6) }
+    static var highlighter:     ColliderType { return self.init(rawValue: 1 << 7) }
+    static var groundButton:    ColliderType { return self.init(rawValue: 1 << 8) }
+    static var obstacle:        ColliderType { return self.init(rawValue: 1 << 9) }
     
     // MARK: Hashable
     
@@ -65,6 +66,10 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
             return "Player Collision With Highlighter"
         case ColliderType.hiddenRight.union(.box):
             return "Hidden Rigth Collide With Box"
+        case ColliderType.obstacle:
+            return "Obstacle"
+        case ColliderType.obstacle.union(.hiddenFront)
+            return "Obstacle With Hidden Front"
         default:
             return "UnknownColliderType(\(self.rawValue))"
         }
