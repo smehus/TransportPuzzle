@@ -68,7 +68,7 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
             return "Hidden Rigth Collide With Box"
         case ColliderType.obstacle:
             return "Obstacle"
-        case ColliderType.obstacle.union(.hiddenFront)
+        case ColliderType.obstacle.union(.hiddenFront):
             return "Obstacle With Hidden Front"
         default:
             return "UnknownColliderType(\(self.rawValue))"
