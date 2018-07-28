@@ -39,7 +39,7 @@ final class HiddenCollisionComponent: GKComponent {
             let contactX = playerPoint.x > min.x && playerPoint.x < max.x
             let contactZ = playerPoint.z > min.z && playerPoint.z < max.z
             
-            return contactX || contactZ
+            return contactX && contactZ
         }
     }
 }
