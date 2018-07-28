@@ -18,6 +18,10 @@ extension SCNVector3 {
     func flipped() -> SCNVector3 {
         return SCNVector3(-x, -y, -z)
     }
+    
+    var simd: simd_float3 {
+        return simd_float3(x, y, x)
+    }
 }
 
 func +(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {

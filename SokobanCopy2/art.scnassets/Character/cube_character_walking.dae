@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9</authoring_tool>
     </contributor>
-    <created>2018-06-29T18:25:19</created>
-    <modified>2018-06-29T18:25:19</modified>
+    <created>2018-07-28T09:17:08</created>
+    <modified>2018-07-28T09:17:08</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -115,7 +115,7 @@
   <library_animations>
     <animation id="Armature_Bone_pose_matrix">
       <source id="Armature_Bone_pose_matrix-input">
-        <float_array id="Armature_Bone_pose_matrix-input-array" count="3">0.04166662 0.4583333 0.875</float_array>
+        <float_array id="Armature_Bone_pose_matrix-input-array" count="3">0 0.1666666 0.2916666</float_array>
         <technique_common>
           <accessor source="#Armature_Bone_pose_matrix-input-array" count="3" stride="1">
             <param name="TIME" type="float"/>
@@ -147,7 +147,7 @@
     </animation>
     <animation id="Armature_Bone_002_pose_matrix">
       <source id="Armature_Bone_002_pose_matrix-input">
-        <float_array id="Armature_Bone_002_pose_matrix-input-array" count="3">0.04166662 0.4583333 0.875</float_array>
+        <float_array id="Armature_Bone_002_pose_matrix-input-array" count="3">0 0.1666666 0.2916666</float_array>
         <technique_common>
           <accessor source="#Armature_Bone_002_pose_matrix-input-array" count="3" stride="1">
             <param name="TIME" type="float"/>
@@ -179,7 +179,7 @@
     </animation>
     <animation id="Armature_Bone_003_pose_matrix">
       <source id="Armature_Bone_003_pose_matrix-input">
-        <float_array id="Armature_Bone_003_pose_matrix-input-array" count="3">0.04166662 0.4583333 0.875</float_array>
+        <float_array id="Armature_Bone_003_pose_matrix-input-array" count="3">0 0.1666666 0.2916666</float_array>
         <technique_common>
           <accessor source="#Armature_Bone_003_pose_matrix-input-array" count="3" stride="1">
             <param name="TIME" type="float"/>
@@ -211,7 +211,7 @@
     </animation>
     <animation id="Armature_Bone_001_pose_matrix">
       <source id="Armature_Bone_001_pose_matrix-input">
-        <float_array id="Armature_Bone_001_pose_matrix-input-array" count="3">0.04166662 0.4583333 0.875</float_array>
+        <float_array id="Armature_Bone_001_pose_matrix-input-array" count="3">0 0.1666666 0.2916666</float_array>
         <technique_common>
           <accessor source="#Armature_Bone_001_pose_matrix-input-array" count="3" stride="1">
             <param name="TIME" type="float"/>
@@ -243,7 +243,7 @@
     </animation>
     <animation id="Armature_Bone_005_pose_matrix">
       <source id="Armature_Bone_005_pose_matrix-input">
-        <float_array id="Armature_Bone_005_pose_matrix-input-array" count="3">0.04166662 0.4583333 0.875</float_array>
+        <float_array id="Armature_Bone_005_pose_matrix-input-array" count="3">0 0.1666666 0.2916666</float_array>
         <technique_common>
           <accessor source="#Armature_Bone_005_pose_matrix-input-array" count="3" stride="1">
             <param name="TIME" type="float"/>

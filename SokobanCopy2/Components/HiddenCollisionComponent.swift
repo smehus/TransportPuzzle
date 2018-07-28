@@ -11,7 +11,8 @@ import GameplayKit
 
 struct HiddenCollision {
     let contact: SCNPhysicsContact
-    let node: SCNNode
+    let player: SCNNode
+    let collidingNode: SCNNode
     let hiddenCollider: ColliderType
 }
 
@@ -28,8 +29,21 @@ final class HiddenCollisionComponent: GKComponent {
         let newPos = SCNVector3(characterComponent.node.position.x, 0.1, characterComponent.node.position.z)
         hiddenComponent.node.position = newPos
         hiddenComponent.node.rotation = characterComponent.node.rotation
+        
+        currentCollisions = currentCollisions.filter { type, collision in
+            let playerPoint = collision.player.presentation.simdWorldPosition
+            
+            let min = collision.collidingNode.presentation.simdWorldPosition + collision.collidingNode.boundingBox.min.simd
+            let max = collision.collidingNode.presentation.simdWorldPosition + collision.collidingNode.boundingBox.max.simd
+            
+            let contactX = playerPoint.x > min.x && playerPoint.x < max.x
+            let contactZ = playerPoint.z > min.z && playerPoint.z < max.z
+            
+            return contactX || contactZ
+        }
     }
 }
+
 
 extension HiddenCollisionComponent: CollisionDetector {
     
@@ -39,9 +53,9 @@ extension HiddenCollisionComponent: CollisionDetector {
         let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
         
         if hiddenColliders.contains(colliderA) {
-            insert(collision: HiddenCollision(contact: contact, node: contact.nodeB, hiddenCollider: colliderA), for: colliderA.union(colliderB))
+            insert(collision: HiddenCollision(contact: contact, player: contact.nodeA, collidingNode: contact.nodeB, hiddenCollider: colliderA), for: colliderA.union(colliderB))
         } else if hiddenColliders.contains(colliderB) {
-            insert(collision: HiddenCollision(contact: contact, node: contact.nodeA, hiddenCollider: colliderB), for: colliderA.union(colliderB))
+            insert(collision: HiddenCollision(contact: contact, player: contact.nodeB, collidingNode: contact.nodeA, hiddenCollider: colliderB), for: colliderA.union(colliderB))
         }
     }
     
@@ -49,10 +63,5 @@ extension HiddenCollisionComponent: CollisionDetector {
         currentCollisions.updateValue(collision, forKey: key)
     }
     
-    func didEnd(_ contact: SCNPhysicsContact) {
-        let colliderA = ColliderType(rawValue: contact.nodeA.physicsBody!.categoryBitMask)
-        let colliderB = ColliderType(rawValue: contact.nodeB.physicsBody!.categoryBitMask)
-        
-        currentCollisions[colliderA.union(colliderB)] = nil
-    }
+    func didEnd(_ contact: SCNPhysicsContact) { }
 }

@@ -30,7 +30,7 @@ final class MoveActionQueueComponent: GKComponent {
                 switch collision.hiddenCollider {
                 case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
-                    
+                    print("SHOULD USE PUSH ANIMATION")
                     if collidedWith == ColliderType.hiddenFront.union(.obstacle) {
                         print("Has current collision with obstacle")
                         return
@@ -53,7 +53,7 @@ final class MoveActionQueueComponent: GKComponent {
             
             newPos = node.presentation.simdPosition + worldFront * CHARACTER_MOVE_AMT
             let vector = SCNVector3(x: Int(round(newPos.x)).float, y: node.simdPosition.y, z: Int(round(newPos.z)).float)
-            let moveAction = SCNAction.move(to: vector, duration: 0.3)
+            let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
             actions.append(moveAction)
             
         case .right:
