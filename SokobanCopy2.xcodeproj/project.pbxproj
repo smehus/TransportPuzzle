@@ -32,6 +32,7 @@
 		AF556BAB20B097A600B532E3 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BAA20B097A600B532E3 /* SCNVector3+Extensions.swift */; };
 		AF556BAD20B09BE300B532E3 /* GKComponent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BAC20B09BE300B532E3 /* GKComponent+Extensions.swift */; };
 		AF556BAF20B09D0700B532E3 /* HiddenCollisionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF556BAE20B09D0700B532E3 /* HiddenCollisionComponent.swift */; };
+		AF63F61C210CB9820057309B /* ObstacleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63F61B210CB9820057309B /* ObstacleEntity.swift */; };
 		AF8D9AC420ABCCD700D9CF07 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = AF8D9AC320ABCCD700D9CF07 /* TODO */; };
 		AF8D9AC720ABCF3200D9CF07 /* CAAnimation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9AC620ABCF3200D9CF07 /* CAAnimation+Extensions.swift */; };
 		AF8D9AC920ABCF5300D9CF07 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */; };
@@ -78,6 +79,7 @@
 		AF556BAA20B097A600B532E3 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		AF556BAC20B09BE300B532E3 /* GKComponent+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GKComponent+Extensions.swift"; sourceTree = "<group>"; };
 		AF556BAE20B09D0700B532E3 /* HiddenCollisionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenCollisionComponent.swift; sourceTree = "<group>"; };
+		AF63F61B210CB9820057309B /* ObstacleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleEntity.swift; sourceTree = "<group>"; };
 		AF8D9AC320ABCCD700D9CF07 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		AF8D9AC620ABCF3200D9CF07 /* CAAnimation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAAnimation+Extensions.swift"; sourceTree = "<group>"; };
 		AF8D9AC820ABCF5300D9CF07 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				AFB02A4720C02E45007891B7 /* HighlighterEntity.swift */,
 				AF2B249F20C1B08E0095AA6F /* CameraEntity.swift */,
 				AF38946B2104E561008CBEC0 /* GroundButtonEntity.swift */,
+				AF63F61B210CB9820057309B /* ObstacleEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				AF38946C2104E561008CBEC0 /* GroundButtonEntity.swift in Sources */,
 				AFE717F3209DE99400552814 /* GameViewController.swift in Sources */,
 				AFE33A1520D1B65E00371984 /* Int+Extensions.swift in Sources */,
+				AF63F61C210CB9820057309B /* ObstacleEntity.swift in Sources */,
 				AF2B24A220C1B3E00095AA6F /* CameraFollowComponent.swift in Sources */,
 				AF556B9920B054D000B532E3 /* ControlOverlay.swift in Sources */,
 				AF8D9AC720ABCF3200D9CF07 /* CAAnimation+Extensions.swift in Sources */,

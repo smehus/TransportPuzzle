@@ -194,7 +194,7 @@ extension GameController {
         
         ColliderType.requestedContactNotifications[.player] = [.box, .highlighter]
     
-        ColliderType.requestedContactNotifications[.hiddenFront] =  [.box]
+        ColliderType.requestedContactNotifications[.hiddenFront] =  [.box, .obstacle]
         ColliderType.requestedContactNotifications[.hiddenBack] =   [.box]
         ColliderType.requestedContactNotifications[.hiddenLeft] =   [.box]
         ColliderType.requestedContactNotifications[.hiddenRight] =  [.box]
@@ -253,6 +253,14 @@ extension GameController {
         entityManager.add(CameraEntity(container: camera))
         
         
+        for root in scene.rootNode.childNode(withName: "obstacles", recursively: false)!.childNodes {
+            guard let node = root.childNode(withName: "node", recursively: true) else {
+                assertionFailure()
+                continue
+            }
+            
+            entityManager.add(ObstacleEntity(node: node))
+        }
         
         if SHOW_DEBUG_HUD {
 //            let manager = DebugManager.shared
