@@ -24,11 +24,11 @@ final class HiddenCollisionEntity: GKEntity {
         hiddenRight!.physicsBody!.categoryBitMask = ColliderType.hiddenRight.categoryMask
         hiddenRight!.physicsBody!.contactTestBitMask = ColliderType.hiddenRight.contactMask
         
-        let hiddenFront = node.childNode(withName: "back", recursively: true)
+        let hiddenFront = node.childNode(withName: "front", recursively: true)
         hiddenFront!.physicsBody!.categoryBitMask = ColliderType.hiddenFront.categoryMask
         hiddenFront!.physicsBody!.contactTestBitMask = ColliderType.hiddenFront.contactMask
         
-        let hiddenBack = node.childNode(withName: "front", recursively: true)
+        let hiddenBack = node.childNode(withName: "back", recursively: true)
         hiddenBack!.physicsBody!.categoryBitMask = ColliderType.hiddenBack.categoryMask
         hiddenBack!.physicsBody!.contactTestBitMask = ColliderType.hiddenBack.contactMask
         

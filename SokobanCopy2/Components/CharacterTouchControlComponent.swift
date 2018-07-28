@@ -57,7 +57,7 @@ extension CharacterTouchControlComponent: ControlOverlayResponder {
             node.removeKnownAnimations()
             return
         }
-        
+        print("MOVING")
         let vectorOffset = direction.moveVector
         queue.run([MoveAction(vector: node.position + vectorOffset, direction: direction)]) { [weak self] in
             guard let `self` = self else { assertionFailure(); return }

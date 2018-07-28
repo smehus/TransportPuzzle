@@ -24,15 +24,15 @@ final class MoveActionQueueComponent: GKComponent {
         
         if let hiddenCollisions: HiddenCollisionEntity = EntityManager.shared.entity(),
             let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
-            
+            print("COLLISION \(hiddenComp.currentCollisions.map({ $0.key }))")
             let vector = nextAction.vector - node.position
             for (collidedWith, collision) in hiddenComp.currentCollisions {
                 switch collision.hiddenCollider {
                 case .hiddenFront where nextAction.direction! == .top:
+                    
                     animation = .push
-                    print("SHOULD USE PUSH ANIMATION")
                     if collidedWith == ColliderType.hiddenFront.union(.obstacle) {
-                        print("Has current collision with obstacle")
+                        completed()
                         return
                     }
                     
