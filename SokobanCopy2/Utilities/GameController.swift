@@ -189,6 +189,7 @@ extension GameController {
         ColliderType.shouldNotify[.hiddenRight] = false
         ColliderType.shouldNotify[.highlighter] = true
         ColliderType.shouldNotify[.groundButton] = true
+        ColliderType.shouldNotify[.obstacle] = true
         
         ColliderType.requestedContactNotifications[.box] = [.player]
         
@@ -204,8 +205,9 @@ extension GameController {
         ColliderType.requestedContactNotifications[.groundButton] = [.player, .box]
  
         ColliderType.definedCollisions[.player] = [.box]
-        ColliderType.definedCollisions[.box] = [.plane, .player]
+        ColliderType.definedCollisions[.box] = [.plane, .player, .obstacle]
         ColliderType.definedCollisions[.plane] = [.box]
+        ColliderType.definedCollisions[.obstacle] = [.box]
     }
     
     private func setupNotifications() {
@@ -253,18 +255,21 @@ extension GameController {
         entityManager.add(CameraEntity(container: camera))
         
         
-        for root in scene.rootNode.childNode(withName: "obstacles", recursively: false)!.childNodes {
-            guard let node = root.childNode(withName: "node", recursively: true) else {
-                assertionFailure()
-                continue
+        if let obstacles = scene.rootNode.childNode(withName: "obstacles", recursively: false)?.childNodes {
+            for root in obstacles {
+                guard let node = root.childNode(withName: "node", recursively: true) else {
+                    assertionFailure()
+                    continue
+                }
+                
+                entityManager.add(ObstacleEntity(node: node))
             }
-            
-            entityManager.add(ObstacleEntity(node: node))
         }
+
         
         if SHOW_DEBUG_HUD {
-//            let manager = DebugManager.shared
-//            camera.addChildNode(manager.hudNode)
+            let manager = DebugManager.shared
+            camera.addChildNode(manager.hudNode)
         }
     }
     
