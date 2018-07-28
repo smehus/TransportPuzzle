@@ -26,22 +26,20 @@ final class MoveActionQueueComponent: GKComponent {
             let hiddenComp = hiddenCollisions.component(ofType: HiddenCollisionComponent.self) {
             
             let vector = nextAction.vector - node.position
-            for (_, collision) in hiddenComp.currentCollisions {
+            for (collidedWith, collision) in hiddenComp.currentCollisions {
                 switch collision.hiddenCollider {
-                case .hiddenRight where vector.x > 0: break
-//                    animation = .push
-//                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
-                case .hiddenLeft where vector.x < 0: break
-//                    animation = .push
-//                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 case .hiddenFront where nextAction.direction! == .top:
                     animation = .push
-//                    let newPos = simd_float3(collision.node.position) + worldFront * CHARACTER_MOVE_AMT
-//                    let vector = SCNVector3(x: Int(round(newPos.x)).float, y: Int(round(newPos.y)).float, z: Int(round(newPos.z)).float)
-//                    collision.node.runAction(SCNAction.move(to: vector , duration: animation.animationDuration))
+                    
+                    if collidedWith == ColliderType.hiddenFront.union(.obstacle) {
+                        print("Has current collision with obstacle")
+                        return
+                    }
+                    
+                    
+                case .hiddenRight where vector.x > 0: break
+                case .hiddenLeft where vector.x < 0: break
                 case .hiddenBack where vector.z < 0: break
-//                    animation = .push
-//                    collision.node.runAction(SCNAction.move(to: collision.node.position + vector, duration: Animation.push.animationDuration))
                 default: break
                 }
             }
@@ -49,14 +47,12 @@ final class MoveActionQueueComponent: GKComponent {
         
         var actions = [SCNAction]()
         var newPos: float3
-//        let direction = simd_float3(nextAction.direction!.moveVector)
         
         switch nextAction.direction! {
         case .top:
             
             newPos = node.presentation.simdPosition + worldFront * CHARACTER_MOVE_AMT
             let vector = SCNVector3(x: Int(round(newPos.x)).float, y: node.simdPosition.y, z: Int(round(newPos.z)).float)
-//            print("MOVING TO \(vector)")
             let moveAction = SCNAction.move(to: vector, duration: 0.3)
             actions.append(moveAction)
             
@@ -65,7 +61,6 @@ final class MoveActionQueueComponent: GKComponent {
             let moveAmount = node.presentation.simdWorldRight * CHARACTER_MOVE_AMT
             newPos = node.presentation.simdPosition + moveAmount
             
-//            let (_, rotateAction) = node.rotateToAction(to: node.presentation.simdWorldRight.vector3)
             let radians = CGFloat(-90).degreesToRadians()
             let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.5)
             actions.append(rotateAction)
@@ -75,7 +70,6 @@ final class MoveActionQueueComponent: GKComponent {
             let moveAmount = reveresedRight * CHARACTER_MOVE_AMT
             newPos = node.presentation.simdPosition + moveAmount
             
-//            let (_, rotateAction) = node.rotateToAction(to: moveAmount.vector3)
             let radians = CGFloat(90).degreesToRadians()
             let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.5)
             actions.append(rotateAction)
@@ -87,19 +81,12 @@ final class MoveActionQueueComponent: GKComponent {
             let moveAmount = reverseBottom * CHARACTER_MOVE_AMT
             newPos = node.presentation.simdPosition + moveAmount
             
-//            let (_, rotateAction) = node.rotateToAction(to: moveAmount.vector3)
             let radians = CGFloat(180).degreesToRadians()
             let rotateAction = SCNAction.rotateBy(x: 0, y: radians, z: 0, duration: 0.5)
             actions.append(rotateAction)
         }
 
-        // Only move if going forward? I guess so
-//        let vector = SCNVector3(x: newPos.x, y: newPos.y, z: newPos.z)
-//        let moveAction = SCNAction.move(to: vector, duration: animation.animationDuration)
-//        actions.append(moveAction)
         
-        
-
         node.removeKnownAnimations()
         node.addAnimationPlayer(animation.player, forKey: animation.animationKey)
         
