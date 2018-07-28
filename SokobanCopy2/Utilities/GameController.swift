@@ -205,9 +205,9 @@ extension GameController {
         ColliderType.requestedContactNotifications[.groundButton] = [.player, .box]
  
         ColliderType.definedCollisions[.player] = [.box]
-        ColliderType.definedCollisions[.box] = [.plane, .player, .obstacle]
+        ColliderType.definedCollisions[.box] = [.plane, .player]
         ColliderType.definedCollisions[.plane] = [.box]
-        ColliderType.definedCollisions[.obstacle] = [.box]
+        ColliderType.definedCollisions[.obstacle] = []
     }
     
     private func setupNotifications() {
