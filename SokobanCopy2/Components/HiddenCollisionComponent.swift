@@ -38,6 +38,9 @@ final class HiddenCollisionComponent: GKComponent {
             
             let contactX = playerPoint.x > min.x && playerPoint.x < max.x
             let contactZ = playerPoint.z > min.z && playerPoint.z < max.z
+            if !(contactX && contactZ) && collision.hiddenCollider == .hiddenFront {
+                print("Removing Collisions \(collision.hiddenCollider)")
+            }
             
             return contactX && contactZ
         }
